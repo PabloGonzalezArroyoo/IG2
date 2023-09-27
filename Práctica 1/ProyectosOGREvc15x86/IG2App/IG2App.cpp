@@ -178,10 +178,13 @@ void IG2App::setupScene(void)
 
   // ----------- APARTADOS 6 al 12 -----------
 	#pragma region Molino
-	SceneNode* aspaNode = mSM->getRootSceneNode()->createChildSceneNode();
+	/*SceneNode* aspaNode = mSM->getRootSceneNode()->createChildSceneNode();
 	Aspa* asp = new Aspa(aspaNode);
-	addInputListener(asp);
+	addInputListener(asp);*/
 
+	SceneNode* aspasNode = mSM->getRootSceneNode()->createChildSceneNode();
+	Aspas* asps = new Aspas(aspasNode);
+	addInputListener(asps);
 	#pragma endregion
 
 

@@ -1,21 +1,25 @@
 #pragma once
 
 #include <OgreSceneNode.h>
-//#include <OgreTrays.h>
 #include <OgreEntity.h>
 #include <OgreInput.h>
 #include <OgreSceneManager.h>
 #include <SDL_keycode.h>
 
+using namespace Ogre;
 
-class Aspa : public OgreBites::InputListener {
+
+class Aspa {
 protected:
-	Ogre::SceneNode* mNode = nullptr;
-	Ogre::SceneManager* mSM = nullptr;
-	Ogre::SceneNode* tableroNode = nullptr;
-	Ogre::SceneNode* cilindroNode = nullptr;
+	SceneNode* mNode = nullptr;
+	SceneManager* mSM = nullptr;
 
 public:
-	Aspa(Ogre::SceneNode* m);
-	virtual ~Aspa() {};
+	SceneNode* tableroNode = nullptr;
+	SceneNode* cilindroNode = nullptr;
+
+	Aspa(SceneNode* m, int id);
+	virtual ~Aspa();
+
+	void rotate(Degree d);
 };

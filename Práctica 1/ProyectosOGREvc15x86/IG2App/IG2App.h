@@ -7,7 +7,7 @@
 #include <OgreTrays.h>
 #include <OgreCameraMan.h>
 #include <vector>
-#include "objects/Aspa.h"
+#include "objects/Aspas.h"
 
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener 
 {
