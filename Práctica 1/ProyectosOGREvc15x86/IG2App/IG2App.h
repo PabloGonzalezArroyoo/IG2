@@ -7,7 +7,7 @@
 #include <OgreTrays.h>
 #include <OgreCameraMan.h>
 #include <vector>
-#include "objects/Aspas.h"
+#include "objects/Molino.h"
 
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener 
 {
@@ -30,13 +30,14 @@ protected:
   OgreBites::CameraMan* mCamMgr = nullptr;
  
   // Práctica 1 : Apartados 1 al 6
-  /*std::vector<Ogre::SceneNode*> hours;
-  Ogre::SceneNode* hoursNode = nullptr;
-  Ogre::SceneNode* clockNode = nullptr;
-  std::vector<Ogre::SceneNode*> hands;
-  Ogre::SceneNode* handNode;*/
+  // std::vector<Ogre::SceneNode*> hours;
+  // Ogre::SceneNode* hoursNode = nullptr;
+  // Ogre::SceneNode* clockNode = nullptr;
+  // std::vector<Ogre::SceneNode*> hands;
+  // Ogre::SceneNode* handNode;
 
-
+  // Práctica 1 : Apartados 7 al 12
+  Molino* molino = nullptr;
 };
 
 #endif

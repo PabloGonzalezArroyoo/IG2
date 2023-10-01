@@ -12,14 +12,14 @@ protected:
 	
 	int numAspas = 12;
 
-	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
-	virtual bool keyReleased(const OgreBites::KeyboardEvent& evt);
-
 public:
 	SceneNode* cilindroNode;
 	SceneNode* aspasNode;
 	Aspa** arrayAspas;
 
-	Aspas(SceneNode* n);
-	virtual ~Aspas() {};
+	Aspas(SceneNode* n, int nAspas, Vector3 offset = Vector3());
+	virtual ~Aspas();
+
+	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
+	virtual bool keyReleased(const OgreBites::KeyboardEvent& evt);
 };

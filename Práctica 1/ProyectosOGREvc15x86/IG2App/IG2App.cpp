@@ -37,6 +37,20 @@ void IG2App::shutdown()
 
   delete mTrayMgr;  mTrayMgr = nullptr;
   delete mCamMgr; mCamMgr = nullptr;
+
+  // Práctica 1 : Apartados 1 al 6
+  // for (SceneNode* hour : hours) delete hour;
+  // hours.clear();
+  // 
+  // for (SceneNode* hand : hands) delete hand;
+  // hands.clear();
+  // 
+  // delete hoursNode; hoursNode = nullptr;
+  // delete clockNode; clockNode = nullptr;
+  // delete handNode; handNode = nullptr;
+
+  // Práctica 1 : Apartados 7 al 12
+  delete molino; molino = nullptr;
   
   // do not forget to call the base 
   IG2ApplicationContext::shutdown();
@@ -178,13 +192,11 @@ void IG2App::setupScene(void)
 
   // ----------- APARTADOS 6 al 12 -----------
 	#pragma region Molino
-	/*SceneNode* aspaNode = mSM->getRootSceneNode()->createChildSceneNode();
-	Aspa* asp = new Aspa(aspaNode);
-	addInputListener(asp);*/
 
-	SceneNode* aspasNode = mSM->getRootSceneNode()->createChildSceneNode();
-	Aspas* asps = new Aspas(aspasNode);
-	addInputListener(asps);
+	SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
+	molino = new Molino(molinoNode);
+	addInputListener(molino);
+
 	#pragma endregion
 
 
