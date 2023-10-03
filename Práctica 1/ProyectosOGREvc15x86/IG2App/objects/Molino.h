@@ -11,6 +11,7 @@ public:
 	SceneNode* techoNode = nullptr;
 	SceneNode* cuerpoNode = nullptr;
 	Aspas* aspasNode = nullptr;
+	SceneNode* nodoFicticio = nullptr;
 
 	Molino(SceneNode* m);
 	virtual ~Molino();

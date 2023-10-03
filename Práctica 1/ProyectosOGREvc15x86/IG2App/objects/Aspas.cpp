@@ -1,6 +1,6 @@
 #include "Aspas.h"
 
-Aspas::Aspas(SceneNode* n, int nAspas, Vector3 offset) : mNode(n), numAspas(nAspas) {
+Aspas::Aspas(SceneNode* n, int nAspas) : mNode(n), numAspas(nAspas) {
 	mSM = n->getCreator();
 
 	Entity* cil = mSM->createEntity("column.mesh");
@@ -8,7 +8,6 @@ Aspas::Aspas(SceneNode* n, int nAspas, Vector3 offset) : mNode(n), numAspas(nAsp
 	cilindroNode->attachObject(cil);
 	cilindroNode->setScale(0.5, 0.1, 0.5);
 	cilindroNode->rotate(Vector3(1, 0, 0), Radian(Degree(90)));
-	cilindroNode->setPosition(offset);
 
 	cilinderInitPos = cilindroNode->getPosition();
 
@@ -21,7 +20,6 @@ Aspas::Aspas(SceneNode* n, int nAspas, Vector3 offset) : mNode(n), numAspas(nAsp
 		Aspa* aux = new Aspa(auxNode, i);
 		arrayAspas[i] = aux;
 		aux->rotate(Degree(rot * i));
-		auxNode->setPosition(offset);
 	}
 }
 

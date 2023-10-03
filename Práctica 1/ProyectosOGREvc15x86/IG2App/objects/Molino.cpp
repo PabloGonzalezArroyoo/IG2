@@ -1,5 +1,9 @@
 #include "Molino.h"
 
+// NOTA:
+// Opción 1 -> nodo ficticio posicionado en el centro del molino que será padre de las aspas, rotar este
+// Opción 2 -> trasladar al origen, rotar, trasladar de vuelta
+
 Molino::Molino(SceneNode* m) : mNode(m) {
 	// Node padre
 	mSM = mNode->getCreator();
@@ -18,13 +22,10 @@ Molino::Molino(SceneNode* m) : mNode(m) {
 	cuerpoNode->setPosition(0, -150, 0);
 
 	// Aspas
-	SceneNode* auxNode = mNode->createChildSceneNode("aspasMolinoNode");
-	// Opcion 1
-	// aspasNode = new Aspas(auxNode, 6);
-	// auxNode->setPosition(0, 0, 110);
-	// Opcion 2
-	aspasNode = new Aspas(auxNode, 6, Vector3(0,0,110));
-	
+	nodoFicticio = mNode->createChildSceneNode("nodoFicticio");
+	SceneNode* auxNode = nodoFicticio->createChildSceneNode("aspasMolinoNode");
+	auxNode->setPosition(0, 0, 110);
+	aspasNode = new Aspas(auxNode, 6);
 }
 
 Molino::~Molino() {
@@ -33,16 +34,14 @@ Molino::~Molino() {
 
 bool Molino::keyPressed(const OgreBites::KeyboardEvent& evt) {
 	if (evt.keysym.sym == SDLK_h) {
-		// Opcion 0 -> no vale
-		// mNode->rotate(Vector3(0, 1, 0), Degree(3));
-		// techoNode->rotate(Vector3(0, 1, 0), Degree(-3));
-		// cuerpoNode->rotate(Vector3(0, 1, 0), Degree(-3));
+		// Opcion 1 -> rotar con yaw
+		mNode->getChild("nodoFicticio")->yaw(Ogre::Degree(3));
 
-		// Opcion 1 -> rotar con yaw en el eje Y del padre
-		mNode->getChild("aspasMolinoNode")->yaw(Ogre::Degree(3), Ogre::Node::TS_PARENT);
-
-		// Opcion 2 -> rotar el nodo de las aspas respecto al padre
-		//mNode->getChild("aspasMolinoNode")->rotate(Vector3(0, 1, 0), Degree(3));
+		// Opcion 2 -> trasladar, rotar, trasladar
+		/*Node* aux = mNode->getChild("aspasMolinoNode");
+		aux->translate(0, 0, -110);
+		aux->yaw(Ogre::Degree(3));
+		aux->translate(0, 0, 110);*/
 	}
 	else if (evt.keysym.sym == SDLK_j) aspasNode->rotateAspas();
 	else if (evt.keysym.sym == SDLK_c) aspasNode->moveCilindro();

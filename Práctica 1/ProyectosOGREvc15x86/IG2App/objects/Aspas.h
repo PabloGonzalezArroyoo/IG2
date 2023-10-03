@@ -17,7 +17,7 @@ public:
 	SceneNode* aspasNode;
 	Aspa** arrayAspas;
 
-	Aspas(SceneNode* n, int nAspas, Vector3 offset = Vector3());
+	Aspas(SceneNode* n, int nAspas);
 	virtual ~Aspas();
 
 	void rotateAspas();
