@@ -21,9 +21,7 @@ Aspa::Aspa(SceneNode* m, int id) : mNode(m) {
 
 Aspa::~Aspa() {
 	mSM = nullptr;
-	delete mNode; mNode = nullptr;
-	delete cilindroNode; cilindroNode = nullptr;
-	delete tableroNode; tableroNode = nullptr;
+	mNode = nullptr;
 }
 
 void Aspa::rotate(Degree d) {

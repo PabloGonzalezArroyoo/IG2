@@ -30,30 +30,19 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt)
 
 void IG2App::shutdown()
 {
-  mShaderGenerator->removeSceneManager(mSM);  
-  mSM->removeRenderQueueListener(mOverlaySystem);  
+	// Práctica 1 : Apartados 7 al 12
+	delete molino; molino = nullptr;
+
+	mShaderGenerator->removeSceneManager(mSM);  
+	mSM->removeRenderQueueListener(mOverlaySystem);  
 					
-  mRoot->destroySceneManager(mSM);  
+	mRoot->destroySceneManager(mSM);  
 
-  delete mTrayMgr;  mTrayMgr = nullptr;
-  delete mCamMgr; mCamMgr = nullptr;
+	delete mTrayMgr;  mTrayMgr = nullptr;
+	delete mCamMgr; mCamMgr = nullptr;
 
-  // Práctica 1 : Apartados 1 al 6
-  // for (SceneNode* hour : hours) delete hour;
-  // hours.clear();
-  // 
-  // for (SceneNode* hand : hands) delete hand;
-  // hands.clear();
-  // 
-  // delete hoursNode; hoursNode = nullptr;
-  // delete clockNode; clockNode = nullptr;
-  // delete handNode; handNode = nullptr;
-
-  // Práctica 1 : Apartados 7 al 12
-  delete molino; molino = nullptr;
-  
-  // do not forget to call the base 
-  IG2ApplicationContext::shutdown();
+	// do not forget to call the base 
+	IG2ApplicationContext::shutdown();
 }
 
 void IG2App::setup(void)
@@ -117,77 +106,77 @@ void IG2App::setupScene(void)
 
   // ----------- APARTADOS 1 al 6 -----------
 	#pragma region Reloj
-	//// RELOJ - nodo padre
-	// clockNode = mSM->getRootSceneNode()->createChildSceneNode("clockNode");
+	 //// RELOJ - nodo padre
+	 //clockNode = mSM->getRootSceneNode()->createChildSceneNode("clockNode");
 
-	// // Objeto padre de toda las bolas que tiene como padre al reloj
-	// hoursNode = mSM->createSceneNode("hoursNode");
-	// clockNode->addChild(hoursNode);
+	 //// Objeto padre de toda las bolas que tiene como padre al reloj
+	 //hoursNode = mSM->createSceneNode("hoursNode");
+	 //clockNode->addChild(hoursNode);
 
-	// // Variable para los grados
-	// int degrees = 0;
+	 //// Variable para los grados
+	 //int degrees = 0;
 
-	// // Bucle de creación de bolas
-	// for (int i = 0; i < 12; i++) {
-	//  // Crear la entidad con el modelo de la esfera
-	//  Ogre::Entity* ent = mSM->createEntity("sphere.mesh");
+	 //// Bucle de creación de bolas
+	 //for (int i = 0; i < 12; i++) {
+	 // // Crear la entidad con el modelo de la esfera
+	 // Ogre::Entity* ent = mSM->createEntity("sphere.mesh");
 
-	//  // Crear un nodo en la escena al cual se le agrega la entidad y se le cambia la escala
-	//  Ogre::SceneNode* entNode = mSM->createSceneNode("Hora " + std::to_string(i + 1));
-	//  entNode->attachObject(ent);
-	//  entNode->setScale(0.4, 0.4, 0.4);
+	 // // Crear un nodo en la escena al cual se le agrega la entidad y se le cambia la escala
+	 // Ogre::SceneNode* entNode = mSM->createSceneNode("Hora " + std::to_string(i + 1));
+	 // entNode->attachObject(ent);
+	 // entNode->setScale(0.4, 0.4, 0.4);
 
-	//  // Apartado 2: escala distinta según si es par o no
-	//  // (i % 2 == 0) ? entNode->setScale(0.5, 0.5, 0.5) : entNode->setScale(0.25, 0.25, 0.25);
+	 // // Apartado 2: escala distinta según si es par o no
+	 // // (i % 2 == 0) ? entNode->setScale(0.5, 0.5, 0.5) : entNode->setScale(0.25, 0.25, 0.25);
 
-	//  // Posición de la bola según el grado que reperesenta
-	//  entNode->setPosition(Ogre::Math::Cos(Ogre::Math::AngleUnitsToRadians(degrees)) * 350,
-	//	  Ogre::Math::Sin(Ogre::Math::AngleUnitsToRadians(degrees)) * 350, 0);
+	 // // Posición de la bola según el grado que reperesenta
+	 // entNode->setPosition(Ogre::Math::Cos(Ogre::Math::AngleUnitsToRadians(degrees)) * 350,
+		//  Ogre::Math::Sin(Ogre::Math::AngleUnitsToRadians(degrees)) * 350, 0);
 
-	//  // Hacer este nodo hijo del padre creado anteriormente
-	//  hoursNode->addChild(entNode);
+	 // // Hacer este nodo hijo del padre creado anteriormente
+	 // hoursNode->addChild(entNode);
 
-	//  // Guardar nodo y continuar con el siguiente grado
-	//  hours.push_back(entNode);
-	//  degrees += 30;
-	// }
+	 // // Guardar nodo y continuar con el siguiente grado
+	 // hours.push_back(entNode);
+	 // degrees += 30;
+	 //}
 
-	// handNode = mSM->createSceneNode("handNode");
-	// clockNode->addChild(handNode);
+	 //handNode = mSM->createSceneNode("handNode");
+	 //clockNode->addChild(handNode);
 
-	// for (int i = 0; i < 3; i++) {
+	 //for (int i = 0; i < 3; i++) {
 		//  hands.push_back(mSM->createSceneNode("hand" + std::to_string(i)));
 		//  hands[i]->setPosition(0, 0, 0);
 		//  handNode->addChild(hands[i]);
-	// }
+	 //}
 
 
-	// Ogre::Entity* ent1 = mSM->createEntity("cube.mesh");
-	// // Crear un nodo en la escena al cual se le agrega la entidad y se le cambia la escala
-	// Ogre::SceneNode* entNode = mSM->createSceneNode("hourHandNode");
-	// entNode->attachObject(ent1);
-	// entNode->setScale(0.2, 1.4, 0.2);
-	// entNode->setPosition(0, 50, 0);
-	// hands[0]->addChild(entNode);
-	// hands[0]->roll(Ogre::Degree(-90));
+	 //Ogre::Entity* ent1 = mSM->createEntity("cube.mesh");
+	 //// Crear un nodo en la escena al cual se le agrega la entidad y se le cambia la escala
+	 //Ogre::SceneNode* entNode = mSM->createSceneNode("hourHandNode");
+	 //entNode->attachObject(ent1);
+	 //entNode->setScale(0.2, 1.4, 0.2);
+	 //entNode->setPosition(0, 50, 0);
+	 //hands[0]->addChild(entNode);
+	 //hands[0]->roll(Ogre::Degree(-90));
 
 
-	// Ogre::Entity* ent2 = mSM->createEntity("cube.mesh");
-	// // Crear un nodo en la escena al cual se le agrega la entidad y se le cambia la escala
-	// entNode = mSM->createSceneNode("minHandNode");
-	// entNode->attachObject(ent2);
-	// entNode->setScale(0.15, 2.75, 0.15);
-	// entNode->setPosition(0, 100, 0);
-	// hands[1]->addChild(entNode);
+	 //Ogre::Entity* ent2 = mSM->createEntity("cube.mesh");
+	 //// Crear un nodo en la escena al cual se le agrega la entidad y se le cambia la escala
+	 //entNode = mSM->createSceneNode("minHandNode");
+	 //entNode->attachObject(ent2);
+	 //entNode->setScale(0.15, 2.75, 0.15);
+	 //entNode->setPosition(0, 100, 0);
+	 //hands[1]->addChild(entNode);
 
-	// Ogre::Entity* ent3 = mSM->createEntity("cube.mesh");
-	// // Crear un nodo en la escena al cual se le agrega la entidad y se le cambia la escala
-	// entNode = mSM->createSceneNode("segHandNode");
-	// entNode->attachObject(ent3);
-	// entNode->setScale(0.05, 3.25, 0.05);
-	// entNode->setPosition(0, 120, 0);
-	// hands[2]->addChild(entNode);
-	// hands[2]->roll(Ogre::Degree(-225));
+	 //Ogre::Entity* ent3 = mSM->createEntity("cube.mesh");
+	 //// Crear un nodo en la escena al cual se le agrega la entidad y se le cambia la escala
+	 //entNode = mSM->createSceneNode("segHandNode");
+	 //entNode->attachObject(ent3);
+	 //entNode->setScale(0.05, 3.25, 0.05);
+	 //entNode->setPosition(0, 120, 0);
+	 //hands[2]->addChild(entNode);
+	 //hands[2]->roll(Ogre::Degree(-225));
 #pragma endregion
 
   // ----------- APARTADOS 6 al 12 -----------
@@ -198,13 +187,6 @@ void IG2App::setupScene(void)
 	addInputListener(molino);
 
 	#pragma endregion
-
-
-
-  //mSinbadNode->setPosition(400, 100, -300);
-  //mSinbadNode->yaw(Ogre::Degree(-45));
-  //mSinbadNode->showBoundingBox(true);
-  //mSinbadNode->setVisible(false);
 
   //------------------------------------------------------------------------
 

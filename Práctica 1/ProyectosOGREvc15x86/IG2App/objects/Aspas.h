@@ -4,7 +4,7 @@
 
 using namespace Ogre;
 
-class Aspas : public OgreBites::InputListener {
+class Aspas {
 protected:
 	SceneNode* mNode;
 	SceneManager* mSM;
@@ -20,6 +20,7 @@ public:
 	Aspas(SceneNode* n, int nAspas, Vector3 offset = Vector3());
 	virtual ~Aspas();
 
-	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
-	virtual bool keyReleased(const OgreBites::KeyboardEvent& evt);
+	void rotateAspas();
+	void moveCilindro();
+	void setCilindroIniPos();
 };

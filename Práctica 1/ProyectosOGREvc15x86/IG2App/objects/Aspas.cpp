@@ -29,24 +29,16 @@ Aspas::~Aspas() {
 	for (int i = 0; i < numAspas; i++) delete arrayAspas[i];
 	delete arrayAspas;
 	arrayAspas = nullptr;
-
-	delete cilindroNode; cilindroNode = nullptr;
 }
 
-bool Aspas::keyPressed(const OgreBites::KeyboardEvent& evt) {
-	if (evt.keysym.sym == SDLK_j) {
-		for (int i = 0; i < numAspas; i++) arrayAspas[i]->rotate(Degree(3));
-	}
-	else if (evt.keysym.sym == SDLK_c) {
-		cilindroNode->translate(Vector3(0,0,-2));
-	}
-
-	return true;
+void Aspas::rotateAspas() {
+	for (int i = 0; i < numAspas; i++) arrayAspas[i]->rotate(Degree(3));
 }
 
-bool Aspas::keyReleased(const OgreBites::KeyboardEvent& evt) {
-	if (evt.keysym.sym == SDLK_c) {
-		cilindroNode->setPosition(cilinderInitPos);
-	}
-	return true;
+void Aspas::moveCilindro() {
+	cilindroNode->translate(Vector3(0, 0, -2));
+}
+
+void Aspas::setCilindroIniPos() {
+	cilindroNode->setPosition(cilinderInitPos);
 }
