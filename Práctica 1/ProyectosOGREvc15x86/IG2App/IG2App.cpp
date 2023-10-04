@@ -9,13 +9,13 @@ using namespace Ogre;
 
 bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt)
 {
-  if (evt.keysym.sym == SDLK_ESCAPE)
-  {
-    getRoot()->queueEndRendering();
-  }
-  //else if (evt.keysym.sym == SDLK_???)
+	if (evt.keysym.sym == SDLK_ESCAPE)
+	{
+	  getRoot()->queueEndRendering();
+	}
+	//else if (evt.keysym.sym == SDLK_???)
 
-  // ----------- APARTADOS 1 al 6 -----------
+	// ----------- APARTADOS 1 al 6 -----------
 	#pragma region Reloj
 	/*else if (evt.keysym.sym == SDLK_g) {
 	  clockNode->roll(Ogre::Degree(-2));
@@ -25,7 +25,7 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt)
 	}*/
 	#pragma endregion
   
-  return true;
+	return true;
 }
 
 void IG2App::shutdown()
@@ -47,64 +47,64 @@ void IG2App::shutdown()
 
 void IG2App::setup(void)
 {
-  // do not forget to call the base first
-  IG2ApplicationContext::setup();
+	// do not forget to call the base first
+	IG2ApplicationContext::setup();
 
-  mSM = mRoot->createSceneManager();  
+	mSM = mRoot->createSceneManager();  
 
-  // register our scene with the RTSS
-  mShaderGenerator->addSceneManager(mSM);
+	// register our scene with the RTSS
+	mShaderGenerator->addSceneManager(mSM);
 
-  mSM->addRenderQueueListener(mOverlaySystem);
+	mSM->addRenderQueueListener(mOverlaySystem);
 
-  mTrayMgr = new OgreBites::TrayManager("TrayGUISystem", mWindow.render);  
-  mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
-  addInputListener(mTrayMgr);
+	mTrayMgr = new OgreBites::TrayManager("TrayGUISystem", mWindow.render);  
+	mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
+	addInputListener(mTrayMgr);
 
-  addInputListener(this);   
-  setupScene();
+	addInputListener(this);   
+	setupScene();
 }
 
 void IG2App::setupScene(void)
 {
-  // create the camera
-  Camera* cam = mSM->createCamera("Cam");
-  cam->setNearClipDistance(1); 
-  cam->setFarClipDistance(10000);
-  cam->setAutoAspectRatio(true);
-  //cam->setPolygonMode(Ogre::PM_WIREFRAME); 
+	// create the camera
+	Camera* cam = mSM->createCamera("Cam");
+	cam->setNearClipDistance(1); 
+	cam->setFarClipDistance(10000);
+	cam->setAutoAspectRatio(true);
+	//cam->setPolygonMode(Ogre::PM_WIREFRAME); 
 
-  mCamNode = mSM->getRootSceneNode()->createChildSceneNode("nCam");
-  mCamNode->attachObject(cam);
+	mCamNode = mSM->getRootSceneNode()->createChildSceneNode("nCam");
+	mCamNode->attachObject(cam);
 
-  mCamNode->setPosition(0, 0, 1000);
-  mCamNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
-  //mCamNode->setDirection(Ogre::Vector3(0, 0, -1));  
-  
-  // and tell it to render into the main window
-  Viewport* vp = getRenderWindow()->addViewport(cam);
-  vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
+	mCamNode->setPosition(0, 0, 1000);
+	mCamNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
+	//mCamNode->setDirection(Ogre::Vector3(0, 0, -1));  
+	
+	// and tell it to render into the main window
+	Viewport* vp = getRenderWindow()->addViewport(cam);
+	vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
 
-  //------------------------------------------------------------------------
+	//------------------------------------------------------------------------
 
-  // without light we would just get a black screen 
+	// without light we would just get a black screen 
 
-  Light* luz = mSM->createLight("Luz");
-  luz->setType(Ogre::Light::LT_DIRECTIONAL);
-  luz->setDiffuseColour(0.75, 0.75, 0.75);
+	Light* luz = mSM->createLight("Luz");
+	luz->setType(Ogre::Light::LT_DIRECTIONAL);
+	luz->setDiffuseColour(0.75, 0.75, 0.75);
 
-  mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
-  //mLightNode = mCamNode->createChildSceneNode("nLuz");
-  mLightNode->attachObject(luz);
+	mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
+	//mLightNode = mCamNode->createChildSceneNode("nLuz");
+	mLightNode->attachObject(luz);
 
-  mLightNode->setDirection(Ogre::Vector3(0, 0, -1));  //vec3.normalise();
-  //lightNode->setPosition(0, 0, 1000);
+	mLightNode->setDirection(Ogre::Vector3(0, 0, -1));  //vec3.normalise();
+	//lightNode->setPosition(0, 0, 1000);
  
-  //------------------------------------------------------------------------
+	//------------------------------------------------------------------------
 
-  // finally something to render
+	// finally something to render
 
-  // ----------- APARTADOS 1 al 6 -----------
+	// ----------- APARTADOS 1 al 6 -----------
 	#pragma region Reloj
 	 //// RELOJ - nodo padre
 	 //clockNode = mSM->getRootSceneNode()->createChildSceneNode("clockNode");
@@ -177,9 +177,9 @@ void IG2App::setupScene(void)
 	 //entNode->setPosition(0, 120, 0);
 	 //hands[2]->addChild(entNode);
 	 //hands[2]->roll(Ogre::Degree(-225));
-#pragma endregion
+	#pragma endregion
 
-  // ----------- APARTADOS 6 al 12 -----------
+	// ----------- APARTADOS 6 al 12 -----------
 	#pragma region Molino
 
 	SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
@@ -188,16 +188,15 @@ void IG2App::setupScene(void)
 
 	#pragma endregion
 
-  //------------------------------------------------------------------------
+	//------------------------------------------------------------------------
 
-  mCamMgr = new OgreBites::CameraMan(mCamNode);
-  addInputListener(mCamMgr);
-  mCamMgr->setStyle(OgreBites::CS_ORBIT);  
-  
-  //mCamMgr->setTarget(mSinbadNode);  
-  //mCamMgr->setYawPitchDist(Radian(0), Degree(30), 100);
+	mCamMgr = new OgreBites::CameraMan(mCamNode);
+	addInputListener(mCamMgr);
+	mCamMgr->setStyle(OgreBites::CS_ORBIT);  
+	
+	//mCamMgr->setTarget(mSinbadNode);  
+	//mCamMgr->setYawPitchDist(Radian(0), Degree(30), 100);
 
-  //------------------------------------------------------------------------
-
+	//------------------------------------------------------------------------
 }
 
