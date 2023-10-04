@@ -18,10 +18,10 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt)
 	// ----------- APARTADOS 1 al 6 -----------
 	#pragma region Reloj
 	/*else if (evt.keysym.sym == SDLK_g) {
-	  clockNode->roll(Ogre::Degree(-2));
+		clockNode->roll(Ogre::Degree(-2));
 	}
 	else if (evt.keysym.sym == SDLK_h) {
-		handNode->roll(Ogre::Degree(-2));
+		hoursNode->roll(Ogre::Degree(-2));
 	}*/
 	#pragma endregion
   
@@ -182,9 +182,9 @@ void IG2App::setupScene(void)
 	// ----------- APARTADOS 6 al 12 -----------
 	#pragma region Molino
 
-	SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
+	/*SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
 	molino = new Molino(molinoNode);
-	addInputListener(molino);
+	addInputListener(molino);*/
 
 	#pragma endregion
 
