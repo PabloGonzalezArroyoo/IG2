@@ -1,6 +1,6 @@
 #include "Aspa.h"
 
-Aspa::Aspa(SceneNode* m, int id) : mNode(m) {
+Aspa::Aspa(SceneNode* m, int id, bool adorno) : mNode(m) {
 	// Node padre
 	mSM = mNode->getCreator();
 
@@ -12,11 +12,13 @@ Aspa::Aspa(SceneNode* m, int id) : mNode(m) {
 	tableroNode->setPosition(0, 0, 0);
 
 	// Cilindro
-	Entity* cil = mSM->createEntity("Barrel.mesh");
-	cilindroNode = mNode->createChildSceneNode("cilinderNode" + std::to_string(id));
-	cilindroNode->attachObject(cil);
-	cilindroNode->setScale(3, 6, 3);
-	cilindroNode->setPosition(200, 0, 12.5f);
+	if (adorno) {
+		Entity* cil = mSM->createEntity("Barrel.mesh");
+		cilindroNode = mNode->createChildSceneNode("cilinderNode" + std::to_string(id));
+		cilindroNode->attachObject(cil);
+		cilindroNode->setScale(3, 6, 3);
+		cilindroNode->setPosition(200, 0, 12.5f);
+	}
 }
 
 Aspa::~Aspa() {
@@ -26,5 +28,5 @@ Aspa::~Aspa() {
 
 void Aspa::rotate(Degree d) {
 	mNode->roll(d);
-	cilindroNode->roll(-d);
+	if (cilindroNode != nullptr) cilindroNode->roll(-d);
 }

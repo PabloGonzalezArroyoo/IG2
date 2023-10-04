@@ -1,6 +1,6 @@
 #include "Aspas.h"
 
-Aspas::Aspas(SceneNode* n, int nAspas) : mNode(n), numAspas(nAspas) {
+Aspas::Aspas(SceneNode* n, int nAspas, bool adorno) : mNode(n), numAspas(nAspas) {
 	mSM = n->getCreator();
 
 	Entity* cil = mSM->createEntity("column.mesh");
@@ -17,7 +17,7 @@ Aspas::Aspas(SceneNode* n, int nAspas) : mNode(n), numAspas(nAspas) {
 	int rot = 360 / numAspas;
 	for (int i = 0; i < numAspas; i++) {
 		SceneNode* auxNode = aspasNode->createChildSceneNode("aspa" + std::to_string(i));
-		Aspa* aux = new Aspa(auxNode, i);
+		Aspa* aux = new Aspa(auxNode, i, adorno);
 		arrayAspas[i] = aux;
 		aux->rotate(Degree(rot * i));
 	}

@@ -8,7 +8,6 @@
 
 using namespace Ogre;
 
-
 class Aspa {
 protected:
 	SceneNode* mNode = nullptr;
@@ -18,7 +17,7 @@ public:
 	SceneNode* tableroNode = nullptr;
 	SceneNode* cilindroNode = nullptr;
 
-	Aspa(SceneNode* m, int id);
+	Aspa(SceneNode* m, int id, bool adorno = true);
 	virtual ~Aspa();
 
 	void rotate(Degree d);

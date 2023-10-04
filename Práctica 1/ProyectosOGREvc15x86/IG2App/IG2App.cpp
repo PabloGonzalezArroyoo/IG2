@@ -31,7 +31,10 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt)
 void IG2App::shutdown()
 {
 	// Práctica 1 : Apartados 7 al 12
-	delete molino; molino = nullptr;
+	// delete molino; molino = nullptr;
+
+	// Práctica 1 : Apartados 13 al 16
+	delete dron; dron = nullptr;
 
 	mShaderGenerator->removeSceneManager(mSM);  
 	mSM->removeRenderQueueListener(mOverlaySystem);  
@@ -179,14 +182,20 @@ void IG2App::setupScene(void)
 	 //hands[2]->roll(Ogre::Degree(-225));
 	#pragma endregion
 
-	// ----------- APARTADOS 6 al 12 -----------
+	// ----------- APARTADOS 6 al 12 ----------
 	#pragma region Molino
-
 	/*SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
 	molino = new Molino(molinoNode);
 	addInputListener(molino);*/
-
 	#pragma endregion
+
+	// ----------- APARTADOS 13 al 16 ----------
+	#pragma region RotorDron
+	SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
+	dron = new Dron(dronNode);
+	addInputListener(dron);
+	#pragma endregion
+
 
 	//------------------------------------------------------------------------
 

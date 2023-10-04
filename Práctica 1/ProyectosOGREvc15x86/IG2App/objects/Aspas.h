@@ -10,14 +10,14 @@ protected:
 	SceneManager* mSM;
 	Vector3 cilinderInitPos;
 	
-	int numAspas = 12;
+	int numAspas;
 
 public:
 	SceneNode* cilindroNode;
 	SceneNode* aspasNode;
 	Aspa** arrayAspas;
 
-	Aspas(SceneNode* n, int nAspas);
+	Aspas(SceneNode* n, int nAspas = 12, bool adornos = true);
 	virtual ~Aspas();
 
 	void rotateAspas();
