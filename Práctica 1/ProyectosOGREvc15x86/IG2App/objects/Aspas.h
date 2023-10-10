@@ -17,7 +17,7 @@ public:
 	SceneNode* aspasNode;
 	Aspa** arrayAspas;
 
-	Aspas(SceneNode* n, int nAspas = 12, bool adornos = true);
+	Aspas(SceneNode* n, int id, int nAspas = 12, bool adornos = true);
 	virtual ~Aspas();
 
 	void rotateAspas();

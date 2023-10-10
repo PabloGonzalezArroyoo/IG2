@@ -1,12 +1,12 @@
 #include "Aspa.h"
 
-Aspa::Aspa(SceneNode* m, int id, bool adorno) : mNode(m) {
+Aspa::Aspa(SceneNode* m, int i, int id, bool adorno) : mNode(m) {
 	// Node padre
 	mSM = mNode->getCreator();
 
 	// Tablero
 	Entity* tab = mSM->createEntity("cube.mesh");
-	tableroNode = mNode->createChildSceneNode("tableroNode" + std::to_string(id));
+	tableroNode = mNode->createChildSceneNode("tableroNode" + std::to_string(id) + "-" + std::to_string(i));
 	tableroNode->attachObject(tab);
 	tableroNode->setScale(5, 0.5, 0.1);
 	tableroNode->setPosition(0, 0, 0);

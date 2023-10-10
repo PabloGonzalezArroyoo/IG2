@@ -7,6 +7,7 @@ protected:
 	SceneNode* mNode = nullptr;
 	SceneManager* mSM = nullptr;
 	int numHelices;
+	int ident;
 
 public:
 	Aspas* helicesNode = nullptr;

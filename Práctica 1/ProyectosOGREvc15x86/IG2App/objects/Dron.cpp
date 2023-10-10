@@ -17,7 +17,7 @@ Dron::Dron(SceneNode* m, int nh, int nb) : mNode(m), numHelices(nh), numBrazos(n
 		SceneNode* aux = mNode->createChildSceneNode("brazoNode" + std::to_string(i));
 		brazos[i] = new BrazoDron(aux, i, numHelices);
 		aux->yaw(Ogre::Degree(rot * i));
-		aux->translate(200, 0, 0);
+		aux->translate(220, 0, 0, SceneNode::TS_LOCAL);
 	}
 }
 

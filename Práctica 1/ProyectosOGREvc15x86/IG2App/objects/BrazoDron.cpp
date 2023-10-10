@@ -3,14 +3,14 @@
 BrazoDron::BrazoDron(SceneNode* m, int id, int nh) : mNode(m) {
 	mSM = mNode->getCreator();
 
-	Entity* cil = mSM->createEntity("column.mesh");
+	Entity* cil = mSM->createEntity("Barrel.mesh");
 	cilindroNode = mNode->createChildSceneNode("cilBrazoNode" + std::to_string(id));
 	cilindroNode->attachObject(cil);
-	cilindroNode->setScale(1.8, 0.6, 1.8);
+	cilindroNode->setScale(10, 40, 10);
 	cilindroNode->roll(Degree(90));
-	cilindroNode->setPosition(-150, 0, 0);
 
 	rotorNode = new RotorDron(mNode->createChildSceneNode("rotorNode" + std::to_string(id)), nh, id);
+	mSM->getSceneNode("rotorNode" + std::to_string(id))->setPosition(130, 0, 0);
 }
 
 BrazoDron::~BrazoDron() {
