@@ -125,6 +125,7 @@
     <ClInclude Include="objects\Aspas.h" />
     <ClInclude Include="objects\BrazoDron.h" />
     <ClInclude Include="objects\Dron.h" />
+    <ClInclude Include="objects\EntidadIG.h" />
     <ClInclude Include="objects\Molino.h" />
     <ClInclude Include="objects\RotorDron.h" />
   </ItemGroup>
@@ -136,6 +137,7 @@
     <ClCompile Include="objects\Aspa.cpp" />
     <ClCompile Include="objects\BrazoDron.cpp" />
     <ClCompile Include="objects\Dron.cpp" />
+    <ClCompile Include="objects\EntidadIG.cpp" />
     <ClCompile Include="objects\Molino.cpp" />
     <ClCompile Include="objects\RotorDron.cpp" />
   </ItemGroup>
