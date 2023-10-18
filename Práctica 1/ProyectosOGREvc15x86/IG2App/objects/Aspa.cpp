@@ -1,29 +1,21 @@
 #include "Aspa.h"
 
-Aspa::Aspa(SceneNode* m, int i, int id, bool adorno) : mNode(m) {
-	// Node padre
-	mSM = mNode->getCreator();
-
+Aspa::Aspa(SceneNode* m, float size, int i, int id, bool adorno) : EntidadIG(m) {
 	// Tablero
 	Entity* tab = mSM->createEntity("cube.mesh");
 	tableroNode = mNode->createChildSceneNode("tableroNode" + std::to_string(id) + "-" + std::to_string(i));
 	tableroNode->attachObject(tab);
-	tableroNode->setScale(5, 0.5, 0.1);
-	tableroNode->setPosition(0, 0, 0);
+	tableroNode->setScale(size, size * 0.25, 0.1);
+	tableroNode->translate(Vector3(size * 50, 0, 0));
 
 	// Cilindro
 	if (adorno) {
 		Entity* cil = mSM->createEntity("Barrel.mesh");
-		cilindroNode = mNode->createChildSceneNode("cilinderNode" + std::to_string(id));
+		cilindroNode = mNode->createChildSceneNode("cilinderNode" + std::to_string(id) + "-" + std::to_string(i));
 		cilindroNode->attachObject(cil);
-		cilindroNode->setScale(3, 6, 3);
-		cilindroNode->setPosition(200, 0, 12.5f);
+		cilindroNode->setScale(size, size * 2.5, size);
+		cilindroNode->setPosition(size * 80, 0, size * 8);
 	}
-}
-
-Aspa::~Aspa() {
-	mSM = nullptr;
-	mNode = nullptr;
 }
 
 void Aspa::rotate(Degree d) {

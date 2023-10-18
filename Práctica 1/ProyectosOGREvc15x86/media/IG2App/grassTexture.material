@@ -1,0 +1,15 @@
+material grassTexture
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.5 0.5 0.5
+            texture_unit
+            {
+                texture grass.png
+                colour_op add
+            }
+        }
+    }
+}

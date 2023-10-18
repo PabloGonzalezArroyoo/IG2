@@ -2,11 +2,8 @@
 
 #include "BrazoDron.h"
 
-class Dron : public OgreBites::InputListener {
+class Dron : public EntidadIG {
 protected:
-	SceneNode* mNode = nullptr;
-	SceneManager* mSM = nullptr;
-
 	int numHelices = 12, numBrazos = 8;
 
 public:

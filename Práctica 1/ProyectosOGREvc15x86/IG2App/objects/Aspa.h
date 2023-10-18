@@ -1,24 +1,16 @@
 #pragma once
 
-#include <OgreSceneNode.h>
-#include <OgreEntity.h>
-#include <OgreInput.h>
-#include <OgreSceneManager.h>
-#include <SDL_keycode.h>
+#include "EntidadIG.h"
 
 using namespace Ogre;
 
-class Aspa {
-protected:
-	SceneNode* mNode = nullptr;
-	SceneManager* mSM = nullptr;
-
+class Aspa : public EntidadIG {
 public:
 	SceneNode* tableroNode = nullptr;
 	SceneNode* cilindroNode = nullptr;
 
-	Aspa(SceneNode* m, int i, int id, bool adorno = true);
-	virtual ~Aspa();
+	Aspa(SceneNode* m, float size, int i, int id, bool adorno = true);
+	virtual ~Aspa() {};
 
 	void rotate(Degree d);
 };

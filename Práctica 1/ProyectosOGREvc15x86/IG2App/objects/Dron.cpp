@@ -1,9 +1,6 @@
 #include "Dron.h"
 
-Dron::Dron(SceneNode* m, int nh, int nb) : mNode(m), numHelices(nh), numBrazos(nb) {
-	// Node padre
-	mSM = mNode->getCreator();
-
+Dron::Dron(SceneNode* m, int nh, int nb) : EntidadIG(m), numHelices(nh), numBrazos(nb) {
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
 	centroNode = mNode->createChildSceneNode("centroNode");
@@ -22,7 +19,8 @@ Dron::Dron(SceneNode* m, int nh, int nb) : mNode(m), numHelices(nh), numBrazos(n
 }
 
 Dron::~Dron(){
-
+	for (int i = 0; i < numBrazos; i++) delete brazos[i];
+	delete[] brazos;
 }
 
 bool Dron::keyPressed(const OgreBites::KeyboardEvent& evt) {

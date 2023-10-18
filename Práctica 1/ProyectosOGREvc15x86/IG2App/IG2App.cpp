@@ -34,7 +34,7 @@ void IG2App::shutdown()
 	// delete molino; molino = nullptr;
 
 	// Práctica 1 : Apartados 13 al 16
-	delete dron; dron = nullptr;
+	// delete dron; dron = nullptr;
 
 	mShaderGenerator->removeSceneManager(mSM);  
 	mSM->removeRenderQueueListener(mOverlaySystem);  
@@ -191,9 +191,33 @@ void IG2App::setupScene(void)
 
 	// ----------- APARTADOS 13 al 16 ----------
 	#pragma region RotorDron
-	SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
+	/*SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
 	dron = new Dron(dronNode);
-	addInputListener(dron);
+	addInputListener(dron);*/
+	#pragma endregion
+
+	// ----------- APARTADOS 17 al 18 ----------
+	#pragma region Avion
+	// Río
+	SceneNode* rioNode = mSM->getRootSceneNode()->createChildSceneNode();
+	rio = new Rio(rioNode, "prueba", 900, 500);
+	rioNode->translate(Vector3(0, -300, 0));
+	addInputListener(rio);
+
+	// Molino
+	SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
+	molino = new Molino(molinoNode);
+	addInputListener(molino);
+	molinoNode->translate(Vector3(0, 0, -400));
+
+	// Avion
+	SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
+	avion = new Avion(avionNode, rioNode->getPosition(), 0.2);
+	addInputListener(avion);
+
+	// Añadir listeners
+	rio->addListener(molino);
+	molino->addListener(avion);
 	#pragma endregion
 
 

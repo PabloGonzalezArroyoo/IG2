@@ -4,10 +4,8 @@
 
 using namespace Ogre;
 
-class Aspas {
+class Aspas : public EntidadIG {
 protected:
-	SceneNode* mNode;
-	SceneManager* mSM;
 	Vector3 cilinderInitPos;
 	
 	int numAspas;
@@ -17,7 +15,7 @@ public:
 	SceneNode* aspasNode;
 	Aspa** arrayAspas;
 
-	Aspas(SceneNode* n, int id, int nAspas = 12, bool adornos = true);
+	Aspas(SceneNode* n, float size, int id, int nAspas = 12, bool adornos = true);
 	virtual ~Aspas();
 
 	void rotateAspas();

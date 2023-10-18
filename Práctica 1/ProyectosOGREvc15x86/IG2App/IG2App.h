@@ -9,6 +9,8 @@
 #include <vector>
 #include "objects/Molino.h"
 #include "objects/Dron.h"
+#include "objects/Avion.h"
+#include "objects/Rio.h"
 
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener 
 {
@@ -38,10 +40,14 @@ protected:
   // Ogre::SceneNode* handNode;
 
   // Práctica 1 : Apartados 7 al 12
-  // Molino* molino = nullptr;
+  Molino* molino = nullptr;
   // 
   // Práctica 1 : Apartados 13 al 16
-  Dron* dron = nullptr;
+  // Dron* dron = nullptr;
+  //
+  // Práctica 1 : Apartados 17 al 30
+  Avion* avion = nullptr;
+  Rio* rio = nullptr;
 };
 
 #endif

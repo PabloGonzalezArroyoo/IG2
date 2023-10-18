@@ -1,8 +1,6 @@
 #include "BrazoDron.h"
 
-BrazoDron::BrazoDron(SceneNode* m, int id, int nh) : mNode(m) {
-	mSM = mNode->getCreator();
-
+BrazoDron::BrazoDron(SceneNode* m, int id, int nh) : EntidadIG(m) {
 	Entity* cil = mSM->createEntity("Barrel.mesh");
 	cilindroNode = mNode->createChildSceneNode("cilBrazoNode" + std::to_string(id));
 	cilindroNode->attachObject(cil);
@@ -11,10 +9,6 @@ BrazoDron::BrazoDron(SceneNode* m, int id, int nh) : mNode(m) {
 
 	rotorNode = new RotorDron(mNode->createChildSceneNode("rotorNode" + std::to_string(id)), nh, id);
 	mSM->getSceneNode("rotorNode" + std::to_string(id))->setPosition(130, 0, 0);
-}
-
-BrazoDron::~BrazoDron() {
-
 }
 
 void BrazoDron::mueveHelices() {

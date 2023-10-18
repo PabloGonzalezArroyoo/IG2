@@ -1,13 +1,12 @@
 #include "Aspas.h"
 
-Aspas::Aspas(SceneNode* n, int id, int nAspas, bool adorno) : mNode(n), numAspas(nAspas) {
-	mSM = n->getCreator();
-
+Aspas::Aspas(SceneNode* n, float size, int id, int nAspas, bool adorno) : EntidadIG(n), numAspas(nAspas) {
 	Entity* cil = mSM->createEntity("Barrel.mesh");
 	cilindroNode = mNode->createChildSceneNode("centerNode" + std::to_string(id));
 	cilindroNode->attachObject(cil);
-	cilindroNode->setScale(0.5, 0.1, 0.5);
-	cilindroNode->rotate(Vector3(1, 0, 0), Radian(Degree(90)));
+	cilindroNode->setScale(size * 4, size * 2, size * 4);
+	cilindroNode->pitch(Degree(90));
+	cilindroNode->translate(Vector3(0, 0, 10));
 
 	cilinderInitPos = cilindroNode->getPosition();
 
@@ -17,7 +16,7 @@ Aspas::Aspas(SceneNode* n, int id, int nAspas, bool adorno) : mNode(n), numAspas
 	int rot = 360 / numAspas;
 	for (int i = 0; i < numAspas; i++) {
 		SceneNode* auxNode = aspasNode->createChildSceneNode("aspa" + std::to_string(id) + "-" + std::to_string(i));
-		Aspa* aux = new Aspa(auxNode, i, id, adorno);
+		Aspa* aux = new Aspa(auxNode, size, i, id, adorno);
 		arrayAspas[i] = aux;
 		aux->rotate(Degree(rot * i));
 	}
@@ -30,7 +29,7 @@ Aspas::~Aspas() {
 }
 
 void Aspas::rotateAspas() {
-	for (int i = 0; i < numAspas; i++) arrayAspas[i]->rotate(Degree(3));
+	for (int i = 0; i < numAspas; i++) arrayAspas[i]->rotate(Degree(0.5));
 }
 
 void Aspas::moveCilindro() {

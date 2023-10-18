@@ -4,10 +4,17 @@
 #include <OgreEntity.h>
 #include <OgreInput.h>
 #include <OgreSceneManager.h>
+#include <OgreMeshManager.h>
+#include <OgreFrameListener.h>
 #include <SDL_keycode.h>
 #include <vector>
+#include <iostream>
 
 using namespace Ogre;
+
+enum MessageType {
+	TECLA_R, TECLA_T
+};
 
 class EntidadIG : public OgreBites::InputListener {
 protected:
@@ -30,7 +37,7 @@ public:
 		appListeners.push_back(entidad);
 	}
 
-	void sendEvent(EntidadIG* entidad);
-	virtual void receiveEvent(EntidadIG* entidad) {};
+	void sendEvent(MessageType msg, EntidadIG* entidad);
+	virtual void receiveEvent(MessageType msg, EntidadIG* entidad) {};
 };
 

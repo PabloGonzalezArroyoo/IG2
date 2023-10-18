@@ -2,10 +2,8 @@
 
 #include "Aspas.h"
 
-class RotorDron {
+class RotorDron : public EntidadIG {
 protected:
-	SceneNode* mNode = nullptr;
-	SceneManager* mSM = nullptr;
 	int numHelices;
 	int ident;
 
@@ -14,7 +12,7 @@ public:
 	SceneNode* esferaNode = nullptr;
 
 	RotorDron(SceneNode* m, int nh, int id);
-	virtual ~RotorDron();
+	virtual ~RotorDron() {};
 
 	void mueveHelices();
 };

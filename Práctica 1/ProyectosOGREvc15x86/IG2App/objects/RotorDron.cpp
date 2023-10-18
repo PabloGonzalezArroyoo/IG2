@@ -1,9 +1,6 @@
 #include "RotorDron.h"
 
-RotorDron::RotorDron(SceneNode* m, int nh, int id) : mNode(m), numHelices(nh), ident(id) {
-	// Node padre
-	mSM = mNode->getCreator();
-
+RotorDron::RotorDron(SceneNode* m, int nh, int id) : EntidadIG(m), numHelices(nh), ident(id) {
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
 	esferaNode = mNode->createChildSceneNode("esferaNode" + std::to_string(id));
@@ -15,11 +12,7 @@ RotorDron::RotorDron(SceneNode* m, int nh, int id) : mNode(m), numHelices(nh), i
 	auxNode->setPosition(0, 70, 0);
 	auxNode->pitch(Ogre::Degree(90));
 	auxNode->setScale(0.3, 0.3, 0.3);
-	helicesNode = new Aspas(auxNode, id, numHelices, false);
-}
-
-RotorDron::~RotorDron() {
-
+	helicesNode = new Aspas(auxNode, 3, id, numHelices, false);
 }
 
 void RotorDron::mueveHelices() {

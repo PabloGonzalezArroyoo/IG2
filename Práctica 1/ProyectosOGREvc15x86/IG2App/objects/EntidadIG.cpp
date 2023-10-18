@@ -7,8 +7,8 @@ EntidadIG::EntidadIG(SceneNode* node) {
 	mSM = mNode->getCreator();
 }
 
-void EntidadIG::sendEvent(EntidadIG* entidad) {
+void EntidadIG::sendEvent(MessageType msg, EntidadIG* entidad) {
 	for (EntidadIG* e : appListeners) {
-		e->receiveEvent(this);
+		e->receiveEvent(msg, entidad);
 	}
 }
