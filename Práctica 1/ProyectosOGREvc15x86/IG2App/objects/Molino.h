@@ -3,9 +3,15 @@
 #include "Aspas.h"
 #include "Rio.h"
 
+enum MolinoState {
+	NORMAL, INTERVAL
+};
+
 class Molino : public EntidadIG {
 protected:
 	bool spin;
+	MolinoState state;
+	float counter;
 
 	virtual void frameRendered(const FrameEvent& evt);
 

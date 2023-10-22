@@ -12,6 +12,14 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size) : EntidadIG(m), spin(false),
 	cuerpoNode->attachObject(esf);
 	cuerpoNode->setScale(1.5 * size, 1.5 * size, 1.5 * size);
 	cuerpoNode->translate(Vector3(offset, 0, 0) * size);
+	
+	// Luz
+	Light* foco = mSM->createLight("focoAvion");
+	foco->setType(Light::LT_SPOTLIGHT);
+	foco->setDiffuseColour(0.75, 0.75, 0.75);
+	focoNode = cuerpoNode->createChildSceneNode("focoAvionNode");
+	focoNode->attachObject(foco);
+	focoNode->setDirection(Vector3(0, -1, 0));
 
 	// Piloto
 	Entity* piloto = mSM->createEntity("ninja.mesh");
@@ -63,7 +71,7 @@ bool Avion::keyPressed(const OgreBites::KeyboardEvent& evt) {
 	}
 	else if (evt.keysym.sym == SDLK_f) {
 		if (!stop) spin ? spin = false : spin = true;
-		else stop = false;
+		else { stop = false; spin = true; }
 	}
 	return false;
 }
@@ -83,5 +91,5 @@ void Avion::frameRendered(const FrameEvent& evt) {
 };
 
 void Avion::receiveEvent(MessageType msg, EntidadIG* entidad) {
-	if (spin && msg == TECLA_R && dynamic_cast<Molino*>(entidad) != nullptr) stop = true;
+	if (spin && msg == TECLA_R && dynamic_cast<Rio*>(entidad) != nullptr) stop = true;
 };

@@ -8,5 +8,7 @@ public:
 	~Rio();
 
 	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
+
+	virtual void receiveEvent(MessageType msg, EntidadIG* entidad);
 };
 

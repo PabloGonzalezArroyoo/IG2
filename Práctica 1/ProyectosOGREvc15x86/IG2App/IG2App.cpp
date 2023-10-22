@@ -217,7 +217,8 @@ void IG2App::setupScene(void)
 
 	// Añadir listeners
 	rio->addListener(molino);
-	molino->addListener(avion);
+	rio->addListener(avion);
+	molino->addListener(rio);
 	#pragma endregion
 
 

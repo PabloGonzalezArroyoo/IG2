@@ -13,6 +13,7 @@ protected:
 	SceneNode* frenteNode = nullptr;
 	SceneNode* pilotoNode = nullptr;
 	SceneNode* ficticioNode = nullptr;
+	SceneNode* focoNode = nullptr;
 	Aspas** helicesNode;
 
 	virtual void frameRendered(const FrameEvent& evt);

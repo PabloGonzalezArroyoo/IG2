@@ -4,7 +4,7 @@
 // Opción 1 -> nodo ficticio posicionado en el centro del molino que será padre de las aspas, rotar este
 // Opción 2 -> trasladar al origen, rotar, trasladar de vuelta
 
-Molino::Molino(SceneNode* m) : EntidadIG(m), spin(false) {
+Molino::Molino(SceneNode* m) : EntidadIG(m), spin(false), state(NORMAL), counter(0) {
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
 	techoNode = mNode->createChildSceneNode("techoNode");
@@ -47,7 +47,7 @@ bool Molino::keyPressed(const OgreBites::KeyboardEvent& evt) {
 	}
 	else if (evt.keysym.sym == SDLK_j) aspasNode->rotateAspas();
 	else if (evt.keysym.sym == SDLK_c) aspasNode->moveCilindro();
-	else if (evt.keysym.sym == SDLK_f) spin ? spin = false : spin = true;
+	else if (evt.keysym.sym == SDLK_f && state == NORMAL) spin ? spin = false : spin = true;
 
 	return true;
 }
@@ -60,8 +60,20 @@ bool Molino::keyReleased(const OgreBites::KeyboardEvent& evt) {
 
 void Molino::frameRendered(const FrameEvent& evt) {
 	if (spin) aspasNode->rotateAspas();
+	if (state == INTERVAL) {
+		counter += evt.timeSinceLastFrame;
+		if (!spin) spin = counter >= 1.0f;
+		else {
+			spin = counter <= 4.0f;
+			if (!spin) counter = 0;
+		}
+	}
 }
 
 void Molino::receiveEvent(MessageType msg, EntidadIG* entidad) {
-	if (spin && msg == TECLA_R && dynamic_cast<Rio*>(entidad) != nullptr) sendEvent(msg, this);
+	if (spin && msg == TECLA_T && dynamic_cast<Rio*>(entidad) != nullptr) {
+		state = INTERVAL;
+		spin = false;
+		sendEvent(STOP, this);
+	}
 };
