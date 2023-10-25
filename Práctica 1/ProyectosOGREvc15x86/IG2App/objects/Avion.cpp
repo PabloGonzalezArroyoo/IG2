@@ -61,7 +61,7 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size) : EntidadIG(m), spin(false),
 }
 
 Avion::~Avion() {
-	// TO DO: borrar aspas
+	delete helicesNode; helicesNode = nullptr;
 }
 
 bool Avion::keyPressed(const OgreBites::KeyboardEvent& evt) {
