@@ -10,5 +10,5 @@ public:
 	BrazoDron(SceneNode* m, int id, int nh);
 	virtual ~BrazoDron() {};
 
-	void mueveHelices();
+	void mueveHelices(int sign = 1);
 };

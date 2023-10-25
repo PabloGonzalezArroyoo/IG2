@@ -26,7 +26,8 @@ Dron::~Dron(){
 bool Dron::keyPressed(const OgreBites::KeyboardEvent& evt) {
 	if (evt.keysym.sym == SDLK_g) {
 		for (int i = 0; i < numBrazos; i++) {
-			brazos[i]->mueveHelices();
+			if (i % 2 == 0) brazos[i]->mueveHelices(-1);
+			else brazos[i]->mueveHelices();
 		}
 	}
 

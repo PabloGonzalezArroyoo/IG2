@@ -11,6 +11,6 @@ BrazoDron::BrazoDron(SceneNode* m, int id, int nh) : EntidadIG(m) {
 	mSM->getSceneNode("rotorNode" + std::to_string(id))->setPosition(130, 0, 0);
 }
 
-void BrazoDron::mueveHelices() {
-	rotorNode->mueveHelices();
+void BrazoDron::mueveHelices(int sign) {
+	rotorNode->mueveHelices(sign);
 }

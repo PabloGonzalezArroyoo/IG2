@@ -15,6 +15,6 @@ RotorDron::RotorDron(SceneNode* m, int nh, int id) : EntidadIG(m), numHelices(nh
 	helicesNode = new Aspas(auxNode, 3, id, numHelices, false);
 }
 
-void RotorDron::mueveHelices() {
-	mNode->getChild("helicesRotorNode" + std::to_string(ident))->roll(Ogre::Degree(10));
+void RotorDron::mueveHelices(int sign) {
+	mNode->getChild("helicesRotorNode" + std::to_string(ident))->roll(Ogre::Degree(sign * 10));
 }

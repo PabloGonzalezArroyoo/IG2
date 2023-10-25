@@ -14,5 +14,5 @@ public:
 	RotorDron(SceneNode* m, int nh, int id);
 	virtual ~RotorDron() {};
 
-	void mueveHelices();
+	void mueveHelices(int sign = 1);
 };

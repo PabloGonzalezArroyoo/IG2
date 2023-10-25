@@ -86,10 +86,14 @@ void Avion::frameRendered(const FrameEvent& evt) {
 		if (counter >= 5) {
 			spin = false;
 			counter = 0;
+			stop = false;
 		}
 	}
 };
 
 void Avion::receiveEvent(MessageType msg, EntidadIG* entidad) {
-	if (spin && msg == TECLA_R && dynamic_cast<Rio*>(entidad) != nullptr) stop = true;
+	if (spin && msg == TECLA_R && dynamic_cast<Rio*>(entidad) != nullptr) {
+		stop = true;
+		counter = 0;
+	}
 };
