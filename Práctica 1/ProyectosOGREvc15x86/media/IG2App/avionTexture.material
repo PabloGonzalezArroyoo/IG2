@@ -1,0 +1,75 @@
+material dirt
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.0 0.0 0.0 1.0
+            texture_unit
+            {
+                texture dirt.jpg
+                colour_op add
+            }
+        }
+    }
+}
+
+material alas
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.5 0.5 0.5
+            texture_unit
+            {
+                texture alas.png
+                colour_op add
+            }
+        }
+    }
+}
+
+material red
+{
+    technique
+    {
+        pass
+        {
+            diffuse 1.0 0.0 0.0 1.0
+        }
+    }
+}
+
+material yellow
+{
+    technique
+    {
+        pass
+        {
+            diffuse 1 1 0.0 1.0
+        }
+    }
+}
+
+material orange
+{
+    technique
+    {
+        pass
+        {
+            diffuse 1.0 0.49 0.0 1.0
+        }
+    }
+}
+
+material brown
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.7 0.4 0.0 1.0
+        }
+    }
+}

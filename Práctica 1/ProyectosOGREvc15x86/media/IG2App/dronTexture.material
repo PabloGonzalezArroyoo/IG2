@@ -1,0 +1,15 @@
+material arms
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.5 0.5 0.0 1.0
+            texture_unit
+            {
+                texture arms.png
+                colour_op add
+            }
+        }
+    }
+}

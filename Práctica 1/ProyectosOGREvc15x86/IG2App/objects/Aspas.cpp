@@ -2,11 +2,12 @@
 
 Aspas::Aspas(SceneNode* n, float size, int id, int nAspas, bool adorno) : EntidadIG(n), numAspas(nAspas) {
 	Entity* cil = mSM->createEntity("Barrel.mesh");
+	cil->setMaterialName("dirt");
 	cilindroNode = mNode->createChildSceneNode("centerNode" + std::to_string(id));
 	cilindroNode->attachObject(cil);
 	cilindroNode->setScale(size * 4, size * 2, size * 4);
 	cilindroNode->pitch(Degree(90));
-	cilindroNode->translate(Vector3(0, 0, 10));
+	cilindroNode->translate(Vector3(0, 0, 10 * size));
 
 	cilinderInitPos = cilindroNode->getPosition();
 

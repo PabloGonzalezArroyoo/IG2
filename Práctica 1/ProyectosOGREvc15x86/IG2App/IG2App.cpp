@@ -196,30 +196,44 @@ void IG2App::setupScene(void)
 	addInputListener(dron);*/
 	#pragma endregion
 
-	// ----------- APARTADOS 17 al 18 ----------
+	// ----------- APARTADOS 17 al 32 ----------
 	#pragma region Avion
-	// Río
-	SceneNode* rioNode = mSM->getRootSceneNode()->createChildSceneNode();
-	rio = new Rio(rioNode, "prueba", 900, 500);
-	rioNode->translate(Vector3(0, -300, 0));
-	addInputListener(rio);
+	//// Río
+	//SceneNode* rioNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//rio = new Rio(rioNode, "prueba", 900, 500);
+	//rioNode->translate(Vector3(0, -300, 0));
+	//addInputListener(rio);
 
-	// Molino
-	SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
-	molino = new Molino(molinoNode);
-	addInputListener(molino);
-	molinoNode->translate(Vector3(0, 0, -400));
+	//// Molino
+	//SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//molino = new Molino(molinoNode);
+	//addInputListener(molino);
+	//molinoNode->translate(Vector3(0, 0, -400));
 
-	// Avion
-	SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
-	avion = new Avion(avionNode, rioNode->getPosition(), 0.2);
-	addInputListener(avion);
+	//// Avion
+	//SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//avion = new Avion(avionNode, rioNode->getPosition(), 0.2);
+	//addInputListener(avion);
 
-	// Añadir listeners
-	rio->addListener(molino);
-	rio->addListener(avion);
-	molino->addListener(rio);
+	//// Añadir listeners
+	//rio->addListener(molino);
+	//rio->addListener(avion);
+	//molino->addListener(rio);
 	#pragma endregion
+
+	// ----------- APARTADOS 33 al 42 ----------
+	#pragma region Droncitos
+	// Avion
+	/*SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
+	avion = new Avion(avionNode, Vector3(0, 0, 0), 0.2);
+	addInputListener(avion);*/
+
+	SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
+	dron = new Dron(dronNode, 3, 3, true);
+	addInputListener(dron);
+	#pragma endregion
+
+	
 
 
 	//------------------------------------------------------------------------
