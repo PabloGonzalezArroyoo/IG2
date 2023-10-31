@@ -1,6 +1,6 @@
 #include "Avion.h"
 
-Avion::Avion(SceneNode* m, Vector3 pos, float size) : EntidadIG(m), spin(false), stop(false), counter(0) {
+Avion::Avion(SceneNode* m, Vector3 pos, float size, bool txt) : EntidadIG(m), spin(false), stop(false), counter(0) {
 	// Nodo ficticio
 	ficticioNode = mNode->createChildSceneNode("ficticioAvionNode");
 	ficticioNode->setPosition(Vector3(pos.x, 0, 0));
@@ -8,7 +8,6 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size) : EntidadIG(m), spin(false),
 
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
-	esf->setMaterialName("red");
 	cuerpoNode = ficticioNode->createChildSceneNode("centroAvionNode");
 	cuerpoNode->attachObject(esf);
 	cuerpoNode->setScale(1.5 * size, 1.5 * size, 1.5 * size);
@@ -24,7 +23,6 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size) : EntidadIG(m), spin(false),
 
 	// Piloto
 	Entity* piloto = mSM->createEntity("ninja.mesh");
-	piloto->setMaterialName("yellow");
 	pilotoNode = ficticioNode->createChildSceneNode("pilotoAvionNode");
 	pilotoNode->attachObject(piloto);
 	pilotoNode->setScale(0.8 * size, 0.8 * size, 0.8 * size);
@@ -33,21 +31,18 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size) : EntidadIG(m), spin(false),
 
 	// Alas
 	Entity* alaI = mSM->createEntity("cube.mesh");
-	alaI->setMaterialName("alas");
 	alaINode = ficticioNode->createChildSceneNode("alaIAvionNode");
 	alaINode->attachObject(alaI);
 	alaINode->setScale(4 * size, 0.2 * size, 1.5 * size);
 	alaINode->translate(Vector3(-250 + offset, 0, 0) * size);
 	Entity* alaD = mSM->createEntity("cube.mesh");
 	alaDNode = ficticioNode->createChildSceneNode("alaDAvionNode");
-	alaD->setMaterialName("alas");
 	alaDNode->attachObject(alaD);
 	alaDNode->setScale(4 * size, 0.2 * size, 1.5 * size);
 	alaDNode->translate(Vector3(250 + offset, 0, 0) * size);
 
 	// Frente
 	Entity* fnt = mSM->createEntity("Barrel.mesh");
-	fnt->setMaterialName("orange");
 	frenteNode = ficticioNode->createChildSceneNode("fntAvionNode");
 	frenteNode->attachObject(fnt);
 	frenteNode->setScale(15 * size, 4 * size, 15 * size);
@@ -58,10 +53,18 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size) : EntidadIG(m), spin(false),
 	helicesNode = new Aspas*[2];
 	for (int i = 0; i < 2; i++) {
 		SceneNode* node = ficticioNode->createChildSceneNode("heliceAvionNode" + std::to_string(i));
-		Aspas* aux = new Aspas(node, 1 * size, i, 5);
+		Aspas* aux = new Aspas(node, 1 * size, i, 5, false);
 		helicesNode[i] = aux;
 		if (i == 0) node->translate(Vector3(250 + offset, 0, 80) * size);
 		else if (i == 1) node->translate(Vector3(-250 + offset, 0, 80) * size);
+	}
+
+	if (txt) {
+		esf->setMaterialName("red");
+		piloto->setMaterialName("yellow");
+		alaI->setMaterialName("alas");
+		alaD->setMaterialName("alas");
+		fnt->setMaterialName("orange");
 	}
 }
 

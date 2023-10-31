@@ -1,21 +1,23 @@
 #include "Dron.h"
 
-Dron::Dron(SceneNode* m, int nh, int nb, bool adorno) : EntidadIG(m), numHelices(nh), numBrazos(nb) {
+Dron::Dron(SceneNode* m, float size, DronType t, int nh, int nb, bool adorno) : EntidadIG(m), numHelices(nh), numBrazos(nb),
+	type(t) {
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
-	esf->setMaterialName("red");
+	if (type == MOTHER) esf->setMaterialName("red");
+	else if (type == CHILD) esf->setMaterialName("smile");
 	centroNode = mNode->createChildSceneNode("centroNode");
 	centroNode->attachObject(esf);
-	centroNode->setScale(1.5, 1.5, 1.5);
+	centroNode->setScale(1.5 * size, 1.5 * size, 1.5 * size);
 
 	// Brazos
 	brazos = new BrazoDron*[numBrazos];
 	float rot = 360.0f / numBrazos;
 	for (int i = 0; i < numBrazos; i++) {
 		SceneNode* aux = mNode->createChildSceneNode("brazoNode" + std::to_string(i));
-		brazos[i] = new BrazoDron(aux, i, numHelices, adorno);
+		brazos[i] = new BrazoDron(aux, size, type != ORIGINAL, i, numHelices, adorno);
 		aux->yaw(Ogre::Degree(rot * i));
-		aux->translate(220, 0, 0, SceneNode::TS_LOCAL);
+		aux->translate(220 * size, 0, 0, SceneNode::TS_LOCAL);
 	}
 }
 

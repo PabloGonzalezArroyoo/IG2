@@ -22,7 +22,7 @@ Molino::Molino(SceneNode* m) : EntidadIG(m), spin(false), state(NORMAL), counter
 	nodoFicticio = mNode->createChildSceneNode("nodoFicticio");
 	SceneNode* auxNode = nodoFicticio->createChildSceneNode("aspasMolinoNode");
 	auxNode->setPosition(0, 0, 110);
-	aspasNode = new Aspas(auxNode, 2, 6);
+	aspasNode = new Aspas(auxNode, 2, 2, 6, false);
 
 	// Plano
 	SceneNode* aux = mNode->createChildSceneNode("planoMolinoNode");

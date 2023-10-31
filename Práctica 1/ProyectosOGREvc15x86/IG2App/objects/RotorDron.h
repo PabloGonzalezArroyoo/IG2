@@ -2,6 +2,10 @@
 
 #include "Aspas.h"
 
+enum DronType {
+	ORIGINAL, MOTHER, CHILD
+};
+
 class RotorDron : public EntidadIG {
 protected:
 	int numHelices;
@@ -11,7 +15,7 @@ public:
 	Aspas* helicesNode = nullptr;
 	SceneNode* esferaNode = nullptr;
 
-	RotorDron(SceneNode* m, int nh, int id, bool adorno = false);
+	RotorDron(SceneNode* m, float size, bool txt, int nh, int id, bool adorno = false);
 	virtual ~RotorDron() {};
 
 	void mueveHelices(int sign = 1);

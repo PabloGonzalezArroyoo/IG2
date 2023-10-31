@@ -192,7 +192,7 @@ void IG2App::setupScene(void)
 	// ----------- APARTADOS 13 al 16 ----------
 	#pragma region RotorDron
 	/*SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
-	dron = new Dron(dronNode);
+	dron = new Dron(dronNode, 1, DronType::ORIGINAL);
 	addInputListener(dron);*/
 	#pragma endregion
 
@@ -225,11 +225,12 @@ void IG2App::setupScene(void)
 	#pragma region Droncitos
 	// Avion
 	/*SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
-	avion = new Avion(avionNode, Vector3(0, 0, 0), 0.2);
+	avion = new Avion(avionNode, Vector3(0, 0, 0), 0.2, true);
 	addInputListener(avion);*/
 
 	SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
-	dron = new Dron(dronNode, 3, 3, true);
+	dron = new Dron(dronNode, 1, DronType::MOTHER, 3, 3, true);
+	//dron = new Dron(dronNode, 0.5, DronType::CHILD, 3, 3, true);
 	addInputListener(dron);
 	#pragma endregion
 

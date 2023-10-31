@@ -9,7 +9,7 @@ public:
 	SceneNode* tableroNode = nullptr;
 	SceneNode* cilindroNode = nullptr;
 
-	Aspa(SceneNode* m, float size, int i, int id, bool adorno = true);
+	Aspa(SceneNode* m, float size, int i, int id, bool txt = true, bool adorno = true);
 	virtual ~Aspa() {};
 
 	void rotate(Degree d);

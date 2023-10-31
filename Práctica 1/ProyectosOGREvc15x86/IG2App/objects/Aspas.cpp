@@ -1,8 +1,8 @@
 #include "Aspas.h"
 
-Aspas::Aspas(SceneNode* n, float size, int id, int nAspas, bool adorno) : EntidadIG(n), numAspas(nAspas) {
+Aspas::Aspas(SceneNode* n, float size, int id, int nAspas, bool txt, bool adorno) : EntidadIG(n), numAspas(nAspas) {
 	Entity* cil = mSM->createEntity("Barrel.mesh");
-	cil->setMaterialName("dirt");
+	if (txt) cil->setMaterialName("dirt");
 	cilindroNode = mNode->createChildSceneNode("centerNode" + std::to_string(id));
 	cilindroNode->attachObject(cil);
 	cilindroNode->setScale(size * 4, size * 2, size * 4);
@@ -17,7 +17,7 @@ Aspas::Aspas(SceneNode* n, float size, int id, int nAspas, bool adorno) : Entida
 	int rot = 360 / numAspas;
 	for (int i = 0; i < numAspas; i++) {
 		SceneNode* auxNode = aspasNode->createChildSceneNode("aspa" + std::to_string(id) + "-" + std::to_string(i));
-		Aspa* aux = new Aspa(auxNode, size, i, id, adorno);
+		Aspa* aux = new Aspa(auxNode, size, i, id, txt, adorno);
 		arrayAspas[i] = aux;
 		aux->rotate(Degree(rot * i));
 	}

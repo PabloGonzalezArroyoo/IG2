@@ -19,7 +19,7 @@ protected:
 	virtual void frameRendered(const FrameEvent& evt);
 
 public:
-	Avion(SceneNode* m, Vector3 pos, float size);
+	Avion(SceneNode* m, Vector3 pos, float size, bool txt = false);
 	virtual ~Avion();
 
 	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
