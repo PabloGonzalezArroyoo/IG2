@@ -4,13 +4,13 @@ RotorDron::RotorDron(SceneNode* m, float size, bool txt, int nh, int id, bool ad
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
 	if (txt) esf->setMaterialName("orange");
-	esferaNode = mNode->createChildSceneNode("esferaNode" + std::to_string(id));
+	esferaNode = mNode->createChildSceneNode();
 	esferaNode->attachObject(esf);
 
 	// Aspas
-	SceneNode* auxNode = mNode->createChildSceneNode("helicesRotorNode" + std::to_string(id));
+	SceneNode* auxNode = mNode->createChildSceneNode();
 	auxNode->pitch(Ogre::Degree(-90));
-	helicesNode = new Aspas(auxNode, 3 * size, id, numHelices, txt, adorno);
+	helicesNode = new Aspas(auxNode, 3 * size, numHelices, txt, adorno);
 
 	esferaNode->setScale(0.7 * size, 0.7 * size, 0.7 * size);
 	auxNode->setScale(0.3 * size, 0.3 * size, 0.3 * size);
@@ -24,5 +24,5 @@ RotorDron::RotorDron(SceneNode* m, float size, bool txt, int nh, int id, bool ad
 }
 
 void RotorDron::mueveHelices(int sign) {
-	mNode->getChild("helicesRotorNode" + std::to_string(ident))->roll(Ogre::Degree(sign * 10));
+	helicesNode->getNode()->roll(Ogre::Degree(sign * 10));
 }

@@ -1,12 +1,14 @@
 #include "Dron.h"
 
-Dron::Dron(SceneNode* m, float size, DronType t, int nh, int nb, bool adorno) : EntidadIG(m), numHelices(nh), numBrazos(nb),
-	type(t) {
+Dron::Dron(SceneNode* m, Vector3 pos, float size, bool txt, int nh, int nb, bool adorno) : EntidadIG(m), numHelices(nh),
+	numBrazos(nb) {
+	// Nodo ficticio
+	ficticioNode = mNode->createChildSceneNode();
+	ficticioNode->setPosition(pos);
+
 	// Esfera
-	Entity* esf = mSM->createEntity("sphere.mesh");
-	if (type == MOTHER) esf->setMaterialName("red");
-	else if (type == CHILD) esf->setMaterialName("smile");
-	centroNode = mNode->createChildSceneNode("centroNode");
+	esf = mSM->createEntity("sphere.mesh");
+	centroNode = ficticioNode->createChildSceneNode();
 	centroNode->attachObject(esf);
 	centroNode->setScale(1.5 * size, 1.5 * size, 1.5 * size);
 
@@ -14,8 +16,8 @@ Dron::Dron(SceneNode* m, float size, DronType t, int nh, int nb, bool adorno) : 
 	brazos = new BrazoDron*[numBrazos];
 	float rot = 360.0f / numBrazos;
 	for (int i = 0; i < numBrazos; i++) {
-		SceneNode* aux = mNode->createChildSceneNode("brazoNode" + std::to_string(i));
-		brazos[i] = new BrazoDron(aux, size, type != ORIGINAL, i, numHelices, adorno);
+		SceneNode* aux = ficticioNode->createChildSceneNode();
+		brazos[i] = new BrazoDron(aux, size, txt, i, numHelices, adorno);
 		aux->yaw(Ogre::Degree(rot * i));
 		aux->translate(220 * size, 0, 0, SceneNode::TS_LOCAL);
 	}

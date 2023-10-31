@@ -7,25 +7,25 @@
 Molino::Molino(SceneNode* m) : EntidadIG(m), spin(false), state(NORMAL), counter(0) {
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
-	techoNode = mNode->createChildSceneNode("techoNode");
+	techoNode = mNode->createChildSceneNode();
 	techoNode->attachObject(esf);
 	techoNode->setScale(1, 1, 1);
 
 	// Cuerpo
 	Entity* cuerp = mSM->createEntity("Barrel.mesh");
-	cuerpoNode = mNode->createChildSceneNode("cuerpoNode");
+	cuerpoNode = mNode->createChildSceneNode();
 	cuerpoNode->attachObject(cuerp);
 	cuerpoNode->setScale(40, 50, 40);
 	cuerpoNode->setPosition(0, -150, 0);
 
 	// Aspas
-	nodoFicticio = mNode->createChildSceneNode("nodoFicticio");
-	SceneNode* auxNode = nodoFicticio->createChildSceneNode("aspasMolinoNode");
+	nodoFicticio = mNode->createChildSceneNode();
+	SceneNode* auxNode = nodoFicticio->createChildSceneNode();
 	auxNode->setPosition(0, 0, 110);
 	aspasNode = new Aspas(auxNode, 2, 2, 6, false);
 
 	// Plano
-	SceneNode* aux = mNode->createChildSceneNode("planoMolinoNode");
+	SceneNode* aux = mNode->createChildSceneNode();
 	suelo = new Plano(aux, "molino", 300, 300, "grassTexture");
 	aux->translate(Vector3(0, -310, 0));
 }
@@ -37,10 +37,10 @@ Molino::~Molino() {
 bool Molino::keyPressed(const OgreBites::KeyboardEvent& evt) {
 	if (evt.keysym.sym == SDLK_h) {
 		// Opcion 1 -> rotar con yaw
-		mNode->getChild("nodoFicticio")->yaw(Ogre::Degree(3));
+		nodoFicticio->yaw(Ogre::Degree(3));
 
 		// Opcion 2 -> trasladar, rotar, trasladar
-		/*Node* aux = mNode->getChild("aspasMolinoNode");
+		/*Node* aux = aspasNode->getNode();
 		aux->translate(0, 0, -110);
 		aux->yaw(Ogre::Degree(3));
 		aux->translate(0, 0, 110);*/

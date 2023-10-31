@@ -2,10 +2,6 @@
 
 #include "Aspas.h"
 
-enum DronType {
-	ORIGINAL, MOTHER, CHILD
-};
-
 class RotorDron : public EntidadIG {
 protected:
 	int numHelices;

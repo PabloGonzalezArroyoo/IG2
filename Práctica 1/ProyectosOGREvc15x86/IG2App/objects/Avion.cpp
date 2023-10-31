@@ -1,62 +1,65 @@
 #include "Avion.h"
 
-Avion::Avion(SceneNode* m, Vector3 pos, float size, bool txt) : EntidadIG(m), spin(false), stop(false), counter(0) {
+Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : EntidadIG(m), spin(false), stop(false), counter(0) {
 	// Nodo ficticio
-	ficticioNode = mNode->createChildSceneNode("ficticioAvionNode");
-	ficticioNode->setPosition(Vector3(pos.x, 0, 0));
-	offset = -1000;
+	ficticioNode = mNode->createChildSceneNode();
+	ficticioNode->setPosition(pos);
 
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
-	cuerpoNode = ficticioNode->createChildSceneNode("centroAvionNode");
+	cuerpoNode = ficticioNode->createChildSceneNode();
 	cuerpoNode->attachObject(esf);
 	cuerpoNode->setScale(1.5 * size, 1.5 * size, 1.5 * size);
-	cuerpoNode->translate(Vector3(offset, 0, 0) * size);
+	cuerpoNode->translate(offset + Vector3(0, cuerpoNode->getScale().y * 100, 0));
+
+	Vector3 bolaPos = cuerpoNode->getPosition();
 	
 	// Luz
-	Light* foco = mSM->createLight("focoAvion");
-	foco->setType(Light::LT_SPOTLIGHT);
-	foco->setDiffuseColour(0.75, 0.75, 0.75);
-	focoNode = cuerpoNode->createChildSceneNode("focoAvionNode");
-	focoNode->attachObject(foco);
-	focoNode->setDirection(Vector3(0, -1, 0));
+	if (!txt) {
+		Light* foco = mSM->createLight("focoAvion");
+		foco->setType(Light::LT_SPOTLIGHT);
+		foco->setDiffuseColour(0.75, 0.75, 0.75);
+		focoNode = cuerpoNode->createChildSceneNode();
+		focoNode->attachObject(foco);
+		focoNode->setDirection(Vector3(0, -1, 0));
+	}
 
 	// Piloto
 	Entity* piloto = mSM->createEntity("ninja.mesh");
-	pilotoNode = ficticioNode->createChildSceneNode("pilotoAvionNode");
+	pilotoNode = ficticioNode->createChildSceneNode();
 	pilotoNode->attachObject(piloto);
 	pilotoNode->setScale(0.8 * size, 0.8 * size, 0.8 * size);
-	pilotoNode->translate(Vector3(offset, 55, 0) * size);
+	pilotoNode->translate(bolaPos + Vector3(0, 55, 0) * size);
 	pilotoNode->yaw(Degree(180));
 
 	// Alas
 	Entity* alaI = mSM->createEntity("cube.mesh");
-	alaINode = ficticioNode->createChildSceneNode("alaIAvionNode");
+	alaINode = ficticioNode->createChildSceneNode();
 	alaINode->attachObject(alaI);
 	alaINode->setScale(4 * size, 0.2 * size, 1.5 * size);
-	alaINode->translate(Vector3(-250 + offset, 0, 0) * size);
+	alaINode->translate(bolaPos + Vector3(-250, 0, 0) * size);
 	Entity* alaD = mSM->createEntity("cube.mesh");
-	alaDNode = ficticioNode->createChildSceneNode("alaDAvionNode");
+	alaDNode = ficticioNode->createChildSceneNode();
 	alaDNode->attachObject(alaD);
 	alaDNode->setScale(4 * size, 0.2 * size, 1.5 * size);
-	alaDNode->translate(Vector3(250 + offset, 0, 0) * size);
+	alaDNode->translate(bolaPos + Vector3(250, 0, 0) * size);
 
 	// Frente
 	Entity* fnt = mSM->createEntity("Barrel.mesh");
-	frenteNode = ficticioNode->createChildSceneNode("fntAvionNode");
+	frenteNode = ficticioNode->createChildSceneNode();
 	frenteNode->attachObject(fnt);
 	frenteNode->setScale(15 * size, 4 * size, 15 * size);
-	frenteNode->translate(Vector3(offset, 0, 150) * size);
+	frenteNode->translate(bolaPos + Vector3(0, 0, 150) * size);
 	frenteNode->pitch(Degree(90));
 
 	// Helices
 	helicesNode = new Aspas*[2];
 	for (int i = 0; i < 2; i++) {
-		SceneNode* node = ficticioNode->createChildSceneNode("heliceAvionNode" + std::to_string(i));
-		Aspas* aux = new Aspas(node, 1 * size, i, 5, false);
+		SceneNode* node = ficticioNode->createChildSceneNode();
+		Aspas* aux = new Aspas(node, 1 * size, 5, true);
 		helicesNode[i] = aux;
-		if (i == 0) node->translate(Vector3(250 + offset, 0, 80) * size);
-		else if (i == 1) node->translate(Vector3(-250 + offset, 0, 80) * size);
+		if (i == 0) node->translate(bolaPos + Vector3(250, 0, 80) * size);
+		else if (i == 1) node->translate(bolaPos + Vector3(-250, 0, 80) * size);
 	}
 
 	if (txt) {

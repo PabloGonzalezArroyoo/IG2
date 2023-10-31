@@ -39,5 +39,7 @@ public:
 
 	void sendEvent(MessageType msg, EntidadIG* entidad);
 	virtual void receiveEvent(MessageType msg, EntidadIG* entidad) {};
+
+	SceneNode* getNode() { return mNode; }
 };
 

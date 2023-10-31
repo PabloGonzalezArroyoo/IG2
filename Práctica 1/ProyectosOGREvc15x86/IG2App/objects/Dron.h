@@ -4,14 +4,15 @@
 
 class Dron : public EntidadIG {
 protected:
-	DronType type;
+	Entity* esf;
 	int numHelices = 12, numBrazos = 8;
 
 public:
 	BrazoDron** brazos = nullptr;
 	SceneNode* centroNode = nullptr;
+	SceneNode* ficticioNode = nullptr;
 
-	Dron(SceneNode* m, float size, DronType t, int nh = 12, int nb = 8, bool adorno = false);
+	Dron(SceneNode* m, Vector3 pos, float size, bool txt, int nh = 12, int nb = 8, bool adorno = false);
 	virtual ~Dron();
 	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
 };

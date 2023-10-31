@@ -223,19 +223,28 @@ void IG2App::setupScene(void)
 
 	// ----------- APARTADOS 33 al 42 ----------
 	#pragma region Droncitos
+	// Planeta
+	Entity* esf = mSM->createEntity("sphere.mesh");
+	esf->setMaterialName("cyan");
+	SceneNode* planet = mSM->getRootSceneNode()->createChildSceneNode();
+	planet->attachObject(esf);
+	planet->setScale(4, 4, 4);
+	Vector3 pPos = planet->getPosition();
+	Vector3 pOffset = Vector3(0, planet->getScale().x * 100, 0);
+
 	// Avion
 	/*SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
-	avion = new Avion(avionNode, Vector3(0, 0, 0), 0.2, true);
+	avion = new Avion(avionNode, pPos, 0.125, pOffset, true);
 	addInputListener(avion);*/
 
 	SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
-	dron = new Dron(dronNode, 1, DronType::MOTHER, 3, 3, true);
+	nodriza = new DronNodriza(dronNode, pPos, 0.125, pOffset);
+	/*for (int i = 0; i < 400; i++) {
+		new Dron(dronNode, pPos, 0.125, pOffset, DronType::MOTHER, 3, 3, true);
+	}*/
 	//dron = new Dron(dronNode, 0.5, DronType::CHILD, 3, 3, true);
-	addInputListener(dron);
+	//addInputListener(dron);
 	#pragma endregion
-
-	
-
 
 	//------------------------------------------------------------------------
 
