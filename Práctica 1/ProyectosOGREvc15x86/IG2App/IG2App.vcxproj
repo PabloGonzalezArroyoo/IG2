@@ -126,8 +126,6 @@
     <ClInclude Include="objects\Avion.h" />
     <ClInclude Include="objects\BrazoDron.h" />
     <ClInclude Include="objects\Dron.h" />
-    <ClInclude Include="objects\Droncito.h" />
-    <ClInclude Include="objects\DronNodriza.h" />
     <ClInclude Include="objects\EntidadIG.h" />
     <ClInclude Include="objects\Molino.h" />
     <ClInclude Include="objects\Plano.h" />
@@ -143,8 +141,6 @@
     <ClCompile Include="objects\Avion.cpp" />
     <ClCompile Include="objects\BrazoDron.cpp" />
     <ClCompile Include="objects\Dron.cpp" />
-    <ClCompile Include="objects\Droncito.cpp" />
-    <ClCompile Include="objects\DronNodriza.cpp" />
     <ClCompile Include="objects\EntidadIG.cpp" />
     <ClCompile Include="objects\Molino.cpp" />
     <ClCompile Include="objects\Plano.cpp" />

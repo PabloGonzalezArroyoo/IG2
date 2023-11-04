@@ -192,7 +192,7 @@ void IG2App::setupScene(void)
 	// ----------- APARTADOS 13 al 16 ----------
 	#pragma region RotorDron
 	/*SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
-	dron = new Dron(dronNode, 1, DronType::ORIGINAL);
+	dron = new Dron(dronNode, Vector3(0, 0, 0), 1, DronType::ORIGINAL);
 	addInputListener(dron);*/
 	#pragma endregion
 
@@ -233,15 +233,19 @@ void IG2App::setupScene(void)
 	Vector3 pOffset = Vector3(0, planet->getScale().x * 100, 0);
 
 	// Avion
-	/*SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
+	SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
 	avion = new Avion(avionNode, pPos, 0.125, pOffset, true);
-	addInputListener(avion);*/
+	addInputListener(avion);
 
 	SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
-	nodriza = new DronNodriza(dronNode, pPos, 0.125, pOffset);
-	/*for (int i = 0; i < 400; i++) {
-		new Dron(dronNode, pPos, 0.125, pOffset, DronType::MOTHER, 3, 3, true);
-	}*/
+	nodriza = new Dron(dronNode, pPos, 0.125, DronType::MOTHER, 3, 3, pOffset);
+	float divisions = 360.0f / 30.0f;
+	for (int i = 0; i < 30; i++) {
+		Dron* dr = new Dron(dronNode, pPos, 0.04, DronType::CHILD, 3, 3, pOffset);
+		dr->getFicticiousNode()->yaw(Degree(divisions * i));
+		dr->getFicticiousNode()->pitch(Degree(90));
+		droncitos.push_back(dr);
+	}
 	//dron = new Dron(dronNode, 0.5, DronType::CHILD, 3, 3, true);
 	//addInputListener(dron);
 	#pragma endregion

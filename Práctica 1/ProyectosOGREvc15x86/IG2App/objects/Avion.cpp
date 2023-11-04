@@ -1,6 +1,7 @@
 #include "Avion.h"
 
-Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : EntidadIG(m), spin(false), stop(false), counter(0) {
+Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : EntidadIG(m), spin(false), stop(false), counter(0),
+	orbit(false) {
 	// Nodo ficticio
 	ficticioNode = mNode->createChildSceneNode();
 	ficticioNode->setPosition(pos);
@@ -84,6 +85,9 @@ bool Avion::keyPressed(const OgreBites::KeyboardEvent& evt) {
 		if (!stop) spin ? spin = false : spin = true;
 		else { stop = false; spin = true; }
 	}
+	else if (evt.keysym.sym == SDLK_h) orbit = !orbit;
+	else if (evt.keysym.sym == SDLK_j) ficticioNode->yaw(Degree(-1));
+
 	return false;
 }
 
@@ -100,6 +104,7 @@ void Avion::frameRendered(const FrameEvent& evt) {
 			stop = false;
 		}
 	}
+	if (orbit) ficticioNode->pitch(Degree(1));
 };
 
 void Avion::receiveEvent(MessageType msg, EntidadIG* entidad) {

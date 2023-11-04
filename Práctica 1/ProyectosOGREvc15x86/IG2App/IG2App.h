@@ -8,8 +8,7 @@
 #include <OgreCameraMan.h>
 #include <vector>
 #include "objects/Molino.h"
-#include "objects/DronNodriza.h"
-#include "objects/Droncito.h"
+#include "objects/Dron.h"
 #include "objects/Avion.h"
 #include "objects/Rio.h"
 
@@ -52,8 +51,8 @@ protected:
     //
     // Práctica 1 : Apartados 33 al 42
     Avion* avion = nullptr;
-    DronNodriza* nodriza = nullptr;
-    //vector<Dron*> droncitos;
+    Dron* nodriza = nullptr;
+    std::vector<Dron*> droncitos;
 };
 
 #endif

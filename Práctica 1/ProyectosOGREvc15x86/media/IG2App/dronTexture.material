@@ -20,11 +20,12 @@ material smile
     {
         pass
         {
-            lighting off
+            diffuse 0.5 0.5 0.5
 
             texture_unit
             {
                 texture smile.png
+                colour_op add
                 env_map spherical
             }
         }

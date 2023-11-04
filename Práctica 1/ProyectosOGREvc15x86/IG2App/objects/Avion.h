@@ -5,7 +5,7 @@
 class Avion : public EntidadIG {
 protected:
 	float counter;
-	bool spin, stop;
+	bool spin, stop, orbit;
 
 	SceneNode* cuerpoNode = nullptr;
 	SceneNode* alaINode = nullptr;
