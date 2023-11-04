@@ -12,6 +12,7 @@ protected:
 	DronType type;
 	int numHelices = 12, numBrazos = 8;
 	float timer;
+	bool stop;
 
 public:
 	BrazoDron** brazos = nullptr;

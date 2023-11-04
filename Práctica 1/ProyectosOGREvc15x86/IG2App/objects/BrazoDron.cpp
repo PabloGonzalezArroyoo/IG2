@@ -1,6 +1,6 @@
 #include "BrazoDron.h"
 
-BrazoDron::BrazoDron(SceneNode* m, float size, bool txt, int id, int nh, bool adorno) : EntidadIG(m) {
+BrazoDron::BrazoDron(SceneNode* m, bool txt, int id, int nh, bool adorno) : EntidadIG(m) {
 	Entity* cil = mSM->createEntity("Barrel.mesh");
 	if (txt) cil->setMaterialName("arms");
 	cilindroNode = mNode->createChildSceneNode();
@@ -8,14 +8,14 @@ BrazoDron::BrazoDron(SceneNode* m, float size, bool txt, int id, int nh, bool ad
 	cilindroNode->roll(Degree(90));
 
 	SceneNode* aux = mNode->createChildSceneNode();
-	rotorNode = new RotorDron(aux, size, txt, nh, id, adorno);
+	rotorNode = new RotorDron(aux, txt, nh, id, adorno);
 
-	cilindroNode->setScale(10 * size, 40 * size, 10 * size);
-	aux->setPosition(130 * size, 0, 0);
+	cilindroNode->setScale(6, 24, 6);
+	aux->translate(110, 0, 0);
 
 	if (txt && id % 2 != 0) {
-		cilindroNode->setScale(15 * size, 50 * size, 15 * size);
-		aux->setPosition(220 * size, 0, 0);
+		cilindroNode->setScale(9, 30, 9);
+		aux->translate(30, 0, 0);
 	}
 }
 

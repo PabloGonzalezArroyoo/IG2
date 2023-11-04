@@ -239,12 +239,13 @@ void IG2App::setupScene(void)
 
 	SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
 	nodriza = new Dron(dronNode, pPos, 0.125, DronType::MOTHER, 3, 3, pOffset);
-	float divisions = 360.0f / 30.0f;
-	for (int i = 0; i < 30; i++) {
+	float divisions = 360.0f / numDroncitos;
+	for (int i = 0; i < numDroncitos; i++) {
 		Dron* dr = new Dron(dronNode, pPos, 0.04, DronType::CHILD, 3, 3, pOffset);
 		dr->getFicticiousNode()->yaw(Degree(divisions * i));
 		dr->getFicticiousNode()->pitch(Degree(90));
 		droncitos.push_back(dr);
+		addInputListener(dr);
 	}
 	//dron = new Dron(dronNode, 0.5, DronType::CHILD, 3, 3, true);
 	//addInputListener(dron);

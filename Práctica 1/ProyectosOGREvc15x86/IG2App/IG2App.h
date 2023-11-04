@@ -53,6 +53,7 @@ protected:
     Avion* avion = nullptr;
     Dron* nodriza = nullptr;
     std::vector<Dron*> droncitos;
+    int numDroncitos = 30;
 };
 
 #endif

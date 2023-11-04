@@ -7,7 +7,7 @@ public:
 	RotorDron* rotorNode = nullptr;
 	SceneNode* cilindroNode = nullptr;
 
-	BrazoDron(SceneNode* m, float size, bool txt, int id, int nh, bool adorno = false);
+	BrazoDron(SceneNode* m, bool txt, int id, int nh, bool adorno = false);
 	virtual ~BrazoDron() {};
 
 	void mueveHelices(int sign = 1);
