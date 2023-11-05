@@ -1,7 +1,6 @@
 #include "Avion.h"
 
-Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : EntidadIG(m), spin(false), stop(false), counter(0),
-	orbit(false) {
+Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : EntidadIG(m), spin(false), stop(false), counter(0) {
 	// Nodo ficticio
 	ficticioNode = mNode->createChildSceneNode();
 	ficticioNode->setPosition(pos);
@@ -12,8 +11,6 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : 
 	cuerpoNode->attachObject(esf);
 	cuerpoNode->setScale(1.5 * size, 1.5 * size, 1.5 * size);
 	cuerpoNode->translate(offset + Vector3(0, cuerpoNode->getScale().y * 100, 0));
-
-	Vector3 bolaPos = cuerpoNode->getPosition();
 	
 	// Luz
 	if (!txt) {
@@ -27,40 +24,40 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : 
 
 	// Piloto
 	Entity* piloto = mSM->createEntity("ninja.mesh");
-	pilotoNode = ficticioNode->createChildSceneNode();
+	pilotoNode = cuerpoNode->createChildSceneNode();
 	pilotoNode->attachObject(piloto);
-	pilotoNode->setScale(0.8 * size, 0.8 * size, 0.8 * size);
-	pilotoNode->translate(bolaPos + Vector3(0, 55, 0) * size);
+	pilotoNode->setScale(0.5, 0.5, 0.5);
+	pilotoNode->translate(Vector3(0, 40, 0));
 	pilotoNode->yaw(Degree(180));
 
 	// Alas
 	Entity* alaI = mSM->createEntity("cube.mesh");
-	alaINode = ficticioNode->createChildSceneNode();
+	alaINode = cuerpoNode->createChildSceneNode();
 	alaINode->attachObject(alaI);
-	alaINode->setScale(4 * size, 0.2 * size, 1.5 * size);
-	alaINode->translate(bolaPos + Vector3(-250, 0, 0) * size);
+	alaINode->setScale(2.5, 0.15, 1);
+	alaINode->translate(Vector3(-200, 0, 0));
 	Entity* alaD = mSM->createEntity("cube.mesh");
-	alaDNode = ficticioNode->createChildSceneNode();
+	alaDNode = cuerpoNode->createChildSceneNode();
 	alaDNode->attachObject(alaD);
-	alaDNode->setScale(4 * size, 0.2 * size, 1.5 * size);
-	alaDNode->translate(bolaPos + Vector3(250, 0, 0) * size);
+	alaDNode->setScale(2.5, 0.15, 1);
+	alaDNode->translate(Vector3(200, 0, 0));
 
 	// Frente
 	Entity* fnt = mSM->createEntity("Barrel.mesh");
-	frenteNode = ficticioNode->createChildSceneNode();
+	frenteNode = cuerpoNode->createChildSceneNode();
 	frenteNode->attachObject(fnt);
-	frenteNode->setScale(15 * size, 4 * size, 15 * size);
-	frenteNode->translate(bolaPos + Vector3(0, 0, 150) * size);
+	frenteNode->setScale(8, 2, 8);
+	frenteNode->translate(Vector3(0, 0, 100));
 	frenteNode->pitch(Degree(90));
 
 	// Helices
 	helicesNode = new Aspas*[2];
 	for (int i = 0; i < 2; i++) {
-		SceneNode* node = ficticioNode->createChildSceneNode();
-		Aspas* aux = new Aspas(node, 1 * size, 5, true);
+		SceneNode* node = cuerpoNode->createChildSceneNode();
+		Aspas* aux = new Aspas(node, 0.6, 5, true);
 		helicesNode[i] = aux;
-		if (i == 0) node->translate(bolaPos + Vector3(250, 0, 80) * size);
-		else if (i == 1) node->translate(bolaPos + Vector3(-250, 0, 80) * size);
+		if (i == 0) node->translate(Vector3(200, 0, 53));
+		else if (i == 1) node->translate(Vector3(-200, 0, 53));
 	}
 
 	if (txt) {
@@ -82,10 +79,10 @@ bool Avion::keyPressed(const OgreBites::KeyboardEvent& evt) {
 		return true;
 	}
 	else if (evt.keysym.sym == SDLK_f) {
-		if (!stop) spin ? spin = false : spin = true;
+		if (!stop) spin = !spin;
 		else { stop = false; spin = true; }
 	}
-	else if (evt.keysym.sym == SDLK_h) orbit = !orbit;
+	else if (evt.keysym.sym == SDLK_h) ficticioNode->pitch(Degree(1));
 	else if (evt.keysym.sym == SDLK_j) ficticioNode->yaw(Degree(-1));
 
 	return false;
@@ -104,7 +101,6 @@ void Avion::frameRendered(const FrameEvent& evt) {
 			stop = false;
 		}
 	}
-	if (orbit) ficticioNode->pitch(Degree(1));
 };
 
 void Avion::receiveEvent(MessageType msg, EntidadIG* entidad) {

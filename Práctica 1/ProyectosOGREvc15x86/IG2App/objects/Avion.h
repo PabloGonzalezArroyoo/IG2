@@ -5,7 +5,7 @@
 class Avion : public EntidadIG {
 protected:
 	float counter;
-	bool spin, stop, orbit;
+	bool spin, stop;
 
 	SceneNode* cuerpoNode = nullptr;
 	SceneNode* alaINode = nullptr;
@@ -21,6 +21,8 @@ protected:
 public:
 	Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt = false);
 	virtual ~Avion();
+
+	SceneNode* getCuerpoNode() { return cuerpoNode; }
 
 	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
 

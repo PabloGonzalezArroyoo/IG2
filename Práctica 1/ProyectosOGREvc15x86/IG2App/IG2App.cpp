@@ -24,6 +24,35 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt)
 		hoursNode->roll(Ogre::Degree(-2));
 	}*/
 	#pragma endregion
+
+	// ----------- APARTADOS 32 al 42 -----------
+	#pragma region Drones
+	else if (evt.keysym.sym == SDLK_h) {
+		AxisAlignedBox bAvion = avion->getCuerpoNode()->_getWorldAABB();
+		
+		// Recorrer drones detectando colisiones con el avión
+		std::vector<std::list<Dron*>::iterator> dronsToDelete;
+		for (auto d = droncitos.begin(); d != droncitos.end(); d++) {
+			Dron* dr = *d;
+			AxisAlignedBox aabb = bAvion.intersection(dr->getCuerpoNode()->_getWorldAABB());
+			if (!aabb.isNull() && dr->receiveDamage()) {
+				dronsToDelete.push_back(d);
+				numDroncitos--;
+				if (numDroncitos <= 0) nodriza->setSphereMaterial("yellow");
+				dronsUI->setText(std::to_string(numDroncitos));
+			}
+		}
+
+		// Borrar memoria
+		for (auto d : dronsToDelete) {
+			Dron* dr = *d;
+			droncitos.erase(d);
+			delete dr;
+		}
+		dronsToDelete.clear();
+	}
+	#pragma endregion
+
   
 	return true;
 }
@@ -50,6 +79,7 @@ void IG2App::shutdown()
 
 void IG2App::setup(void)
 {
+	srand((unsigned)time);
 	// do not forget to call the base first
 	IG2ApplicationContext::setup();
 
@@ -62,6 +92,9 @@ void IG2App::setup(void)
 
 	mTrayMgr = new OgreBites::TrayManager("TrayGUISystem", mWindow.render);  
 	mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
+	dronsUI = mTrayMgr->createTextBox(OgreBites::TL_BOTTOMRIGHT, "DronesWidget", "Droncitos vivos", 200, 100);
+	dronsUI->appendText(std::to_string(numDroncitos));
+	dronsUI->setTextAlignment(TextAreaOverlayElement::Center);
 	addInputListener(mTrayMgr);
 
 	addInputListener(this);   
@@ -237,18 +270,21 @@ void IG2App::setupScene(void)
 	avion = new Avion(avionNode, pPos, 0.125, pOffset, true);
 	addInputListener(avion);
 
+	// Nodriza
 	SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
-	nodriza = new Dron(dronNode, pPos, 0.125, DronType::MOTHER, 3, 3, pOffset);
+	nodriza = new Dron(dronNode, pPos, 0.04, DronType::MOTHER, 3, 3, pOffset);
+	addInputListener(nodriza);
+
+	// Droncitos
 	float divisions = 360.0f / numDroncitos;
 	for (int i = 0; i < numDroncitos; i++) {
-		Dron* dr = new Dron(dronNode, pPos, 0.04, DronType::CHILD, 3, 3, pOffset);
-		dr->getFicticiousNode()->yaw(Degree(divisions * i));
-		dr->getFicticiousNode()->pitch(Degree(90));
+		int random = rand() % 360;
+		Dron* dr = new Dron(dronNode, pPos, 0.02, DronType::CHILD, 3, 3, pOffset);
+		dr->rotateDrone(Vector3(90, divisions * i, 0));
+		dr->rotateDrone(Vector3(0, random, 0));
 		droncitos.push_back(dr);
 		addInputListener(dr);
 	}
-	//dron = new Dron(dronNode, 0.5, DronType::CHILD, 3, 3, true);
-	//addInputListener(dron);
 	#pragma endregion
 
 	//------------------------------------------------------------------------
@@ -263,3 +299,14 @@ void IG2App::setupScene(void)
 	//------------------------------------------------------------------------
 }
 
+void IG2App::frameRendered(const FrameEvent& evt) {
+	OgreBites::KeyboardEvent key = OgreBites::KeyboardEvent();
+	key.keysym.sym = SDLK_h;
+	keyPressed(key);
+	avion->keyPressed(key);
+
+	if (rand() % 10 < 3) {
+		key.keysym.sym = SDLK_j;
+		avion->keyPressed(key);
+	}
+}

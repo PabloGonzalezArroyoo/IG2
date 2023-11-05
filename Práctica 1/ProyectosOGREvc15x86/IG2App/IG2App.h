@@ -7,6 +7,7 @@
 #include <OgreTrays.h>
 #include <OgreCameraMan.h>
 #include <vector>
+#include <list>
 #include "objects/Molino.h"
 #include "objects/Dron.h"
 #include "objects/Avion.h"
@@ -23,6 +24,8 @@ protected:
     virtual void setupScene();
     
     virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);  // InputListener
+
+    virtual void frameRendered(const FrameEvent& evt);
         
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;    
@@ -52,8 +55,9 @@ protected:
     // Práctica 1 : Apartados 33 al 42
     Avion* avion = nullptr;
     Dron* nodriza = nullptr;
-    std::vector<Dron*> droncitos;
-    int numDroncitos = 30;
+    std::list<Dron*> droncitos;
+    int numDroncitos = 400;
+    OgreBites::TextBox* dronsUI;
 };
 
 #endif
