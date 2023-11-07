@@ -1,7 +1,7 @@
 #include "Dron.h"
 
 Dron::Dron(SceneNode* m, Vector3 pos, float size, DronType t, int nh, int nb, Vector3 offset, bool adorno) : EntidadIG(m), numHelices(nh),
-	numBrazos(nb), type(t), stop(false) {
+	numBrazos(nb), type(t), stop(false), damage(true), dmgTimer(0) {
 	// Nodo ficticio
 	ficticioNode = mNode->createChildSceneNode();
 	ficticioNode->setPosition(pos);
@@ -33,18 +33,16 @@ Dron::Dron(SceneNode* m, Vector3 pos, float size, DronType t, int nh, int nb, Ve
 }
 
 Dron::~Dron(){
+	ficticioNode->removeAndDestroyAllChildren();
 	for (int i = 0; i < numBrazos; i++) delete brazos[i];
 	delete[] brazos;
 }
 
 bool Dron::receiveDamage() {
-	if (life > 0) {
+	if (life > 0 && damage) {
+		damage = false;
 		if (life == MAX_LIFE) esf->setMaterialName("red");
 		setLife(life - 1);
-		if (life <= 0) {
-			centroNode->setVisible(false);
-			ficticioNode->removeAndDestroyAllChildren();
-		}
 	}
 	return life <= 0;
 }
@@ -55,21 +53,31 @@ void Dron::rotateDrone(Vector3 v) {
 	ficticioNode->roll(Degree(v.z));
 }
 
-bool Dron::keyPressed(const OgreBites::KeyboardEvent& evt) {
-	if (evt.keysym.sym == SDLK_g) {
-		for (int i = 0; i < numBrazos; i++) {
-			if (i % 2 == 0) brazos[i]->mueveHelices(-1);
-			else brazos[i]->mueveHelices();
-		}
+void Dron::spinHelices() {
+	for (int i = 0; i < numBrazos; i++) {
+		if (i % 2 == 0) brazos[i]->mueveHelices(-1);
+		else brazos[i]->mueveHelices();
 	}
+}
 
-	return true;
+bool Dron::keyPressed(const OgreBites::KeyboardEvent& evt) {
+	if (evt.keysym.sym == SDLK_g) { spinHelices(); return true; }
+
+	return false;
 }
 
 void Dron::frameRendered(const FrameEvent& evt) {
 	if (type != ORIGINAL) {
+		spinHelices();
+
+		if (!damage) {
+			dmgTimer += evt.timeSinceLastEvent;
+			if (dmgTimer > 0.5) { damage = true; dmgTimer = 0; }
+		}
+
 		if (!stop) rotateDrone(Vector3(0.3, 0, 0));
 		else rotateDrone(Vector3(0, 0.5 * sign, 0));
+
 		timer += evt.timeSinceLastFrame;
 		if (!stop && timer > 2) {
 			stop = true;

@@ -23,6 +23,8 @@ protected:
     virtual void shutdown();
     virtual void setupScene();
     
+    void gameControl();
+
     virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);  // InputListener
 
     virtual void frameRendered(const FrameEvent& evt);

@@ -70,20 +70,34 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : 
 }
 
 Avion::~Avion() {
+	ficticioNode->removeAndDestroyAllChildren();
 	delete helicesNode; helicesNode = nullptr;
+}
+
+void Avion::rotateHelices() {
+	for (int i = 0; i < 2; i++) helicesNode[i]->rotateAspas();
 }
 
 bool Avion::keyPressed(const OgreBites::KeyboardEvent& evt) {
 	if (evt.keysym.sym == SDLK_g) {
-		for (int i = 0; i < 2; i++) helicesNode[i]->rotateAspas();
+		rotateHelices();
 		return true;
 	}
 	else if (evt.keysym.sym == SDLK_f) {
 		if (!stop) spin = !spin;
 		else { stop = false; spin = true; }
+		return true;
 	}
-	else if (evt.keysym.sym == SDLK_h) ficticioNode->pitch(Degree(1));
-	else if (evt.keysym.sym == SDLK_j) ficticioNode->yaw(Degree(-1));
+	else if (evt.keysym.sym == SDLK_h) {
+		ficticioNode->pitch(Degree(1));
+		rotateHelices();
+		return true;
+	}
+	else if (evt.keysym.sym == SDLK_j) {
+		ficticioNode->yaw(Degree(-1));
+		rotateHelices();
+		return true;
+	}
 
 	return false;
 }

@@ -37,9 +37,7 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt)
 			AxisAlignedBox aabb = bAvion.intersection(dr->getCuerpoNode()->_getWorldAABB());
 			if (!aabb.isNull() && dr->receiveDamage()) {
 				dronsToDelete.push_back(d);
-				numDroncitos--;
-				if (numDroncitos <= 0) nodriza->setSphereMaterial("yellow");
-				dronsUI->setText(std::to_string(numDroncitos));
+				gameControl();
 			}
 		}
 
@@ -92,9 +90,12 @@ void IG2App::setup(void)
 
 	mTrayMgr = new OgreBites::TrayManager("TrayGUISystem", mWindow.render);  
 	mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
+
+	// UI Drones
 	dronsUI = mTrayMgr->createTextBox(OgreBites::TL_BOTTOMRIGHT, "DronesWidget", "Droncitos vivos", 200, 100);
 	dronsUI->appendText(std::to_string(numDroncitos));
 	dronsUI->setTextAlignment(TextAreaOverlayElement::Center);
+
 	addInputListener(mTrayMgr);
 
 	addInputListener(this);   
@@ -119,7 +120,7 @@ void IG2App::setupScene(void)
 	
 	// and tell it to render into the main window
 	Viewport* vp = getRenderWindow()->addViewport(cam);
-	vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
+	//vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
 
 	//------------------------------------------------------------------------
 
@@ -297,6 +298,12 @@ void IG2App::setupScene(void)
 	//mCamMgr->setYawPitchDist(Radian(0), Degree(30), 100);
 
 	//------------------------------------------------------------------------
+}
+
+void IG2App::gameControl() {
+	numDroncitos--;
+	if (numDroncitos <= 0) nodriza->setSphereMaterial("yellow");
+	dronsUI->setText(std::to_string(numDroncitos));
 }
 
 void IG2App::frameRendered(const FrameEvent& evt) {
