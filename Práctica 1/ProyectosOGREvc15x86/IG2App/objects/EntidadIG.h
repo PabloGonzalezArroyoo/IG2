@@ -6,6 +6,7 @@
 #include <OgreSceneManager.h>
 #include <OgreMeshManager.h>
 #include <OgreFrameListener.h>
+#include <OgreTimer.h>
 #include <SDL_keycode.h>
 #include <vector>
 #include <iostream>

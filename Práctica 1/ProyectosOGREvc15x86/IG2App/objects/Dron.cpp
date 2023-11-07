@@ -1,7 +1,8 @@
 #include "Dron.h"
 
 Dron::Dron(SceneNode* m, Vector3 pos, float size, DronType t, int nh, int nb, Vector3 offset, bool adorno) : EntidadIG(m), numHelices(nh),
-	numBrazos(nb), type(t), stop(false), damage(true), dmgTimer(0) {
+	numBrazos(nb), type(t), stop(false), damage(true), dmgTimer(), timer() {
+	
 	// Nodo ficticio
 	ficticioNode = mNode->createChildSceneNode();
 	ficticioNode->setPosition(pos);
@@ -71,21 +72,19 @@ void Dron::frameRendered(const FrameEvent& evt) {
 		spinHelices();
 
 		if (!damage) {
-			dmgTimer += evt.timeSinceLastEvent;
-			if (dmgTimer > 0.5) { damage = true; dmgTimer = 0; }
+			if (dmgTimer.getMilliseconds() > 500) { damage = true; dmgTimer.reset(); }
 		}
 
 		if (!stop) rotateDrone(Vector3(0.3, 0, 0));
 		else rotateDrone(Vector3(0, 0.5 * sign, 0));
 
-		timer += evt.timeSinceLastFrame;
-		if (!stop && timer > 2) {
+		if (!stop && timer.getMilliseconds() > 2000) {
 			stop = true;
 			rand() % 2 == 0 ? sign = 1 : sign = -1;
 		}
-		else if (stop && timer > 4) {
+		else if (stop && timer.getMilliseconds() > 4000) {
 			stop = false;
-			timer = 0;
+			timer.reset();
 		}
 	}
 }

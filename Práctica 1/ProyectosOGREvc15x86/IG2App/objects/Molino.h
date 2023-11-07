@@ -11,7 +11,7 @@ class Molino : public EntidadIG {
 protected:
 	bool spin;
 	MolinoState state;
-	float counter;
+	Timer timer;
 
 	virtual void frameRendered(const FrameEvent& evt);
 

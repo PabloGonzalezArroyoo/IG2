@@ -11,7 +11,7 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt)
 {
 	if (evt.keysym.sym == SDLK_ESCAPE)
 	{
-	  getRoot()->queueEndRendering();
+		getRoot()->queueEndRendering();
 	}
 	//else if (evt.keysym.sym == SDLK_???)
 
@@ -23,32 +23,13 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt)
 	else if (evt.keysym.sym == SDLK_h) {
 		hoursNode->roll(Ogre::Degree(-2));
 	}*/
-	#pragma endregion
-
+		#pragma endregion
+	
 	// ----------- APARTADOS 32 al 42 -----------
 	#pragma region Drones
-	else if (evt.keysym.sym == SDLK_h) {
-		AxisAlignedBox bAvion = avion->getCuerpoNode()->_getWorldAABB();
-		
-		// Recorrer drones detectando colisiones con el avión
-		std::vector<std::list<Dron*>::iterator> dronsToDelete;
-		for (auto d = droncitos.begin(); d != droncitos.end(); d++) {
-			Dron* dr = *d;
-			AxisAlignedBox aabb = bAvion.intersection(dr->getCuerpoNode()->_getWorldAABB());
-			if (!aabb.isNull() && dr->receiveDamage()) {
-				dronsToDelete.push_back(d);
-				gameControl();
-			}
-		}
+	else if (evt.keysym.sym == SDLK_a) automatic = !automatic;
 
-		// Borrar memoria
-		for (auto d : dronsToDelete) {
-			Dron* dr = *d;
-			droncitos.erase(d);
-			delete dr;
-		}
-		dronsToDelete.clear();
-	}
+	else if (evt.keysym.sym == SDLK_h && !automatic) checkCollisions();
 	#pragma endregion
 
   
@@ -95,6 +76,9 @@ void IG2App::setup(void)
 	dronsUI = mTrayMgr->createTextBox(OgreBites::TL_BOTTOMRIGHT, "DronesWidget", "Droncitos vivos", 200, 100);
 	dronsUI->appendText(std::to_string(numDroncitos));
 	dronsUI->setTextAlignment(TextAreaOverlayElement::Center);
+
+	// Control automatico del avion desactivado
+	automatic = false;
 
 	addInputListener(mTrayMgr);
 
@@ -300,6 +284,29 @@ void IG2App::setupScene(void)
 	//------------------------------------------------------------------------
 }
 
+void IG2App::checkCollisions() {
+	AxisAlignedBox bAvion = avion->getCuerpoNode()->_getWorldAABB();
+
+	// Recorrer drones detectando colisiones con el avión
+	std::vector<std::list<Dron*>::iterator> dronsToDelete;
+	for (auto d = droncitos.begin(); d != droncitos.end(); d++) {
+		Dron* dr = *d;
+		AxisAlignedBox aabb = bAvion.intersection(dr->getCuerpoNode()->_getWorldAABB());
+		if (!aabb.isNull() && dr->receiveDamage()) {
+			dronsToDelete.push_back(d);
+			gameControl();
+		}
+	}
+
+	// Borrar memoria
+	for (auto d : dronsToDelete) {
+		Dron* dr = *d;
+		droncitos.erase(d);
+		delete dr;
+	}
+	dronsToDelete.clear();
+}
+
 void IG2App::gameControl() {
 	numDroncitos--;
 	if (numDroncitos <= 0) nodriza->setSphereMaterial("yellow");
@@ -307,13 +314,10 @@ void IG2App::gameControl() {
 }
 
 void IG2App::frameRendered(const FrameEvent& evt) {
-	OgreBites::KeyboardEvent key = OgreBites::KeyboardEvent();
-	key.keysym.sym = SDLK_h;
-	keyPressed(key);
-	avion->keyPressed(key);
-
-	if (rand() % 10 < 3) {
-		key.keysym.sym = SDLK_j;
+	if (automatic) {
+		OgreBites::KeyboardEvent key = OgreBites::KeyboardEvent();
+		key.keysym.sym = SDLK_h;
 		avion->keyPressed(key);
+		checkCollisions();
 	}
 }

@@ -1,6 +1,6 @@
 #include "Avion.h"
 
-Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : EntidadIG(m), spin(false), stop(false), counter(0) {
+Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : EntidadIG(m), spin(false), stop(false), timer() {
 	// Nodo ficticio
 	ficticioNode = mNode->createChildSceneNode();
 	ficticioNode->setPosition(pos);
@@ -99,6 +99,12 @@ bool Avion::keyPressed(const OgreBites::KeyboardEvent& evt) {
 		return true;
 	}
 
+	else if (evt.keysym.sym == SDLK_k) {
+		ficticioNode->yaw(Degree(1));
+		rotateHelices();
+		return true;
+	}
+
 	return false;
 }
 
@@ -108,10 +114,9 @@ void Avion::frameRendered(const FrameEvent& evt) {
 		for (int i = 0; i < 2; i++) helicesNode[i]->rotateAspas();
 	}
 	if (stop) {
-		counter += evt.timeSinceLastFrame;
-		if (counter >= 5) {
+		if (timer.getMilliseconds() >= 5000) {
 			spin = false;
-			counter = 0;
+			timer.reset();
 			stop = false;
 		}
 	}
@@ -119,7 +124,7 @@ void Avion::frameRendered(const FrameEvent& evt) {
 
 void Avion::receiveEvent(MessageType msg, EntidadIG* entidad) {
 	if (spin && msg == TECLA_R && dynamic_cast<Rio*>(entidad) != nullptr) {
-		stop = true;
-		counter = 0;
+		stop = true; 
+		timer.reset();
 	}
 };

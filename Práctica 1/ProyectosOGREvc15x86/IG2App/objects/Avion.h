@@ -4,7 +4,7 @@
 
 class Avion : public EntidadIG {
 protected:
-	float counter;
+	Timer timer;
 	bool spin, stop;
 
 	SceneNode* cuerpoNode = nullptr;

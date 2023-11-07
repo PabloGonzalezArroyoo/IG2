@@ -17,8 +17,8 @@ protected:
 	Entity* esf;
 	DronType type;
 	int numHelices = 12, numBrazos = 8, life = MAX_LIFE, sign;
-	float timer, dmgTimer;
 	bool stop, damage;
+	Timer timer, dmgTimer;
 
 public:
 	Dron(SceneNode* m, Vector3 pos, float size, DronType t, int nh = 12, int nb = 8, Vector3 offset = Vector3(0, 0, 0), bool adorno = false);

@@ -22,6 +22,8 @@ protected:
     virtual void setup();
     virtual void shutdown();
     virtual void setupScene();
+
+    void checkCollisions();
     
     void gameControl();
 
@@ -56,6 +58,8 @@ protected:
     //
     // Práctica 1 : Apartados 33 al 42
     Avion* avion = nullptr;
+    bool automatic;
+
     Dron* nodriza = nullptr;
     std::list<Dron*> droncitos;
     int numDroncitos = 400;

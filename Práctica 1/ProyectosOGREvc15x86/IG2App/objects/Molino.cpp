@@ -4,7 +4,7 @@
 // Opción 1 -> nodo ficticio posicionado en el centro del molino que será padre de las aspas, rotar este
 // Opción 2 -> trasladar al origen, rotar, trasladar de vuelta
 
-Molino::Molino(SceneNode* m) : EntidadIG(m), spin(false), state(NORMAL), counter(0) {
+Molino::Molino(SceneNode* m) : EntidadIG(m), spin(false), state(NORMAL), timer() {
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
 	techoNode = mNode->createChildSceneNode();
@@ -61,11 +61,10 @@ bool Molino::keyReleased(const OgreBites::KeyboardEvent& evt) {
 void Molino::frameRendered(const FrameEvent& evt) {
 	if (spin) aspasNode->rotateAspas();
 	if (state == INTERVAL) {
-		counter += evt.timeSinceLastFrame;
-		if (!spin) spin = counter >= 1.0f;
+		if (!spin) spin = timer.getMilliseconds() >= 1000;
 		else {
-			spin = counter <= 4.0f;
-			if (!spin) counter = 0;
+			spin = timer.getMilliseconds() <= 4000;
+			if (!spin) timer.reset();
 		}
 	}
 }
