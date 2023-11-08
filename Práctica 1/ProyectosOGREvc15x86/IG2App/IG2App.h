@@ -12,6 +12,7 @@
 #include "objects/Dron.h"
 #include "objects/Avion.h"
 #include "objects/Rio.h"
+#include "objects/Sinbad.h"
 
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener {
 public:
@@ -57,13 +58,14 @@ protected:
     // Rio* rio = nullptr;
     //
     // Práctica 1 : Apartados 33 al 42
-    Avion* avion = nullptr;
-    bool automatic;
-
-    Dron* nodriza = nullptr;
-    std::list<Dron*> droncitos;
-    int numDroncitos = 400;
-    OgreBites::TextBox* dronsUI;
+    // Avion* avion = nullptr;
+    // bool automatic;
+    // Dron* nodriza = nullptr;
+    // std::list<Dron*> droncitos;
+    // int numDroncitos = 400;
+    // OgreBites::TextBox* dronsUI;
+    // Práctica 1 : Apartados 43 al 50
+    Sinbad* sb = nullptr;
 };
 
 #endif

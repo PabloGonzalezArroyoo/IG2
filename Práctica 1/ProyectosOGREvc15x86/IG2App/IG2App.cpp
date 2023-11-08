@@ -27,9 +27,9 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt)
 	
 	// ----------- APARTADOS 32 al 42 -----------
 	#pragma region Drones
-	else if (evt.keysym.sym == SDLK_a) automatic = !automatic;
+	/*else if (evt.keysym.sym == SDLK_a) automatic = !automatic;
 
-	else if (evt.keysym.sym == SDLK_h && !automatic) checkCollisions();
+	else if (evt.keysym.sym == SDLK_h && !automatic) checkCollisions();*/
 	#pragma endregion
 
   
@@ -72,13 +72,14 @@ void IG2App::setup(void)
 	mTrayMgr = new OgreBites::TrayManager("TrayGUISystem", mWindow.render);  
 	mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
 
-	// UI Drones
-	dronsUI = mTrayMgr->createTextBox(OgreBites::TL_BOTTOMRIGHT, "DronesWidget", "Droncitos vivos", 200, 100);
-	dronsUI->appendText(std::to_string(numDroncitos));
-	dronsUI->setTextAlignment(TextAreaOverlayElement::Center);
+	#pragma region Drones
+	//dronsUI = mTrayMgr->createTextBox(OgreBites::TL_BOTTOMRIGHT, "DronesWidget", "Droncitos vivos", 200, 100);
+	//dronsUI->appendText(std::to_string(numDroncitos));
+	//dronsUI->setTextAlignment(TextAreaOverlayElement::Center);
 
-	// Control automatico del avion desactivado
-	automatic = false;
+	//// Control automatico del avion desactivado
+	//automatic = false;
+	#pragma endregion
 
 	addInputListener(mTrayMgr);
 
@@ -118,7 +119,7 @@ void IG2App::setupScene(void)
 	//mLightNode = mCamNode->createChildSceneNode("nLuz");
 	mLightNode->attachObject(luz);
 
-	mLightNode->setDirection(Ogre::Vector3(0, 0, -1));  //vec3.normalise();
+	mLightNode->setDirection(Ogre::Vector3(0, -1, -1));  //vec3.normalise();
 	//lightNode->setPosition(0, 0, 1000);
  
 	//------------------------------------------------------------------------
@@ -241,6 +242,39 @@ void IG2App::setupScene(void)
 
 	// ----------- APARTADOS 33 al 42 ----------
 	#pragma region Droncitos
+	//// Planeta
+	//Entity* esf = mSM->createEntity("sphere.mesh");
+	//esf->setMaterialName("cyan");
+	//SceneNode* planet = mSM->getRootSceneNode()->createChildSceneNode();
+	//planet->attachObject(esf);
+	//planet->setScale(4, 4, 4);
+	//Vector3 pPos = planet->getPosition();
+	//Vector3 pOffset = Vector3(0, planet->getScale().x * 100, 0);
+
+	//// Avion
+	//SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//avion = new Avion(avionNode, pPos, 0.125, pOffset, true);
+	//addInputListener(avion);
+
+	//// Nodriza
+	//SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//nodriza = new Dron(dronNode, pPos, 0.04, DronType::MOTHER, 3, 3, pOffset);
+	//addInputListener(nodriza);
+
+	//// Droncitos
+	//float divisions = 360.0f / numDroncitos;
+	//for (int i = 0; i < numDroncitos; i++) {
+	//	int random = rand() % 360;
+	//	Dron* dr = new Dron(dronNode, pPos, 0.02, DronType::CHILD, 3, 3, pOffset);
+	//	dr->rotateDrone(Vector3(90, divisions * i, 0));
+	//	dr->rotateDrone(Vector3(0, random, 0));
+	//	droncitos.push_back(dr);
+	//	addInputListener(dr);
+	//}
+	#pragma endregion
+
+	// ----------- APARTADOS 43 al 50 ----------
+	#pragma region SinbadConLaCabezaDeOgre
 	// Planeta
 	Entity* esf = mSM->createEntity("sphere.mesh");
 	esf->setMaterialName("cyan");
@@ -250,28 +284,11 @@ void IG2App::setupScene(void)
 	Vector3 pPos = planet->getPosition();
 	Vector3 pOffset = Vector3(0, planet->getScale().x * 100, 0);
 
-	// Avion
-	SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
-	avion = new Avion(avionNode, pPos, 0.125, pOffset, true);
-	addInputListener(avion);
-
-	// Nodriza
-	SceneNode* dronNode = mSM->getRootSceneNode()->createChildSceneNode();
-	nodriza = new Dron(dronNode, pPos, 0.04, DronType::MOTHER, 3, 3, pOffset);
-	addInputListener(nodriza);
-
-	// Droncitos
-	float divisions = 360.0f / numDroncitos;
-	for (int i = 0; i < numDroncitos; i++) {
-		int random = rand() % 360;
-		Dron* dr = new Dron(dronNode, pPos, 0.02, DronType::CHILD, 3, 3, pOffset);
-		dr->rotateDrone(Vector3(90, divisions * i, 0));
-		dr->rotateDrone(Vector3(0, random, 0));
-		droncitos.push_back(dr);
-		addInputListener(dr);
-	}
+	SceneNode* sinbadNode = mSM->getRootSceneNode()->createChildSceneNode();
+	sb = new Sinbad(sinbadNode, pPos, 10, pOffset);
+	addInputListener(sb);
 	#pragma endregion
-
+	
 	//------------------------------------------------------------------------
 
 	mCamMgr = new OgreBites::CameraMan(mCamNode);
@@ -285,39 +302,40 @@ void IG2App::setupScene(void)
 }
 
 void IG2App::checkCollisions() {
-	AxisAlignedBox bAvion = avion->getCuerpoNode()->_getWorldAABB();
+	//AxisAlignedBox bAvion = avion->getCuerpoNode()->_getWorldAABB();
 
-	// Recorrer drones detectando colisiones con el avión
-	std::vector<std::list<Dron*>::iterator> dronsToDelete;
-	for (auto d = droncitos.begin(); d != droncitos.end(); d++) {
-		Dron* dr = *d;
-		AxisAlignedBox aabb = bAvion.intersection(dr->getCuerpoNode()->_getWorldAABB());
-		if (!aabb.isNull() && dr->receiveDamage()) {
-			dronsToDelete.push_back(d);
-			gameControl();
-		}
-	}
+	//// Recorrer drones detectando colisiones con el avión
+	//std::vector<std::list<Dron*>::iterator> dronsToDelete;
+	//for (auto d = droncitos.begin(); d != droncitos.end(); d++) {
+	//	Dron* dr = *d;
+	//	AxisAlignedBox aabb = bAvion.intersection(dr->getCuerpoNode()->_getWorldAABB());
+	//	if (!aabb.isNull() && dr->receiveDamage()) {
+	//		dronsToDelete.push_back(d);
+	//		gameControl();
+	//	}
+	//}
 
-	// Borrar memoria
-	for (auto d : dronsToDelete) {
-		Dron* dr = *d;
-		droncitos.erase(d);
-		delete dr;
-	}
-	dronsToDelete.clear();
+	//// Borrar memoria
+	//for (auto d : dronsToDelete) {
+	//	Dron* dr = *d;
+	//	removeInputListener(dr);
+	//	droncitos.erase(d);
+	//	delete dr;
+	//}
+	//dronsToDelete.clear();
 }
 
 void IG2App::gameControl() {
-	numDroncitos--;
+	/*numDroncitos--;
 	if (numDroncitos <= 0) nodriza->setSphereMaterial("yellow");
-	dronsUI->setText(std::to_string(numDroncitos));
+	dronsUI->setText(std::to_string(numDroncitos));*/
 }
 
 void IG2App::frameRendered(const FrameEvent& evt) {
-	if (automatic) {
+	/*if (automatic) {
 		OgreBites::KeyboardEvent key = OgreBites::KeyboardEvent();
 		key.keysym.sym = SDLK_h;
 		avion->keyPressed(key);
 		checkCollisions();
-	}
+	}*/
 }

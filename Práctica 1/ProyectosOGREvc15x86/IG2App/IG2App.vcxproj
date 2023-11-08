@@ -131,6 +131,7 @@
     <ClInclude Include="objects\Plano.h" />
     <ClInclude Include="objects\Rio.h" />
     <ClInclude Include="objects\RotorDron.h" />
+    <ClInclude Include="objects\Sinbad.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IG2ApplicationContext.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="objects\Plano.cpp" />
     <ClCompile Include="objects\Rio.cpp" />
     <ClCompile Include="objects\RotorDron.cpp" />
+    <ClCompile Include="objects\Sinbad.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
