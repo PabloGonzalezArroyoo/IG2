@@ -275,18 +275,42 @@ void IG2App::setupScene(void)
 
 	// ----------- APARTADOS 43 al 50 ----------
 	#pragma region SinbadConLaCabezaDeOgre
-	// Planeta
-	Entity* esf = mSM->createEntity("sphere.mesh");
-	esf->setMaterialName("cyan");
-	SceneNode* planet = mSM->getRootSceneNode()->createChildSceneNode();
-	planet->attachObject(esf);
-	planet->setScale(4, 4, 4);
-	Vector3 pPos = planet->getPosition();
-	Vector3 pOffset = Vector3(0, planet->getScale().x * 100, 0);
+	//// Planeta
+	//Entity* esf = mSM->createEntity("sphere.mesh");
+	//esf->setMaterialName("cyan");
+	//SceneNode* planet = mSM->getRootSceneNode()->createChildSceneNode();
+	//planet->attachObject(esf);
+	//planet->setScale(4, 4, 4);
+	//Vector3 pPos = planet->getPosition();
+	//Vector3 pOffset = Vector3(0, planet->getScale().x * 100, 0);
 
-	SceneNode* sinbadNode = mSM->getRootSceneNode()->createChildSceneNode();
-	sb = new Sinbad(sinbadNode, pPos, 10, pOffset);
-	addInputListener(sb);
+	// Sinbad
+	//SceneNode* sinbadNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//sb = new Sinbad(sinbadNode, pPos, 10, pOffset);
+	//sb->cambiaEspada();
+	//addInputListener(sb);
+
+	// Río
+	SceneNode* rioNode = mSM->getRootSceneNode()->createChildSceneNode();
+	rio = new Rio(rioNode, "prueba", 900, 500);
+	rioNode->translate(Vector3(0, -300, 0));
+	addInputListener(rio);
+
+	// Molino
+	SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
+	molino = new Molino(molinoNode);
+	addInputListener(molino);
+	molinoNode->translate(Vector3(0, 0, -400));
+
+	// Avion -> TO-DO: Que rote bien
+	SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
+	avion = new Avion(avionNode, rioNode->getPosition(), 0.2, Vector3(200, 0,  0), true);
+	addInputListener(avion);
+
+	// Añadir listeners
+	rio->addListener(molino);
+	rio->addListener(avion);
+	molino->addListener(rio);
 	#pragma endregion
 	
 	//------------------------------------------------------------------------

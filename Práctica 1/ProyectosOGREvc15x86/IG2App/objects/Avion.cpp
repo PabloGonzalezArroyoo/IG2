@@ -54,7 +54,7 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : 
 	helicesNode = new Aspas*[2];
 	for (int i = 0; i < 2; i++) {
 		SceneNode* node = cuerpoNode->createChildSceneNode();
-		Aspas* aux = new Aspas(node, 0.6, 5, true);
+		Aspas* aux = new Aspas(node, 0.6, 5, txt);
 		helicesNode[i] = aux;
 		if (i == 0) node->translate(Vector3(200, 0, 53));
 		else if (i == 1) node->translate(Vector3(-200, 0, 53));

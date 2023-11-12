@@ -64,8 +64,12 @@ protected:
     // std::list<Dron*> droncitos;
     // int numDroncitos = 400;
     // OgreBites::TextBox* dronsUI;
+    // 
     // Práctica 1 : Apartados 43 al 50
     Sinbad* sb = nullptr;
+    Molino* molino = nullptr;
+    Avion* avion = nullptr;
+    Rio* rio = nullptr;
 };
 
 #endif
