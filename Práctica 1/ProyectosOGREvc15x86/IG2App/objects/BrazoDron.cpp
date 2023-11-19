@@ -2,7 +2,7 @@
 
 BrazoDron::BrazoDron(SceneNode* m, bool txt, int id, int nh, bool adorno) : EntidadIG(m) {
 	Entity* cil = mSM->createEntity("Barrel.mesh");
-	if (txt) cil->setMaterialName("arms");
+	if (txt) cil->setMaterialName("practica1/arms");
 	cilindroNode = mNode->createChildSceneNode();
 	cilindroNode->attachObject(cil);
 	cilindroNode->roll(Degree(90));

@@ -3,7 +3,7 @@
 RotorDron::RotorDron(SceneNode* m, bool txt, int nh, int id, bool adorno) : EntidadIG(m), numHelices(nh), ident(id) {
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
-	if (txt) esf->setMaterialName("orange");
+	if (txt) esf->setMaterialName("practica1/orange");
 	esferaNode = mNode->createChildSceneNode();
 	esferaNode->attachObject(esf);
 

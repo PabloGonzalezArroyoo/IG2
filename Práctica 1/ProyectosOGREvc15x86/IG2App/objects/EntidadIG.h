@@ -7,6 +7,8 @@
 #include <OgreMeshManager.h>
 #include <OgreFrameListener.h>
 #include <OgreTimer.h>
+#include <OgreAnimation.h>
+#include <OgreKeyFrame.h>
 #include <SDL_keycode.h>
 #include <vector>
 #include <iostream>

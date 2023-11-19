@@ -3,7 +3,7 @@
 Aspa::Aspa(SceneNode* m, float size, bool txt, bool adorno) : EntidadIG(m) {
 	// Tablero
 	Entity* tab = mSM->createEntity("cube.mesh");
-	if(txt) tab->setMaterialName("brown");
+	if(txt) tab->setMaterialName("practica1/brown");
 	tableroNode = mNode->createChildSceneNode();
 	tableroNode->attachObject(tab);
 	tableroNode->setScale(size, size * 0.25, 0.1 * size);
@@ -12,7 +12,7 @@ Aspa::Aspa(SceneNode* m, float size, bool txt, bool adorno) : EntidadIG(m) {
 	// Cilindro
 	if (adorno) {
 		Entity* cil = mSM->createEntity("Barrel.mesh");
-		if (txt) cil->setMaterialName("red");
+		if (txt) cil->setMaterialName("practica1/red");
 		cilindroNode = mNode->createChildSceneNode();
 		cilindroNode->attachObject(cil);
 		cilindroNode->setScale(size, size * 2.5, size);

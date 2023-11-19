@@ -7,7 +7,7 @@ Plano::Plano(SceneNode* m, std::string name, int anch, int alt, std::string mate
 	MeshManager::getSingleton().createPlane(name, ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 		Plane(Vector3::UNIT_Y, 0), anch, alt, 100, 80, true, 1, 1.0, 1.0, Vector3::UNIT_Z);
 
-	Entity* plane = mSM->createEntity(name);
+	plane = mSM->createEntity(name);
 	plane->setMaterialName(material);
 	mNode->attachObject(plane);
 }

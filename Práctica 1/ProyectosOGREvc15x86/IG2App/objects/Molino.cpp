@@ -26,8 +26,8 @@ Molino::Molino(SceneNode* m) : EntidadIG(m), spin(false), state(NORMAL), timer()
 
 	// Plano
 	SceneNode* aux = mNode->createChildSceneNode();
-	suelo = new Plano(aux, "molino", 300, 300, "grassTexture");
-	aux->translate(Vector3(0, -310, 0));
+	suelo = new Plano(aux, "molino", 300, 300, "practica1/red");
+	aux->translate(Vector3(0, -300, 0));
 }
 
 Molino::~Molino() {

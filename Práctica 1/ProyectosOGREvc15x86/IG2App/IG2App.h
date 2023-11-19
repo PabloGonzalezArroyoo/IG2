@@ -13,6 +13,7 @@
 #include "objects/Avion.h"
 #include "objects/Rio.h"
 #include "objects/Sinbad.h"
+#include "objects/Baliza.h"
 
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener {
 public:
@@ -70,6 +71,7 @@ protected:
     Molino* molino = nullptr;
     Avion* avion = nullptr;
     Rio* rio = nullptr;
+    Baliza* baliza = nullptr;
 };
 
 #endif

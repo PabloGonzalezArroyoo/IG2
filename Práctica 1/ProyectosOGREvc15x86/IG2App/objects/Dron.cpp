@@ -28,8 +28,8 @@ Dron::Dron(SceneNode* m, Vector3 pos, float size, DronType t, int nh, int nb, Ve
 		rand() % 2 == 0 ? sign = 1 : sign = -1;
 		centroNode->yaw(Degree(-210));
 		centroNode->translate(offset + Vector3(0, centroNode->getScale().y * 100, 0));
-		if (t == MOTHER) esf->setMaterialName("red");
-		else if (t == CHILD) esf->setMaterialName("smile");
+		if (t == MOTHER) esf->setMaterialName("practica1/red");
+		else if (t == CHILD) esf->setMaterialName("practica1/smile");
 	}
 }
 
@@ -42,7 +42,7 @@ Dron::~Dron(){
 bool Dron::receiveDamage() {
 	if (life > 0 && damage) {
 		damage = false;
-		if (life == MAX_LIFE) esf->setMaterialName("red");
+		if (life == MAX_LIFE) esf->setMaterialName("practica1/red");
 		setLife(life - 1);
 	}
 	return life <= 0;

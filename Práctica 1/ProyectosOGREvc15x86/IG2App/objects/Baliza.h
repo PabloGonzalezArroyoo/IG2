@@ -7,10 +7,15 @@ private:
 	SceneNode* ficticioNode = nullptr;
 	SceneNode* barrelNode = nullptr;
 	Entity* cuerpo;
+	AnimationState* animationState;
+	bool playAnim = true;
 
 public:
-	Baliza(SceneNode* m, Vector3 pos, float size);
-	/*~Baliza();
+	Baliza(SceneNode* m, Vector3 pos, Vector3 size);
+	//~Baliza();
 
-	virtual void frameRendered(const FrameEvent& evt);*/
+	virtual void frameRendered(const FrameEvent& evt);
+	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
+
+	void createUpDownAnim();
 };

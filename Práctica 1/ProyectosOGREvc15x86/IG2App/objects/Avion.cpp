@@ -61,11 +61,11 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : 
 	}
 
 	if (txt) {
-		esf->setMaterialName("red");
-		piloto->setMaterialName("yellow");
-		alaI->setMaterialName("alas");
-		alaD->setMaterialName("alas");
-		fnt->setMaterialName("orange");
+		esf->setMaterialName("practica1/red");
+		piloto->setMaterialName("practica1/yellow");
+		alaI->setMaterialName("practica1/alas");
+		alaD->setMaterialName("practica1/alas");
+		fnt->setMaterialName("practica1/orange");
 	}
 }
 

@@ -2,7 +2,7 @@
 
 Aspas::Aspas(SceneNode* n, float size, int nAspas, bool txt, bool adorno) : EntidadIG(n), numAspas(nAspas) {
 	Entity* cil = mSM->createEntity("Barrel.mesh");
-	if (txt) cil->setMaterialName("dirt");
+	if (txt) cil->setMaterialName("practica1/dirt");
 	cilindroNode = mNode->createChildSceneNode();
 	cilindroNode->attachObject(cil);
 	cilindroNode->setScale(size * 4, size * 2, size * 4);
