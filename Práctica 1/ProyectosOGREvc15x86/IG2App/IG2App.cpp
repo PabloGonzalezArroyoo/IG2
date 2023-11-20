@@ -292,7 +292,7 @@ void IG2App::setupScene(void)
 
 	// Río
 	SceneNode* rioNode = mSM->getRootSceneNode()->createChildSceneNode();
-	rio = new Rio(rioNode, "prueba", 900, 700);
+	rio = new Rio(rioNode, "prueba", 1500, 700);
 	rioNode->translate(Vector3(0, -301, 0));
 	addInputListener(rio);
 
@@ -300,11 +300,11 @@ void IG2App::setupScene(void)
 	SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
 	molino = new Molino(molinoNode);
 	addInputListener(molino);
-	molinoNode->translate(Vector3(300, 0, -200));
+	molinoNode->translate(Vector3(600, 0, -200));
 
-	// Avion -> TO-DO: Que rote bien
+	// Avion
 	SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
-	avion = new Avion(avionNode, rioNode->getPosition(), 0.2, Vector3(200, 0,  0), true);
+	avion = new Avion(avionNode, rioNode->getPosition(), 0.2, Vector3(500, 400,  0), true);
 	addInputListener(avion);
 
 	// Añadir listeners
@@ -314,12 +314,9 @@ void IG2App::setupScene(void)
 
 	// Sinbad
 	SceneNode* sinbadNode = mSM->getRootSceneNode()->createChildSceneNode();
-	sb = new Sinbad(sinbadNode, Vector3(-350, -250, 250), 10, Vector3(0, 0, 0), NOPLANET, WALKING, BOTH);
-	sb->createMovementAnimation(molinoNode->getPosition());
+	sb = new Sinbad(sinbadNode, Vector3(-650, -250, 250), 10, Vector3(0, 0, 0), NOPLANET, WALKING, NONE);
+	sb->createMovementAnimation(molinoNode->getPosition() - Vector3(300, 0, 0));
 	addInputListener(sb);
-	SceneNode* platformNode = mSM->getRootSceneNode()->createChildSceneNode();
-	platformNode->translate(-350, -300, 250);
-	new Plano(platformNode, "platform", 200, 200, "practica1/yellow");
 
 	// Baliza
 	SceneNode* balizaNode = mSM->getRootSceneNode()->createChildSceneNode();

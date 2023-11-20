@@ -5,7 +5,7 @@
 class Avion : public EntidadIG {
 protected:
 	Timer timer;
-	bool spin, stop;
+	bool spin, stop, explosion;
 
 	SceneNode* cuerpoNode = nullptr;
 	SceneNode* alaINode = nullptr;
@@ -15,6 +15,9 @@ protected:
 	SceneNode* ficticioNode = nullptr;
 	SceneNode* focoNode = nullptr;
 	Aspas** helicesNode;
+	SceneNode* planoNode = nullptr;
+	SceneNode* pSysNode = nullptr;
+	SceneNode* explosionNode = nullptr;
 
 	virtual void frameRendered(const FrameEvent& evt);
 
@@ -23,6 +26,7 @@ public:
 	virtual ~Avion();
 
 	void rotateHelices();
+	void createExplosion();
 
 	SceneNode* getCuerpoNode() { return cuerpoNode; }
 

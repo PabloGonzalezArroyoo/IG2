@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EntidadIG.h"
+#include "Plano.h"
 
 enum SwordState {
 	LEFT, RIGHT, BOTH, NONE

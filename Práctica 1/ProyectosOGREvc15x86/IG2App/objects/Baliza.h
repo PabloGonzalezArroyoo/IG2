@@ -8,6 +8,8 @@ private:
 	SceneNode* barrelNode = nullptr;
 	Entity* cuerpo;
 	AnimationState* animationState;
+	ParticleSystem* pSys;
+
 	bool playAnim = true;
 
 public:

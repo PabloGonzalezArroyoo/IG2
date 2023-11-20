@@ -8,12 +8,14 @@ Molino::Molino(SceneNode* m) : EntidadIG(m), spin(false), state(NORMAL), timer()
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
 	techoNode = mNode->createChildSceneNode();
+	esf->setMaterialName("practica1/yellow");
 	techoNode->attachObject(esf);
 	techoNode->setScale(1, 1, 1);
 
 	// Cuerpo
 	Entity* cuerp = mSM->createEntity("Barrel.mesh");
 	cuerpoNode = mNode->createChildSceneNode();
+	cuerp->setMaterialName("practica1/rockWall");
 	cuerpoNode->attachObject(cuerp);
 	cuerpoNode->setScale(40, 50, 40);
 	cuerpoNode->setPosition(0, -150, 0);
@@ -26,8 +28,8 @@ Molino::Molino(SceneNode* m) : EntidadIG(m), spin(false), state(NORMAL), timer()
 
 	// Plano
 	SceneNode* aux = mNode->createChildSceneNode();
-	suelo = new Plano(aux, "molino", 300, 300, "practica1/red");
-	aux->translate(Vector3(0, -300, 0));
+	suelo = new Plano(aux, "molino", 600, 300, "practica1/red");
+	aux->translate(Vector3(-150, -300, 0));
 }
 
 Molino::~Molino() {

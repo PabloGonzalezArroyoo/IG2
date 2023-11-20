@@ -1,7 +1,7 @@
 #include "Sinbad.h"
 
 Sinbad::Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset, SceneState sc, AnimState as, SwordState ss) : EntidadIG(m),
-	turnTimer(), sign(1), turning(false), scState(sc), aState(as), swState(ss), center(pos) {
+	turnTimer(), sign(1), turning(false), scState(sc), aState(as), swState(ss) {
 	// Nodo ficticio
 	ficticioNode = mNode->createChildSceneNode();
 	ficticioNode->setPosition(pos);
@@ -12,6 +12,8 @@ Sinbad::Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset, SceneState
 	sinbadNode->attachObject(sinbad);
 	sinbadNode->setScale(size, size, size);
 	if (scState != NOPLANET) sinbadNode->translate(offset + Vector3(0, sinbadNode->getScale().y * size / 2, 0));
+	center = ficticioNode->getPosition();
+	center. y = sinbadNode->getPosition().y;
 
 	sinbad->getAnimationState("RunBase")->setEnabled(true);
 	sinbad->getAnimationState("RunTop")->setEnabled(true);
@@ -27,6 +29,13 @@ Sinbad::Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset, SceneState
 	}
 
 	asignaEspadas();
+
+	// Plano
+	if (scState == NOPLANET) {
+		SceneNode* platformNode = ficticioNode->createChildSceneNode();
+		platformNode->translate(0, -sinbadNode->getScale().y / 2 * 10, 0);
+		Plano* plane = new Plano(platformNode, "platform", 200, 200, "practica1/yellow");
+	}
 }
 
 Sinbad::~Sinbad() {
@@ -74,6 +83,21 @@ bool Sinbad::keyPressed(const OgreBites::KeyboardEvent& evt) {
 		else asignaEspadas();
 		return true;
 	}
+	else if (aState != DANCING) {
+		if (evt.keysym.sym == SDLK_b) {
+			quitaEspadas();
+			arma(false);
+			return true;
+		}
+		else if (evt.keysym.sym == SDLK_n) {
+			cambiaEspada();
+			return true;
+		}
+		else if (evt.keysym.sym == SDLK_v) {
+			arma();
+			return true;
+		}
+	}
 
 	return false;
 }
@@ -82,15 +106,18 @@ void Sinbad::arma(bool izq) {
 	if (izq) {
 		espIzq = mSM->createEntity("Sword.mesh");
 		sinbad->attachObjectToBone("Handle.L", espIzq);
+		swState = LEFT;
 	}
 	else {
 		espDer = mSM->createEntity("Sword.mesh");
 		sinbad->attachObjectToBone("Handle.R", espDer);
+		swState = RIGHT;
 	}
 }
 
 void Sinbad::arma() {
 	arma(true); arma(false);
+	swState = BOTH;
 }
 
 void Sinbad::cambiaEspada() {
@@ -125,51 +152,50 @@ void Sinbad::createMovementAnimation(Vector3 posFin) {
 	int duracion = 10, longDesplazamiento = 30;
 
 	Animation* animation = mSM->createAnimation("viajesito", duracion);
-	animation->setInterpolationMode(Ogre::Animation::IM_SPLINE);
 	sinbadNode->setInitialState();
 	NodeAnimationTrack* track = animation->createNodeTrack(0);
 	track->setAssociatedNode(sinbadNode);
-	Vector3 keyframePos(sinbadNode->getPosition());
+	Vector3 keyframePos = sinbadNode->getPosition();
 	Radian keyFrameYaw = Radian(0);
 	Real durPaso = duracion / 5.0;
 	TransformKeyFrame* kf;
 
-	//// Keyframe 0 : mirando a Z positiva
-	//kf = track->createNodeKeyFrame(durPaso * 0);
-	//kf->setTranslate(Vector3(0, 0, 0));
-	//kf->setRotation(Quaternion(keyFrameYaw, Vector3::UNIT_Y));
+	// Keyframe 0 : mirando a Z positiva
+	kf = track->createNodeKeyFrame(durPaso * 0);
+	kf->setRotation(Quaternion(keyFrameYaw, Vector3::UNIT_Y));
+	kf->setTranslate(keyframePos);
 
-	//// Keyframe 1 : mirando hacia el plano rojo
-	//kf = track->createNodeKeyFrame(durPaso * 1);
-	//Vector3 v = Vector3(0, 0, 1);
-	//Vector3 w = (posFin - center).normalisedCopy();
-	//float escalar = v.x * w.x + v.y * w.y + v.z * w.z;
-	//float angulo = acos(escalar/ (w.normalise() * v.normalise()));
-	//keyFrameYaw = Radian(angulo);
-	//kf->setTranslate(Vector3(0, 0, 0));
-	//kf->setRotation(Quaternion(keyFrameYaw, Vector3::UNIT_Y));
+	// Keyframe 1 : mirando hacia el plano rojo
+	kf = track->createNodeKeyFrame(durPaso * 1);
+	Vector3 v = posFin - center;
+	Degree angle = v.angleBetween(Vector3::UNIT_Z);
+	keyFrameYaw = Radian(angle);
+	kf->setRotation(Quaternion(keyFrameYaw, Vector3::UNIT_Y));
+	kf->setTranslate(keyframePos);
 
-	//// Keyframe 2 : hasta el molino
-	//kf = track->createNodeKeyFrame(durPaso * 2);
-	//keyframePos = posFin - ficticioNode->getPosition();
-	//keyframePos = Vector3(keyframePos.x, sinbadNode->getPosition().y, keyframePos.z);
-	//kf->setRotation(Quaternion(keyFrameYaw, Vector3::UNIT_Y));
-	//kf->setTranslate(keyframePos);
+	// Keyframe 2 : hasta el molino
+	kf = track->createNodeKeyFrame(durPaso * 2);
+	keyframePos = posFin - center;
+	kf->setRotation(Quaternion(keyFrameYaw, Vector3::UNIT_Y));
+	kf->setTranslate(keyframePos);
 
-	//// Keyframe 3 : mirando hacia posición inicial
-	//kf = track->createNodeKeyFrame(durPaso * 3);
-	//keyFrameYaw += Radian(Degree(180));
-	//kf->setRotation(Quaternion(keyFrameYaw, Vector3::UNIT_Y));
+	// Keyframe 3 : mirando hacia posición inicial
+	kf = track->createNodeKeyFrame(durPaso * 3);
+	keyFrameYaw += Radian(Degree(180));
+	kf->setTranslate(keyframePos);
+	kf->setRotation(Quaternion(keyFrameYaw, Vector3::UNIT_Y));
 
-	//// Keyframe 4 : hasta la posición inicial
-	//kf = track->createNodeKeyFrame(durPaso * 4);
-	//keyframePos = ficticioNode->getPosition();
-	//kf->setTranslate(keyframePos);
+	// Keyframe 4 : hasta la posición inicial
+	kf = track->createNodeKeyFrame(durPaso * 4);
+	keyframePos = sinbadNode->getPosition();
+	kf->setTranslate(keyframePos);
+	kf->setRotation(Quaternion(keyFrameYaw, Vector3::UNIT_Y));
 
-	//// Keyframe 5 : mirando al frente
-	//kf = track->createNodeKeyFrame(durPaso * 5);
-	//keyFrameYaw += Radian(Degree(180 - angulo));
-	//kf->setRotation(Quaternion(keyFrameYaw, Vector3::UNIT_Y));
+	// Keyframe 5 : mirando al frente
+	kf = track->createNodeKeyFrame(durPaso * 5);
+	keyframePos = sinbadNode->getPosition();
+	keyFrameYaw = 0;
+	kf->setRotation(Quaternion(keyFrameYaw, Vector3::UNIT_Y));
 
 	// Crear animationState
 	animationState = mSM->createAnimationState("viajesito");

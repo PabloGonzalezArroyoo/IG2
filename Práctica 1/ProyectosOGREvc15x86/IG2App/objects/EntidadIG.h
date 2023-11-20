@@ -9,6 +9,8 @@
 #include <OgreTimer.h>
 #include <OgreAnimation.h>
 #include <OgreKeyFrame.h>
+#include <OgreBillboardSet.h>
+#include <OgreParticleSystem.h>
 #include <SDL_keycode.h>
 #include <vector>
 #include <iostream>
