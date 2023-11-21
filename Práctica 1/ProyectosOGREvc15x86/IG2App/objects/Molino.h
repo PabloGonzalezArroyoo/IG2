@@ -4,7 +4,7 @@
 #include "Rio.h"
 
 enum MolinoState {
-	NORMAL, INTERVAL
+	M_NORMAL, INTERVAL
 };
 
 class Molino : public EntidadIG {

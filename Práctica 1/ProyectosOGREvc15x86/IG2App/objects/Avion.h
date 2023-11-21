@@ -18,6 +18,7 @@ protected:
 	SceneNode* planoNode = nullptr;
 	SceneNode* pSysNode = nullptr;
 	SceneNode* explosionNode = nullptr;
+	ParticleSystem* pSysExp = nullptr;
 
 	virtual void frameRendered(const FrameEvent& evt);
 
@@ -33,6 +34,5 @@ public:
 	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
 
 	virtual void receiveEvent(MessageType msg, EntidadIG* entidad);
-
 };
 

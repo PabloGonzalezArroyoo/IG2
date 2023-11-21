@@ -74,7 +74,7 @@ Avion::Avion(SceneNode* m, Vector3 pos, float size, Vector3 offset, bool txt) : 
 	// ParticleSystem
 	pSysNode = cuerpoNode->createChildSceneNode();
 	pSysNode->translate(Vector3(0, -15, -90));
-	ParticleSystem* pSys = mSM->createParticleSystem("psSmoke", "practica1/smoke");
+	ParticleSystem* pSys = mSM->createParticleSystem("psTrail", "practica1/trailAvion");
 	pSys->setEmitting(true);
 	pSysNode->attachObject(pSys);
 
@@ -105,9 +105,11 @@ void Avion::createExplosion() {
 	explosionNode = ficticioNode->createChildSceneNode();
 	explosionNode->setPosition(pos);
 
-	ParticleSystem* pSys = mSM->createParticleSystem("explosionSmoke", "practica1/explosion");
-	pSys->setEmitting(true);
-	explosionNode->attachObject(pSys);
+	pSysExp = mSM->createParticleSystem("explosionSmoke", "practica1/explosionAvion");
+	pSysExp->setEmitting(true);
+	explosionNode->attachObject(pSysExp);
+
+	sendEvent(EXPLODE, this);
 }
 
 bool Avion::keyPressed(const OgreBites::KeyboardEvent& evt) {
@@ -146,17 +148,21 @@ bool Avion::keyPressed(const OgreBites::KeyboardEvent& evt) {
 }
 
 void Avion::frameRendered(const FrameEvent& evt) {
-	if (spin) {
-		ficticioNode->yaw(Degree(0.5));
-		for (int i = 0; i < 2; i++) helicesNode[i]->rotateAspas();
-	}
-	if (stop) {
-		if (timer.getMilliseconds() >= 5000) {
-			spin = false;
-			timer.reset();
-			stop = false;
+	if (!explosion) {
+		if (spin) {
+			ficticioNode->yaw(Degree(0.5));
+			for (int i = 0; i < 2; i++) helicesNode[i]->rotateAspas();
+		}
+		if (stop) {
+			if (timer.getMilliseconds() >= 5000) {
+				spin = false;
+				timer.reset();
+				stop = false;
+			}
 		}
 	}
+	else if (pSysExp->getEmitting() && timer.getMilliseconds() > 2000)
+		pSysExp->setEmitting(false);
 };
 
 void Avion::receiveEvent(MessageType msg, EntidadIG* entidad) {

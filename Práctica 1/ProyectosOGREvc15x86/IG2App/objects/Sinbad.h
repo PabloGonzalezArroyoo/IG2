@@ -8,7 +8,7 @@ enum SwordState {
 };
 
 enum AnimState {
-	WALKING, DANCING
+	WALKING, DANCING, IDLE
 };
 
 enum SceneState {
@@ -24,9 +24,9 @@ private:
 	Entity* sinbad;
 	Entity* espIzq;
 	Entity* espDer;
-	Timer turnTimer;
+	Timer turnTimer, msgTimer;
 	int sign;
-	bool turning;
+	bool turning, msgSent;
 	SwordState swState;
 	AnimState aState;
 	AnimationState* animationState;
@@ -43,8 +43,10 @@ public:
 	void asignaEspadas();
 
 	void createMovementAnimation(Vector3 posFin);
+	void killSinbad();
 
 	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
 	virtual void frameRendered(const FrameEvent& evt);
+	virtual void receiveEvent(MessageType msg, EntidadIG* entidad);
 };
 

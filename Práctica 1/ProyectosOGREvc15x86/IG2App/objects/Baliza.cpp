@@ -1,6 +1,7 @@
 #include "Baliza.h"
+#include "Sinbad.h"
 
-Baliza::Baliza(SceneNode* m, Vector3 pos, Vector3 size) : EntidadIG(m) {
+Baliza::Baliza(SceneNode* m, Vector3 pos, Vector3 size) : EntidadIG(m), playAnim(true), explosion(false) {
 	// Nodo ficticio
 	ficticioNode = mNode->createChildSceneNode();
 	ficticioNode->setPosition(pos);
@@ -87,3 +88,22 @@ bool Baliza::keyPressed(const OgreBites::KeyboardEvent& evt) {
 
 	return false;
 }
+
+void Baliza::createExplosion() {
+	explosion = true; playAnim = false;
+
+	Vector3 pos = ficticioNode->getPosition();
+	animationState->setEnabled(false);
+	ficticioNode->removeAndDestroyAllChildren();
+	explosionNode = ficticioNode->createChildSceneNode();
+
+	pSys = mSM->createParticleSystem("explosionBaliza", "practica1/explosionBaliza");
+	pSys->setEmitting(true);
+	explosionNode->attachObject(pSys);
+}
+
+void Baliza::receiveEvent(MessageType msg, EntidadIG* entidad) {
+	if (msg == EXPLODE && dynamic_cast<Sinbad*>(entidad) != nullptr) {
+		createExplosion();
+	}
+};

@@ -105,7 +105,7 @@ void IG2App::setupScene(void)
 	
 	// and tell it to render into the main window
 	Viewport* vp = getRenderWindow()->addViewport(cam);
-	vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
+	//vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
 
 	//------------------------------------------------------------------------
 
@@ -273,55 +273,65 @@ void IG2App::setupScene(void)
 	//}
 	#pragma endregion
 
-	// ----------- APARTADOS 43 al 50 ----------
+	// ----------- APARTADOS 43 al 58 ----------
 	#pragma region SinbadConLaCabezaDeOgre
-	//// Planeta
-	//Entity* esf = mSM->createEntity("sphere.mesh");
-	//esf->setMaterialName("cyan");
-	//SceneNode* planet = mSM->getRootSceneNode()->createChildSceneNode();
-	//planet->attachObject(esf);
-	//planet->setScale(4, 4, 4);
-	//Vector3 pPos = planet->getPosition();
-	//Vector3 pOffset = Vector3(0, planet->getScale().x * 100, 0);
 
-	// Sinbad
-	//SceneNode* sinbadNode = mSM->getRootSceneNode()->createChildSceneNode();
-	//sb = new Sinbad(sinbadNode, pPos, 10, pOffset);
-	//sb->cambiaEspada();
-	//addInputListener(sb);
-
-	// Río
-	SceneNode* rioNode = mSM->getRootSceneNode()->createChildSceneNode();
-	rio = new Rio(rioNode, "prueba", 1500, 700);
-	rioNode->translate(Vector3(0, -301, 0));
-	addInputListener(rio);
-
-	// Molino
-	SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
-	molino = new Molino(molinoNode);
-	addInputListener(molino);
-	molinoNode->translate(Vector3(600, 0, -200));
-
-	// Avion
-	SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
-	avion = new Avion(avionNode, rioNode->getPosition(), 0.2, Vector3(500, 400,  0), true);
-	addInputListener(avion);
-
-	// Añadir listeners
-	rio->addListener(molino);
-	rio->addListener(avion);
-	molino->addListener(rio);
+	#pragma region Primera parte
+	vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
+	
+	// Planeta
+	Entity* esf = mSM->createEntity("sphere.mesh");
+	esf->setMaterialName("practica1/cyan");
+	SceneNode* planet = mSM->getRootSceneNode()->createChildSceneNode();
+	planet->attachObject(esf);
+	planet->setScale(4, 4, 4);
+	Vector3 pPos = planet->getPosition();
+	Vector3 pOffset = Vector3(0, planet->getScale().x * 100, 0);
 
 	// Sinbad
 	SceneNode* sinbadNode = mSM->getRootSceneNode()->createChildSceneNode();
-	sb = new Sinbad(sinbadNode, Vector3(-650, -250, 250), 10, Vector3(0, 0, 0), NOPLANET, WALKING, NONE);
-	sb->createMovementAnimation(molinoNode->getPosition() - Vector3(300, 0, 0));
+	sb = new Sinbad(sinbadNode, pPos, 10, pOffset);
+	sb->cambiaEspada();
 	addInputListener(sb);
+	#pragma endregion
 
-	// Baliza
-	SceneNode* balizaNode = mSM->getRootSceneNode()->createChildSceneNode();
-	baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(15, 18, 15));
-	addInputListener(baliza);
+	#pragma region Segunda parte
+	//vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
+	//
+	//// Río
+	//SceneNode* rioNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//rio = new Rio(rioNode, "prueba", 1500, 700, RiverType::FOGGY);
+	//rioNode->translate(Vector3(0, -301, 0));
+	//addInputListener(rio);
+
+	//// Molino
+	//SceneNode* molinoNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//molino = new Molino(molinoNode);
+	//addInputListener(molino);
+	//molinoNode->translate(Vector3(600, 0, -200));
+
+	//// Avion
+	//SceneNode* avionNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//avion = new Avion(avionNode, rioNode->getPosition(), 0.2, Vector3(500, 400,  0), true);
+	//addInputListener(avion);
+
+	//// Sinbad
+	//SceneNode* sinbadNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//sb = new Sinbad(sinbadNode, Vector3(-650, -250, 250), 10, Vector3(0, 0, 0), NOPLANET, WALKING, NONE);
+	//sb->createMovementAnimation(molinoNode->getPosition() - Vector3(300, 0, 0));
+	//addInputListener(sb);
+
+	//// Baliza
+	//SceneNode* balizaNode = mSM->getRootSceneNode()->createChildSceneNode();
+	//baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(15, 18, 15));
+	//addInputListener(baliza);
+	//
+	//// Añadir listeners
+	//baliza->addListener(rio);
+	//avion->addListener(sb);
+	//sb->addListener(baliza);
+	#pragma endregion
+
 	#pragma endregion
 	
 	//------------------------------------------------------------------------

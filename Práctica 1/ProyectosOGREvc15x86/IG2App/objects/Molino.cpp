@@ -4,7 +4,7 @@
 // Opción 1 -> nodo ficticio posicionado en el centro del molino que será padre de las aspas, rotar este
 // Opción 2 -> trasladar al origen, rotar, trasladar de vuelta
 
-Molino::Molino(SceneNode* m) : EntidadIG(m), spin(false), state(NORMAL), timer() {
+Molino::Molino(SceneNode* m) : EntidadIG(m), spin(false), state(M_NORMAL), timer() {
 	// Esfera
 	Entity* esf = mSM->createEntity("sphere.mesh");
 	techoNode = mNode->createChildSceneNode();
@@ -49,7 +49,7 @@ bool Molino::keyPressed(const OgreBites::KeyboardEvent& evt) {
 	}
 	else if (evt.keysym.sym == SDLK_j) aspasNode->rotateAspas();
 	else if (evt.keysym.sym == SDLK_c) aspasNode->moveCilindro();
-	else if (evt.keysym.sym == SDLK_f && state == NORMAL) spin ? spin = false : spin = true;
+	else if (evt.keysym.sym == SDLK_f && state == M_NORMAL) spin ? spin = false : spin = true;
 
 	return true;
 }

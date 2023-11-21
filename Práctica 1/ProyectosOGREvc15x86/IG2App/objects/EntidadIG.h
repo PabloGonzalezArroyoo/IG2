@@ -18,7 +18,7 @@
 using namespace Ogre;
 
 enum MessageType {
-	TECLA_R, TECLA_T, STOP
+	TECLA_R, TECLA_T, STOP, EXPLODE
 };
 
 class EntidadIG : public OgreBites::InputListener {

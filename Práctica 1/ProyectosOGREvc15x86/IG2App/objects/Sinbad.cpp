@@ -1,7 +1,8 @@
 #include "Sinbad.h"
+#include "Avion.h"
 
 Sinbad::Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset, SceneState sc, AnimState as, SwordState ss) : EntidadIG(m),
-	turnTimer(), sign(1), turning(false), scState(sc), aState(as), swState(ss) {
+	turnTimer(), msgTimer(), sign(1), turning(false), msgSent(false), scState(sc), aState(as), swState(ss) {
 	// Nodo ficticio
 	ficticioNode = mNode->createChildSceneNode();
 	ficticioNode->setPosition(pos);
@@ -21,6 +22,10 @@ Sinbad::Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset, SceneState
 	sinbad->getAnimationState("RunTop")->setLoop(true);
 	sinbad->getAnimationState("Dance")->setEnabled(true);
 	sinbad->getAnimationState("Dance")->setLoop(true);
+	sinbad->getAnimationState("IdleTop")->setLoop(true);
+	sinbad->getAnimationState("IdleTop")->setEnabled(true);
+	sinbad->getAnimationState("IdleBase")->setLoop(true);
+	sinbad->getAnimationState("IdleBase")->setEnabled(true);
 
 	AnimationStateSet* aux = sinbad->getAllAnimationStates(); int i = 1;
 	for (auto it = aux->getAnimationStateIterator().begin(); it != aux->getAnimationStateIterator().end(); it++) {
@@ -68,22 +73,32 @@ void Sinbad::frameRendered(const FrameEvent& evt) {
 		}
 	}
 	else {
-		sinbad->getAnimationState("RunBase")->addTime(evt.timeSinceLastFrame);
-		sinbad->getAnimationState("RunTop")->addTime(evt.timeSinceLastFrame);
+		if (aState == WALKING) {
+			sinbad->getAnimationState("RunBase")->addTime(evt.timeSinceLastFrame);
+			sinbad->getAnimationState("RunTop")->addTime(evt.timeSinceLastFrame);
 
-		animationState->addTime(evt.timeSinceLastFrame);
+			animationState->addTime(evt.timeSinceLastFrame);
+		}
+		else {
+			sinbad->getAnimationState("IdleBase")->addTime(evt.timeSinceLastFrame);
+			sinbad->getAnimationState("IdleTop")->addTime(evt.timeSinceLastFrame);
+
+			if (!msgSent && msgTimer.getMilliseconds() > 5000) {
+				msgSent = true;
+				sendEvent(EXPLODE, this);
+			}
+		}
 	}
 }
 
 bool Sinbad::keyPressed(const OgreBites::KeyboardEvent& evt) {
-	if (evt.keysym.sym == SDLK_c) {
-		// PREGUNTAR AL PROFE POR EL BRAZO SUELTO
+	if (scState == PLANET && evt.keysym.sym == SDLK_c) {
 		aState == WALKING ? aState = DANCING : aState = WALKING;
 		if (aState == DANCING) quitaEspadas();
 		else asignaEspadas();
 		return true;
 	}
-	else if (aState != DANCING) {
+	else if (aState == WALKING) {
 		if (evt.keysym.sym == SDLK_b) {
 			quitaEspadas();
 			arma(false);
@@ -95,6 +110,10 @@ bool Sinbad::keyPressed(const OgreBites::KeyboardEvent& evt) {
 		}
 		else if (evt.keysym.sym == SDLK_v) {
 			arma();
+			return true;
+		}
+		else if (evt.keysym.sym == SDLK_q) {
+			quitaEspadas();
 			return true;
 		}
 	}
@@ -136,6 +155,7 @@ void Sinbad::cambiaEspada() {
 void Sinbad::quitaEspadas() {
 	sinbad->detachObjectFromBone(espIzq);
 	sinbad->detachObjectFromBone(espDer);
+	swState = NONE;
 }
 
 void Sinbad::asignaEspadas() {
@@ -201,4 +221,19 @@ void Sinbad::createMovementAnimation(Vector3 posFin) {
 	animationState = mSM->createAnimationState("viajesito");
 	animationState->setLoop(true);
 	animationState->setEnabled(true);
+}
+
+void Sinbad::killSinbad() {
+	msgTimer.reset();
+	quitaEspadas();
+	aState = IDLE;
+	sinbadNode->pitch(Degree(-90));
+	sinbadNode->translate(Vector3(0, -sinbadNode->getScale().y / 2 * 9, 0));
+	animationState->setEnabled(false);
+}
+
+void Sinbad::receiveEvent(MessageType msg, EntidadIG* entidad) {
+	if (msg == EXPLODE && dynamic_cast<Avion*>(entidad) != nullptr) {
+		killSinbad();
+	}
 }
