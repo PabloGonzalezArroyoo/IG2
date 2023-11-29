@@ -9,7 +9,6 @@
 #include <vector>
 #include <list>
 #include "objects/Molino.h"
-#include "objects/Dron.h"
 #include "objects/Avion.h"
 #include "objects/Rio.h"
 #include "objects/Sinbad.h"
@@ -25,10 +24,6 @@ protected:
     virtual void shutdown();
     virtual void setupScene();
 
-    void checkCollisions();
-    
-    void gameControl();
-
     virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);  // InputListener
 
     virtual void frameRendered(const FrameEvent& evt);
@@ -40,32 +35,6 @@ protected:
     Ogre::SceneNode* mSinbadNode = nullptr;
     OgreBites::CameraMan* mCamMgr = nullptr;
     
-    // Práctica 1 : Apartados 1 al 6
-    // std::vector<Ogre::SceneNode*> hours;
-    // Ogre::SceneNode* hoursNode = nullptr;
-    // Ogre::SceneNode* clockNode = nullptr;
-    // std::vector<Ogre::SceneNode*> hands;
-    // Ogre::SceneNode* handNode;
-    
-    // Práctica 1 : Apartados 7 al 12
-    // Molino* molino = nullptr;
-    // 
-    // Práctica 1 : Apartados 13 al 16
-    // Dron* dron = nullptr;
-    //
-    // Práctica 1 : Apartados 17 al 32
-    // Molino* molino = nullptr;
-    // Avion* avion = nullptr;
-    // Rio* rio = nullptr;
-    //
-    // Práctica 1 : Apartados 33 al 42
-    // Avion* avion = nullptr;
-    // bool automatic;
-    // Dron* nodriza = nullptr;
-    // std::list<Dron*> droncitos;
-    // int numDroncitos = 400;
-    // OgreBites::TextBox* dronsUI;
-    // 
     // Práctica 1 : Apartados 43 al 50
     Sinbad* sb = nullptr;
     Molino* molino = nullptr;

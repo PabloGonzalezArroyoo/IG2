@@ -11,10 +11,6 @@ enum AnimState {
 	WALKING, DANCING, IDLE
 };
 
-enum SceneState {
-	PLANET, NOPLANET
-};
-
 class Sinbad : public EntidadIG {
 private:
 	SceneNode* ficticioNode = nullptr;
@@ -30,10 +26,9 @@ private:
 	SwordState swState;
 	AnimState aState;
 	AnimationState* animationState;
-	SceneState scState;
 
 public:
-	Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset = Vector3(0, 0, 0), SceneState sc = PLANET, AnimState as = WALKING, SwordState ss = NONE);
+	Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset = Vector3(0, 0, 0), AnimState as = WALKING, SwordState ss = NONE);
 	~Sinbad();
 
 	void arma(bool izq);

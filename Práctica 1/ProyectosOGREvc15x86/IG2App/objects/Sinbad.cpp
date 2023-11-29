@@ -1,8 +1,8 @@
 #include "Sinbad.h"
 #include "Avion.h"
 
-Sinbad::Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset, SceneState sc, AnimState as, SwordState ss) : EntidadIG(m),
-	turnTimer(), msgTimer(), sign(1), turning(false), msgSent(false), scState(sc), aState(as), swState(ss) {
+Sinbad::Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset, AnimState as, SwordState ss) : EntidadIG(m),
+	turnTimer(), msgTimer(), sign(1), turning(false), msgSent(false), aState(as), swState(ss) {
 	// Nodo ficticio
 	ficticioNode = mNode->createChildSceneNode();
 	ficticioNode->setPosition(pos);
@@ -12,7 +12,6 @@ Sinbad::Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset, SceneState
 	sinbadNode = ficticioNode->createChildSceneNode();
 	sinbadNode->attachObject(sinbad);
 	sinbadNode->setScale(size, size, size);
-	if (scState != NOPLANET) sinbadNode->translate(offset + Vector3(0, sinbadNode->getScale().y * size / 2, 0));
 	center = ficticioNode->getPosition();
 	center. y = sinbadNode->getPosition().y;
 
@@ -27,20 +26,12 @@ Sinbad::Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset, SceneState
 	sinbad->getAnimationState("IdleBase")->setLoop(true);
 	sinbad->getAnimationState("IdleBase")->setEnabled(true);
 
-	AnimationStateSet* aux = sinbad->getAllAnimationStates(); int i = 1;
-	for (auto it = aux->getAnimationStateIterator().begin(); it != aux->getAnimationStateIterator().end(); it++) {
-		std::cout << i << " - " <<  it->first << "\n";
-		i++;
-	}
-
 	asignaEspadas();
 
 	// Plano
-	if (scState == NOPLANET) {
-		SceneNode* platformNode = ficticioNode->createChildSceneNode();
-		platformNode->translate(0, -sinbadNode->getScale().y / 2 * 10, 0);
-		Plano* plane = new Plano(platformNode, "platform", 200, 200, "practica1/yellow");
-	}
+	SceneNode* platformNode = ficticioNode->createChildSceneNode();
+	platformNode->translate(0, -sinbadNode->getScale().y / 2 * 10, 0);
+	Plano* plane = new Plano(platformNode, "platform", 200, 200, "practica1/yellow");
 }
 
 Sinbad::~Sinbad() {
@@ -50,55 +41,25 @@ Sinbad::~Sinbad() {
 }
 
 void Sinbad::frameRendered(const FrameEvent& evt) {
-	if (scState != NOPLANET) {
-		if (aState == WALKING) {
-			sinbad->getAnimationState("RunBase")->addTime(evt.timeSinceLastFrame);
-			sinbad->getAnimationState("RunTop")->addTime(evt.timeSinceLastFrame);
+	if (aState == WALKING) {
+		sinbad->getAnimationState("RunBase")->addTime(evt.timeSinceLastFrame);
+		sinbad->getAnimationState("RunTop")->addTime(evt.timeSinceLastFrame);
 
-			ficticioNode->pitch(Degree(0.1));
-
-			if (!turning && turnTimer.getMillisecondsCPU() > 2000) {
-				rand() % 2 == 0 ? sign = 1 : sign = -1;
-				turnTimer.reset();
-				turning = true;
-			}
-
-			if (turning) {
-				if (turnTimer.getMillisecondsCPU() > 4000) { turning = false; turnTimer.reset(); }
-				ficticioNode->yaw(Degree(0.1 * sign));
-			}
-		}
-		else if (aState == DANCING) {
-			sinbad->getAnimationState("Dance")->addTime(evt.timeSinceLastFrame);
-		}
+		animationState->addTime(evt.timeSinceLastFrame);
 	}
 	else {
-		if (aState == WALKING) {
-			sinbad->getAnimationState("RunBase")->addTime(evt.timeSinceLastFrame);
-			sinbad->getAnimationState("RunTop")->addTime(evt.timeSinceLastFrame);
+		sinbad->getAnimationState("IdleBase")->addTime(evt.timeSinceLastFrame);
+		sinbad->getAnimationState("IdleTop")->addTime(evt.timeSinceLastFrame);
 
-			animationState->addTime(evt.timeSinceLastFrame);
-		}
-		else {
-			sinbad->getAnimationState("IdleBase")->addTime(evt.timeSinceLastFrame);
-			sinbad->getAnimationState("IdleTop")->addTime(evt.timeSinceLastFrame);
-
-			if (!msgSent && msgTimer.getMilliseconds() > 5000) {
-				msgSent = true;
-				sendEvent(EXPLODE, this);
-			}
+		if (!msgSent && msgTimer.getMilliseconds() > 5000) {
+			msgSent = true;
+			sendEvent(EXPLODE, this);
 		}
 	}
 }
 
 bool Sinbad::keyPressed(const OgreBites::KeyboardEvent& evt) {
-	if (scState == PLANET && evt.keysym.sym == SDLK_c) {
-		aState == WALKING ? aState = DANCING : aState = WALKING;
-		if (aState == DANCING) quitaEspadas();
-		else asignaEspadas();
-		return true;
-	}
-	else if (aState == WALKING) {
+	if (aState == WALKING) {
 		if (evt.keysym.sym == SDLK_b) {
 			quitaEspadas();
 			arma(false);
