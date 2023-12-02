@@ -7,18 +7,24 @@ Baliza::Baliza(SceneNode* m, Vector3 pos, Vector3 size) : EntidadIG(m), playAnim
 	ficticioNode->setPosition(pos);
 
 	// Baliza
-	cuerpo = mSM->createEntity("uv_sphere.mesh");
+	cuerpo = mSM->createEntity("Barrel.mesh");
 	cuerpo->setMaterialName("practica1/baliza");
 	barrelNode = ficticioNode->createChildSceneNode();
 	barrelNode->attachObject(cuerpo);
 	barrelNode->setScale(size.x, size.y, size.z);
 
 	createUpDownAnim();
+
+	/*AnimationStateSet* aux = cuerpo->getAllAnimationStates(); int i = 1;
+	for (auto it = aux->getAnimationStateIterator().begin(); it != aux->getAnimationStateIterator().end(); it++) {
+		std::cout << i << " - " << it->first << "\n";
+		i++;
+	}*/
 }
 
 void Baliza::createUpDownAnim() {
 	// --- ANIMACIÓN ---
-	int duracion = 4, longDesplazamiento = 50;
+	int duracion = 4, longDesplazamiento = 30;
 
 	Animation* animation = mSM->createAnimation("animVV", duracion);
 	animation->setInterpolationMode(Ogre::Animation::IM_SPLINE);
