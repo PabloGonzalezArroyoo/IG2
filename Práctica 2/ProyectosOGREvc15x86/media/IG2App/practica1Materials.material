@@ -1,0 +1,254 @@
+material practica1/red
+{
+    technique
+    {
+        pass
+        {
+            diffuse 1.0 0.0 0.0 1.0
+        }
+    }
+}
+
+material practica1/yellow
+{
+    technique
+    {
+        pass
+        {
+            diffuse 1 1 0.0 1.0
+        }
+    }
+}
+
+material practica1/orange
+{
+    technique
+    {
+        pass
+        {
+            diffuse 1.0 0.49 0.0 1.0
+        }
+    }
+}
+
+material practica1/brown
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.7 0.4 0.0 1.0
+        }
+    }
+}
+
+material practica1/cyan
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.0 1 1 1.0
+        }
+    }
+}
+
+material practica1/dirt
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.0 0.0 0.0 1.0
+            texture_unit
+            {
+                texture dirt.jpg
+                colour_op add
+            }
+        }
+    }
+}
+
+material practica1/waterTexture
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.5 0.5 0.5
+            texture_unit
+            {
+                texture Water02.jpg
+                colour_op add
+                scroll_anim 0.1 0.0
+            }
+        }
+    }
+}
+
+material practica1/grassTexture
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.5 0.5 0.5
+            texture_unit
+            {
+                texture grass.png
+                colour_op add
+            }
+        }
+    }
+}
+
+material practica1/alas
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.5 0.5 0.5
+            texture_unit
+            {
+                texture checker.png
+                colour_op add
+            }
+        }
+    }
+}
+
+material practica1/arms
+{
+    technique
+    {
+        pass
+        {   
+            diffuse 0.5 0.5 0.0 1.0
+            texture_unit
+            {
+                texture arms.png
+                colour_op add
+            }
+        }
+    }
+}
+
+material practica1/smile
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.5 0.5 0.5
+
+            texture_unit
+            {
+                texture smile.png
+                colour_op add
+                env_map spherical
+            }
+        }
+    }
+}
+
+material practica1/baliza
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.5 0.5 0.5
+            texture_unit
+            {
+                texture checker.png
+                colour_op add
+                env_map spherical
+            }
+        }
+    }
+}
+
+material practica1/cilMolino
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.5 0.5 0.5
+            texture_unit
+            {
+                texture checker.png
+                colour_op add
+            }
+        }
+    }
+}
+
+material practica1/rockGround
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.5 0.5 0.5 1.0
+            texture_unit
+            {
+                texture rockGround.png
+                colour_op modulate
+            }
+        }
+    }
+}
+
+material practica1/rockWall
+{
+    technique
+    {
+        pass
+        {
+            diffuse 0.5 0.5 0.5 1.0
+            texture_unit
+            {
+                texture rockWall.png
+                colour_op modulate
+            }
+        }
+    }
+}
+
+material practica1/points
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            texture_unit
+            {
+                texture 10points.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+material practica1/smoke
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend alpha_blend
+            depth_write off
+            difusse vertexcolour
+
+            texture_unit
+            {
+                texture smoke.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
