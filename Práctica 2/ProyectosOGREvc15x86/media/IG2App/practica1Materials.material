@@ -242,7 +242,7 @@ material practica1/smoke
             lighting off
             scene_blend alpha_blend
             depth_write off
-            difusse vertexcolour
+            diffuse vertexcolour
 
             texture_unit
             {

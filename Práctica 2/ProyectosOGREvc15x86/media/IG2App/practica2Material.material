@@ -5,23 +5,23 @@ material practica2/space
         pass
         {
             lighting off
-            difusse 1.0 1.0 1.0
+            diffuse 1.0 1.0 1.0
             
             texture_unit 
             {
                 texture spaceSky.jpg
-                text_cord_set 1
+                tex_cord_set 1
 
                 rotate 0.5
                 rotate_anim 0.1
 
-                color_op modulate
+                colour_op modulate
             }
 
             texture_unit
             {
                 texture lightMap.jpg
-                color_op modulate
+                colour_op modulate
             }
         }
     }

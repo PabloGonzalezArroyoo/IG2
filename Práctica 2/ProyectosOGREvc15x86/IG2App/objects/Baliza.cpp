@@ -8,7 +8,7 @@ Baliza::Baliza(SceneNode* m, Vector3 pos, Vector3 size) : EntidadIG(m), playAnim
 
 	// Baliza
 	cuerpo = mSM->createEntity("uv_sphere.mesh");
-	cuerpo->setMaterialName("practica1/baliza");
+	cuerpo->setMaterialName("practica2/balizaTeselada");
 	barrelNode = ficticioNode->createChildSceneNode();
 	barrelNode->attachObject(cuerpo);
 	barrelNode->setScale(size.x, size.y, size.z);

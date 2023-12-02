@@ -1,46 +1,137 @@
-﻿vertex_program Ejemplo2VS glsl //nombre para el shader
+﻿
+vertex_program practica2/orangeVS glsl 
 {
-	source Ejemplo2VS.glsl // nombre del archivo del código
-	default_params // valores para las variable uniform
+	source OrangeShaderVS.glsl
+	default_params
 	{
 		param_named_auto modelViewProjMat worldviewproj_matrix
 	}
 }
 
-fragment_program Ejemplo2FS glsl //nombre para el shader
+fragment_program practica2/orangeFS glsl
 {
-	source Ejemplo2FS.glsl // nombre del archivo del código
-	default_params // valores para las variable uniform
+	source OrangeShaderFS.glsl
+	default_params
 	{
-		param_named texturaL int 0 // 1º unidad de textura ‐> *
-		param_named texturaM int 1 // 2º unidad de textura ‐> *
-		param_named BF float 0.5
-		param_named intLuzAmb float 1.0
+		
 	}
 }
 
-material IG2/ejemplo2GLSL {
+material practica2/naranja {
 	technique
 	{
 		pass
 		{
-			vertex_program_ref Ejemplo2VS
-			{ // params ‐> default_params
+			vertex_program_ref practica2/orangeVS
+			{
+			
 			}
-			fragment_program_ref Ejemplo2FS
-			{ // params ‐> default_params
+			fragment_program_ref practica2/orangeFS
+			{
+			
 			}
-			texture_unit
-			{ // * ‐> int 0
-				texture ejemploA.jpg 2d // archivo
-				tex_address_mode clamp // sólo configuración
-				filtering bilinear // de acceso al texel
-			}
-			texture_unit
-			{ // * ‐> int 1
-				texture ejemploB.jpg 2d // archivo
-				tex_address_mode wrap // sólo configuración
-			} // de acceso al texel
 		}
 	}
-} 
+}
+
+vertex_program practica2/spaceVS glsl {
+	source SpaceSkyVS.glsl
+	default_params 
+	{
+		param_named_auto modelViewProjMat worldviewproj_matrix
+	}
+}
+
+fragment_program practica2/spaceFS glsl {
+	source SpaceSkyFS.glsl
+	default_params
+	{
+		param_named texturaL int 0
+		param_named texturaM int 1
+		param_named BF float 0.5
+		param_named intLuzAmb float 1
+	}
+}
+
+material practica2/spaceSky {
+	technique
+	{
+		pass 
+		{
+			vertex_program_ref practica2/spaceVS
+			{
+			
+			}
+			fragment_program_ref practica2/spaceFS
+			{
+			
+			}
+
+			texture_unit
+			{
+				texture spaceSky.jpg 2d
+				tex_address_mode clamp
+				filtering bilinear
+			}
+			texture_unit
+			{
+				texture lightMap.jpg 2d
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+vertex_program practica2/balizaVS glsl {
+	source BalizaTeseladaVS.glsl
+	default_params 
+	{
+		param_named_auto modelViewProjMat worldviewproj_matrix
+	}
+}
+
+fragment_program practica2/balizaFS glsl {
+	source BalizaTeseladaFS.glsl
+	default_params
+	{
+		param_named checkersTex int 0
+		param_named spaceTex int 1
+		param_named metalTex int 2
+	}
+}
+
+material practica2/balizaTeselada {
+	technique
+	{
+		pass 
+		{
+			vertex_program_ref practica2/balizaVS
+			{
+			
+			}
+			fragment_program_ref practica2/balizaFS
+			{
+			
+			}
+
+			texture_unit
+			{
+				texture checker.png 2d
+				tex_address_mode clamp
+				filtering bilinear
+			}
+			texture_unit
+			{
+				texture spaceSky.jpg 2d
+				tex_address_mode clamp
+				filtering bilinear
+			}
+			texture_unit
+			{
+				texture arms.png 2d
+				tex_address_mode clamp
+				filtering bilinear
+			}
+		}
+	}
+}
