@@ -1,14 +1,14 @@
 #include "Baliza.h"
 #include "Sinbad.h"
 
-Baliza::Baliza(SceneNode* m, Vector3 pos, Vector3 size) : EntidadIG(m), playAnim(true), explosion(false) {
+Baliza::Baliza(SceneNode* m, Vector3 pos, Vector3 size, std::string txt) : EntidadIG(m), playAnim(true), explosion(false) {
 	// Nodo ficticio
 	ficticioNode = mNode->createChildSceneNode();
 	ficticioNode->setPosition(pos);
 
 	// Baliza
 	cuerpo = mSM->createEntity("uv_sphere.mesh");
-	cuerpo->setMaterialName("practica2/balizaTeselada");
+	cuerpo->setMaterialName(txt);
 	barrelNode = ficticioNode->createChildSceneNode();
 	barrelNode->attachObject(cuerpo);
 	barrelNode->setScale(size.x, size.y, size.z);

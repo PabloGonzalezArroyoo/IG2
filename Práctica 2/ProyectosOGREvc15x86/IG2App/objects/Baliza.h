@@ -14,7 +14,7 @@ private:
 	bool playAnim, explosion;
 
 public:
-	Baliza(SceneNode* m, Vector3 pos, Vector3 size);
+	Baliza(SceneNode* m, Vector3 pos, Vector3 size, std::string txt = "practica1/baliza");
 	//~Baliza();
 
 	virtual void frameRendered(const FrameEvent& evt);
