@@ -39,6 +39,8 @@ vertex_program practica2/spaceVS glsl {
 	default_params 
 	{
 		param_named_auto modelViewProjMat worldviewproj_matrix
+		param_named_auto senoTime sintime_0_2pi 60
+		param_named_auto cosenoTime costime_0_2pi 60
 	}
 }
 
@@ -110,6 +112,111 @@ material practica2/balizaTeselada {
 			
 			}
 			fragment_program_ref practica2/balizaFS
+			{
+			
+			}
+
+			texture_unit
+			{
+				texture checker.png 2d
+				tex_address_mode clamp
+				filtering bilinear
+			}
+			texture_unit
+			{
+				texture spaceSky.jpg 2d
+				tex_address_mode clamp
+				filtering bilinear
+			}
+			texture_unit
+			{
+				texture arms.png 2d
+				tex_address_mode clamp
+				filtering bilinear
+			}
+		}
+	}
+}
+
+vertex_program practica2/spaceSkyZoomVS glsl {
+	source SpaceVS.glsl
+	default_params
+	{
+		param_named_auto modelViewProjMat worldviewproj_matrix
+		param_named_auto senoTime sintime_0_2pi 5
+	}
+}
+
+fragment_program practica2/spaceSkyZoomFS glsl {
+	source SpaceFS.glsl
+	default_params
+	{
+		param_named texturaL int 0
+		param_named texturaM int 1
+		param_named BF float 0.5
+		param_named intLuzAmb float 1
+		param_named_auto senoTime sintime_0_2pi 5
+	}
+}
+
+material practica2/spaceSkyZoom {
+	technique
+	{
+		pass 
+		{
+			vertex_program_ref practica2/spaceSkyZoomVS
+			{
+			
+			}
+			fragment_program_ref practica2/spaceSkyZoomFS
+			{
+			
+			}
+
+			texture_unit
+			{
+				texture spaceSky.jpg 2d
+				tex_address_mode clamp
+				filtering bilinear
+			}
+			texture_unit
+			{
+				texture lightMap.jpg 2d
+				tex_address_mode wrap
+			}
+		}
+	}
+}
+
+vertex_program practica2/balizaZoomVS glsl {
+	source BalizaTeseladaConZoomVS.glsl
+	default_params 
+	{
+		param_named_auto modelViewProjMat worldviewproj_matrix
+		param_named_auto senoTime sintime_0_2pi 5
+	}
+}
+
+fragment_program practica2/balizaZoomFS glsl {
+	source BalizaTeseladaConZoomFS.glsl
+	default_params
+	{
+		param_named checkersTex int 0
+		param_named spaceTex int 1
+		param_named metalTex int 2
+	}
+}
+
+material practica2/balizaTeseladaZoom {
+	technique
+	{
+		pass 
+		{
+			vertex_program_ref practica2/balizaZoomVS
+			{
+			
+			}
+			fragment_program_ref practica2/balizaZoomFS
 			{
 			
 			}

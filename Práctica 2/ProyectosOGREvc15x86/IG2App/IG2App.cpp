@@ -121,8 +121,9 @@ void IG2App::setupScene(void)
 
 	// Baliza
 	SceneNode* balizaNode = mSM->getRootSceneNode()->createChildSceneNode();
-	baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/naranja");
+	//baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/naranja");
 	//baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaTeselada");
+	baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaTeseladaZoom");
 	addInputListener(baliza);
 	
 	// Añadir listeners
@@ -131,8 +132,8 @@ void IG2App::setupScene(void)
 	sb->addListener(baliza);
 
 	// SkyPlane
-	mSM->setSkyPlane(true, Plane(Vector3::UNIT_Z, -20), "practica2/space", 1, 1, true, 1.0, 100, 100);
-	//mSM->setSkyPlane(true, Plane(Vector3::UNIT_Z, -20), "practica2/spaceSky", 1, 1, true, 1.0, 100, 100);
+	//mSM->setSkyPlane(true, Plane(Vector3::UNIT_Z, -20), "practica2/space", 1, 1, true, 1.0, 100, 100);
+	mSM->setSkyPlane(true, Plane(Vector3::UNIT_Z, -20), "practica2/spaceSkyZoom", 0.8, 1, true, 1.0, 100, 100);
 	#pragma endregion
 	
 	//------------------------------------------------------------------------

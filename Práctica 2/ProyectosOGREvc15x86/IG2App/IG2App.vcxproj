@@ -145,6 +145,23 @@
     <ClCompile Include="objects\Rio.cpp" />
     <ClCompile Include="objects\Sinbad.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\media\IG2App\BalizaTeseladaConZoomFS.glsl" />
+    <None Include="..\media\IG2App\BalizaTeseladaConZoomVS.glsl" />
+    <None Include="..\media\IG2App\BalizaTeseladaFS.glsl" />
+    <None Include="..\media\IG2App\BalizaTeseladaVS.glsl" />
+    <None Include="..\media\IG2App\MyFirstShaderFS.glsl" />
+    <None Include="..\media\IG2App\OrangeShaderFS.glsl" />
+    <None Include="..\media\IG2App\OrangeShaderVS.glsl" />
+    <None Include="..\media\IG2App\practica1Materials.material" />
+    <None Include="..\media\IG2App\practica1Particles.particle" />
+    <None Include="..\media\IG2App\practica2GLSL.material" />
+    <None Include="..\media\IG2App\practica2Material.material" />
+    <None Include="..\media\IG2App\SpaceFS.glsl" />
+    <None Include="..\media\IG2App\SpaceSkyFS.glsl" />
+    <None Include="..\media\IG2App\SpaceSkyVS.glsl" />
+    <None Include="..\media\IG2App\SpaceVS.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
