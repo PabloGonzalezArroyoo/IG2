@@ -1,0 +1,17 @@
+
+#version 330 core
+in vec2 vUv0;
+
+uniform sampler2D texFront;
+uniform sampler2D texBack;
+
+out vec4 fFragColor;
+
+void main() {
+	vec3 texCoord = vec3(texture(texFront, vUv0));
+	vec3 color = texCoord;
+	if (texCoord.r > 0.6) {
+		color = vec3(texture(texBack, vUv0));
+	}
+	fFragColor = vec4(color, 1.0);
+}

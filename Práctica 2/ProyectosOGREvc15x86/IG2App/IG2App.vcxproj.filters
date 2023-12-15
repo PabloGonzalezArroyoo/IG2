@@ -133,5 +133,11 @@
     <None Include="..\media\IG2App\BalizaTeseladaConZoomVS.glsl">
       <Filter>Archivos de recursos</Filter>
     </None>
+    <None Include="..\media\IG2App\HolesFS.glsl">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="..\media\IG2App\HolesVS.glsl">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
 </Project>

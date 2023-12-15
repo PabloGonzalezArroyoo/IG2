@@ -150,6 +150,8 @@
     <None Include="..\media\IG2App\BalizaTeseladaConZoomVS.glsl" />
     <None Include="..\media\IG2App\BalizaTeseladaFS.glsl" />
     <None Include="..\media\IG2App\BalizaTeseladaVS.glsl" />
+    <None Include="..\media\IG2App\HolesFS.glsl" />
+    <None Include="..\media\IG2App\HolesVS.glsl" />
     <None Include="..\media\IG2App\MyFirstShaderFS.glsl" />
     <None Include="..\media\IG2App\OrangeShaderFS.glsl" />
     <None Include="..\media\IG2App\OrangeShaderVS.glsl" />
