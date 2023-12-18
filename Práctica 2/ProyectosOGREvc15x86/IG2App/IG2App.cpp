@@ -121,9 +121,11 @@ void IG2App::setupScene(void)
 
 	// Baliza
 	SceneNode* balizaNode = mSM->getRootSceneNode()->createChildSceneNode();
-	//baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/naranja");
-	//baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaTeselada");
-	baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaEsponja");
+	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/naranja");
+	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaTeselada");
+	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaTeseladaZoom");
+	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaEsponja");
+	baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaIluminadaVertex");
 	addInputListener(baliza);
 	
 	// Añadir listeners

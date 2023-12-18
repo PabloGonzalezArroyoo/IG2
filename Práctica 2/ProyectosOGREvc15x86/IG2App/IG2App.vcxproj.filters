@@ -139,5 +139,11 @@
     <None Include="..\media\IG2App\HolesVS.glsl">
       <Filter>Archivos de recursos</Filter>
     </None>
+    <None Include="..\media\IG2App\HolesAndVertexLightningFS.glsl">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="..\media\IG2App\HolesAndVertexLightningVS.glsl">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,0 +1,39 @@
+
+#version 330 core
+in vec4 vertex;
+in vec3 normal;
+in vec2 uv0;
+
+uniform mat4 modelViewMat;
+uniform mat4 modelViewProjMat;
+uniform mat4 normalMat;
+uniform vec3 lightDiffuse;
+uniform vec4 lightPosition;
+uniform vec3 materialDiffuseFront;
+uniform vec3 materialDiffuseBack;
+
+out vec2 vUv0;
+out vec3 vFrontColor;
+out vec3 vBackColor;
+
+float diff(vec3 cVertex, vec3 cNormal) {
+	vec3 lightDir = lightPosition.xyz; // directional light ?
+	if (lightPosition.w == 1) // positional light ?
+		lightDir = lightPosition.xyz - cVertex;
+
+	return max(dot(cNormal, normalize(lightDir)), 0.0);
+}
+
+void main() {
+	vec3 viewVertex = vec3(modelViewMat * vertex);
+	vec3 viewNormal = normalize(vec3(normalMat * vec4(normal, 0)));
+
+	vec3 diffuse = diff(viewVertex, viewNormal) * lightDiffuse * materialDiffuseFront;
+	vFrontColor = diffuse;
+
+	diffuse = diff(viewVertex, -viewNormal) * lightDiffuse * materialDiffuseBack;
+	vBackColor = diffuse;
+	
+	vUv0 = uv0;
+	gl_Position = modelViewProjMat * vertex;
+}

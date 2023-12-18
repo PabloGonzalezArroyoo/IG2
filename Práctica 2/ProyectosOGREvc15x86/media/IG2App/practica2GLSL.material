@@ -243,7 +243,7 @@ material practica2/balizaTeseladaZoom {
 	}
 }
 
-vertex_program practica2/balizaEsponja glsl {
+vertex_program practica2/balizaEsponjaVS glsl {
 	source HolesVS.glsl
 	default_params 
 	{
@@ -251,13 +251,13 @@ vertex_program practica2/balizaEsponja glsl {
 	}
 }
 
-fragment_program practica2/balizaEsponja glsl {
+fragment_program practica2/balizaEsponjaFS glsl {
 	source HolesFS.glsl
 	default_params
 	{
 		param_named texFront int 0
 		param_named texBack int 1
-		param_named tex int 2
+		param_named texCorr int 2
 	}
 }
 
@@ -269,11 +269,11 @@ material practica2/balizaEsponja {
 			cull_hardware none
 			cull_software none
 
-			vertex_program_ref practica2/balizaEsponja
+			vertex_program_ref practica2/balizaEsponjaVS
 			{
 			
 			}
-			fragment_program_ref practica2/balizaEsponja
+			fragment_program_ref practica2/balizaEsponjaFS
 			{
 			
 			}
@@ -290,6 +290,55 @@ material practica2/balizaEsponja {
 				tex_address_mode clamp
 				filtering bilinear
 			}
+			texture_unit
+			{
+				texture corrosion.jpg 2d
+				tex_address_mode clamp
+				filtering bilinear
+			}
+		}
+	}
+}
+
+vertex_program practica2/balizaIluminadaVertexVS glsl {
+	source HolesAndVertexLightningVS.glsl
+	default_params 
+	{
+		param_named_auto modelViewMat world_matrix
+		param_named_auto modelViewProjMat worldviewproj_matrix
+		param_named_auto normalMat inverse_transpose_world_matrix
+		param_named_auto lightDiffuse light_diffuse_colour 0
+		param_named_auto lightPosition light_position 0
+		param_named materialDiffuseFront float3 0.72 0.57 0.35
+		param_named materialDiffuseBack float3 0.0 0.6 0.83
+	}
+}
+
+fragment_program practica2/balizaIluminadaVertexFS glsl {
+	source HolesAndVertexLightningFS.glsl
+	default_params
+	{
+		param_named materialTex int 0
+	}
+}
+
+material practica2/balizaIluminadaVertex {
+	technique
+	{
+		pass 
+		{
+			cull_hardware none
+			cull_software none
+
+			vertex_program_ref practica2/balizaIluminadaVertexVS
+			{
+			
+			}
+			fragment_program_ref practica2/balizaIluminadaVertexFS
+			{
+			
+			}
+
 			texture_unit
 			{
 				texture corrosion.jpg 2d
