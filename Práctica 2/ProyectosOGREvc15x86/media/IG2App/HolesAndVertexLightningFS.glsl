@@ -14,10 +14,8 @@ void main() {
 	if (textColor.r > 0.6){
 		discard;
 	}
-	else {
-		if (gl_FrontFacing) color = vFrontColor;
-		else color = vBackColor;
-	}
+	if (gl_FrontFacing) color = vFrontColor;
+	else color = vBackColor;
 
 	fFragColor = vec4(color, 1.0);
 }
