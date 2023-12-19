@@ -451,7 +451,7 @@ fragment_program practica2/balizaFocoFS glsl {
 	default_params
 	{
 		param_named_auto	lightDiffuse	light_diffuse_colour 1
-		param_named			lightPosition	light_position 1
+		param_named_auto	lightPosition	light_position 1
 		param_named			texFront		int 0
 		param_named_auto	tiempo			costime_0_2pi 10
 	}

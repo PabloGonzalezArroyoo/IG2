@@ -23,5 +23,7 @@ public:
 	void createUpDownAnim();
 	void createExplosion();
 
+	void setPlayAnim(bool newState) { playAnim = newState; }
+
 	virtual void receiveEvent(MessageType msg, EntidadIG* entidad);
 };

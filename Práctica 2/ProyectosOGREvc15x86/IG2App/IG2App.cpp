@@ -86,12 +86,12 @@ void IG2App::setupScene(void)
 
 	mLightNode->setDirection(Ogre::Vector3(0, -1, -1));
 
-	luz = mSM->createLight("Punto");
-	luz->setType(Ogre::Light::LT_POINT);
-	luz->setDiffuseColour(1, 1, 1);
-	pointLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuzPuntual");
-	pointLightNode->attachObject(luz);
-	pointLightNode->setPosition(0, 5, 0);
+	// luz = mSM->createLight("Punto");
+	// luz->setType(Ogre::Light::LT_POINT);
+	// luz->setDiffuseColour(1, 1, 1);
+	// pointLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuzPuntual");
+	// pointLightNode->attachObject(luz);
+	// pointLightNode->setPosition(0, 5, 0);
 
  
 	//------------------------------------------------------------------------
@@ -128,12 +128,13 @@ void IG2App::setupScene(void)
 	// Baliza
 	SceneNode* balizaNode = mSM->getRootSceneNode()->createChildSceneNode();
 	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/naranja");
-	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaTeselada");
+	baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaTeselada");
 	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaTeseladaZoom");
 	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaEsponja");
 	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaIluminadaVertex");
 	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaIluminada");
-	baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaFoco");
+	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaFoco");
+	// baliza->setPlayAnim(false);
 	addInputListener(baliza);
 	
 	// Añadir listeners
