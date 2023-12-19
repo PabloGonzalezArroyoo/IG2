@@ -6,7 +6,7 @@ in vec2 uv0;
 
 uniform mat4 modelMat;
 uniform mat4 modelViewProjMat;
-uniform mat3 normalMat;
+uniform mat4 normalMat;
 uniform vec3 lightDiffuse;
 uniform vec4 lightPosition;
 uniform vec3 materialDiffuseFront;
@@ -21,19 +21,20 @@ out vec3 vBackColor;
 float diff(vec3 cVertex, vec3 cNormal) {
 	vec3 lightDir = lightPosition.xyz; // directional light ?
 	if (lightPosition.w == 1) // positional light ?
-		lightDir = lightDir - cVertex;
+		lightDir = normalize(lightDir - cVertex);
 
 	return max(dot(cNormal, normalize(lightDir)), 0.0);
 }
 
 void main() {
 	vec3 worldVertex = vec3(modelMat * vertex);
-	vec3 worldNormal = normalize(normalMat * normal);
+	vec3 worldNormal = normalize(vec3(normalMat * vec4(normal, 0.0)));
 
-	vec3 diffuse = diff(worldVertex, worldNormal) * lightDiffuse;
-	
-	vFrontColor = diffuse * texture(texFront, uv0).rgb * materialDiffuseFront;
-	vBackColor = diffuse * texture(texBack, uv0).rgb * materialDiffuseBack;
+	vec3 diffuseFront = diff(worldVertex, worldNormal) * lightDiffuse;
+	vec3 diffuseBack = diff(worldVertex, -worldNormal) * lightDiffuse;
+		
+	vFrontColor = diffuseFront * texture(texFront, uv0).rgb * materialDiffuseFront;
+	vBackColor = diffuseBack * texture(texBack, uv0).rgb * materialDiffuseBack;
 	
 	vUv0 = uv0;
 	gl_Position = modelViewProjMat * vertex;

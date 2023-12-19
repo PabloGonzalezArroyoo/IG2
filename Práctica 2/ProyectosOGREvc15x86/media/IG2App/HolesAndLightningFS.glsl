@@ -18,7 +18,7 @@ out vec4 fFragColor;
 float diff(vec3 cVertex, vec3 cNormal) {
 	vec3 lightDir = lightPosition.xyz; // directional light ?
 	if (lightPosition.w == 1.0) // positional light ?
-		lightDir = lightDir - cVertex;
+		lightDir = normalize(lightDir - cVertex);
 
 	return max(dot(cNormal, normalize(lightDir)), 0.0);
 }
@@ -29,10 +29,11 @@ void main() {
 		discard;
 	}
 
-	vec3 diffuse = diff(vWVertex, vWNormal) * lightDiffuse;
+	vec3 diffuseFront = diff(vWVertex, vWNormal) * lightDiffuse;
+	vec3 diffuseBack = diff(vWVertex, -vWNormal) * lightDiffuse;
 
-	vec3 vFrontColor = diffuse * texture(texMeta, vUv0).rgb * materialDiffuseFront;
-	vec3 vBackColor = diffuse * texture(texRock, vUv0).rgb * materialDiffuseBack;
+	vec3 vFrontColor = diffuseFront * texture(texMeta, vUv0).rgb * materialDiffuseFront;
+	vec3 vBackColor = diffuseBack * texture(texRock, vUv0).rgb * materialDiffuseBack;
 	
 	if (gl_FrontFacing) fFragColor = vec4(vFrontColor, 1.0);
 	else fFragColor = vec4(vBackColor, 1.0);

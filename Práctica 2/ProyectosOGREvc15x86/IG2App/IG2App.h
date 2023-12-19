@@ -35,12 +35,14 @@ protected:
     Ogre::SceneNode* mSinbadNode = nullptr;
     OgreBites::CameraMan* mCamMgr = nullptr;
     
-    // Práctica 1 : Apartados 43 al 50
+    // Práctica 2 : Apartados 1 al 14
     Sinbad* sb = nullptr;
     Molino* molino = nullptr;
     Avion* avion = nullptr;
     Rio* rio = nullptr;
     Baliza* baliza = nullptr;
+
+    Ogre::SceneNode* pointLightNode = nullptr;
 };
 
 #endif
