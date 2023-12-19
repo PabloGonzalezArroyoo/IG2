@@ -308,10 +308,10 @@ vertex_program practica2/balizaIluminadaVertexVS glsl {
 		param_named_auto modelViewProjMat worldviewproj_matrix
 		param_named_auto normalMat inverse_transpose_view_matrix
 
-		param_named lightDiffuse			float3 0.5 0.5 0.5
+		param_named lightDiffuse			float3 1 1 1
 		param_named lightPosition			float4 0 0 0 0
 		param_named materialDiffuseFront	float3 0.72 0.57 0.35
-		param_named materialDiffuseBack		float3 0.0 0.6 0.83
+		param_named materialDiffuseBack		float3 0.0 0.6 0.83
 		param_named texFront				int 1
 		param_named texBack					int 2
 	}

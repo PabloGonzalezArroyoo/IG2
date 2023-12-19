@@ -92,9 +92,9 @@ void IG2App::setupScene(void)
 
 	// finally something to render
 
-	// ----------- APARTADOS 43 al 58 ----------
+	// ----------- APARTADOS 1 al 14 ----------
 	#pragma region SinbadConLaCabezaDeOgre
-	vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
+	//vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
 	
 	// Río
 	SceneNode* rioNode = mSM->getRootSceneNode()->createChildSceneNode();
