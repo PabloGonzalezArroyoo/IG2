@@ -167,6 +167,8 @@
     <None Include="..\media\IG2App\SpaceSkyFS.glsl" />
     <None Include="..\media\IG2App\SpaceSkyVS.glsl" />
     <None Include="..\media\IG2App\SpaceVS.glsl" />
+    <None Include="..\media\IG2App\SpotLightFS.glsl" />
+    <None Include="..\media\IG2App\SpotLightVS.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

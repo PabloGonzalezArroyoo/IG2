@@ -426,3 +426,64 @@ material practica2/balizaIluminada {
 		}
 	}
 }
+
+vertex_program practica2/balizaFocoVS glsl {
+	source SpotLightVS.glsl
+	default_params 
+	{
+		param_named_auto modelViewMat worldview_matrix
+		param_named_auto modelViewProjMat worldviewproj_matrix
+		param_named_auto normalMat inverse_transpose_view_matrix
+		
+
+	}
+}
+
+fragment_program practica2/balizaFocoFS glsl {
+	source SpotLightFS.glsl
+	default_params
+	{
+		param_named_auto lightDiffuse		light_diffuse_colour 0
+		param_named lightPosition			float4 0.0 -1.0 -1.0 0.0
+		param_named texFront				int 1
+	}
+}
+
+material practica2/balizaFoco {
+	technique
+	{
+		pass 
+		{
+			cull_hardware none
+			cull_software none
+
+			vertex_program_ref practica2/balizaFocoVS
+			{
+			
+			}
+			fragment_program_ref practica2/balizaFocoFS
+			{
+			
+			}
+
+			texture_unit
+			{
+				texture arms.png 2d
+				tex_address_mode clamp
+				filtering bilinear
+			}
+			texture_unit
+			{
+				texture rockGround.png 2d
+				tex_address_mode clamp
+				filtering bilinear
+			}
+			texture_unit
+			{
+				texture corrosion.jpg 2d
+				tex_address_mode wrap
+				filtering bilinear
+			}
+		}
+	}
+}
