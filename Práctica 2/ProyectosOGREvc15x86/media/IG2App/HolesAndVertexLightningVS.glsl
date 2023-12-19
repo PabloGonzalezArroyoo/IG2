@@ -4,7 +4,7 @@ in vec4 vertex;
 in vec3 normal;
 in vec2 uv0;
 
-uniform mat4 modelViewMat;
+uniform mat4 modelMat;
 uniform mat4 modelViewProjMat;
 uniform mat3 normalMat;
 uniform vec3 lightDiffuse;
@@ -27,12 +27,13 @@ float diff(vec3 cVertex, vec3 cNormal) {
 }
 
 void main() {
-	vec3 viewVertex = vec3(modelViewMat * vertex);
+	vec3 viewVertex = vec3(model+Mat * vertex);
 	vec3 viewNormal = normalize(normalMat * normal);
-	vec3 diffuse = diff(viewVertex, viewNormal) * lightDiffuse;
 
-	vFrontColor = diffuse + texture(texFront, uv0).rgb * materialDiffuseFront;
-	vBackColor = diffuse + texture(texBack, uv0).rgb * materialDiffuseBack;
+	vec3 diffuse = diff(viewVertex, viewNormal) * lightDiffuse;
+	
+	vFrontColor = diffuse * texture(texFront, uv0).rgb * materialDiffuseFront;
+	vBackColor = diffuse * texture(texBack, uv0).rgb * materialDiffuseBack;
 	
 	vUv0 = uv0;
 	gl_Position = modelViewProjMat * vertex;

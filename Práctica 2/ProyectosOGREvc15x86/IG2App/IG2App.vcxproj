@@ -150,6 +150,8 @@
     <None Include="..\media\IG2App\BalizaTeseladaConZoomVS.glsl" />
     <None Include="..\media\IG2App\BalizaTeseladaFS.glsl" />
     <None Include="..\media\IG2App\BalizaTeseladaVS.glsl" />
+    <None Include="..\media\IG2App\HolesAndLightningFS.glsl" />
+    <None Include="..\media\IG2App\HolesAndLightningVS.glsl" />
     <None Include="..\media\IG2App\HolesAndVertexLightningFS.glsl" />
     <None Include="..\media\IG2App\HolesAndVertexLightningVS.glsl" />
     <None Include="..\media\IG2App\HolesFS.glsl" />
