@@ -27,10 +27,10 @@ float diff(vec3 cVertex, vec3 cNormal) {
 }
 
 void main() {
-	vec3 viewVertex = vec3(model+Mat * vertex);
-	vec3 viewNormal = normalize(normalMat * normal);
+	vec3 worldVertex = vec3(modelMat * vertex);
+	vec3 worldNormal = normalize(normalMat * normal);
 
-	vec3 diffuse = diff(viewVertex, viewNormal) * lightDiffuse;
+	vec3 diffuse = diff(worldVertex, worldNormal) * lightDiffuse;
 	
 	vFrontColor = diffuse * texture(texFront, uv0).rgb * materialDiffuseFront;
 	vBackColor = diffuse * texture(texBack, uv0).rgb * materialDiffuseBack;

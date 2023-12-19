@@ -86,7 +86,7 @@ void IG2App::setupScene(void)
 	mLightNode->attachObject(luz);
 
 	mLightNode->setDirection(Ogre::Vector3(0, -1, -1));  //vec3.normalise();
-	//mLightNode->setPosition(0, 0, 10);
+	//mLightNode->setPosition(0, 0, -10);
  
 	//------------------------------------------------------------------------
 
@@ -125,8 +125,8 @@ void IG2App::setupScene(void)
 	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaTeselada");
 	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaTeseladaZoom");
 	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaEsponja");
-	baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaIluminadaVertex");
-	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaIluminada");
+	// baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaIluminadaVertex");
+	baliza = new Baliza(balizaNode, Vector3(0, -300, 0), Vector3(0.8, 0.8, 0.8), "practica2/balizaIluminada");
 	addInputListener(baliza);
 	
 	// Añadir listeners

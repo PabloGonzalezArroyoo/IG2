@@ -31,8 +31,8 @@ void main() {
 
 	vec3 diffuse = diff(vWVertex, vWNormal) * lightDiffuse;
 
-	vec3 vFrontColor = diffuse + vec3(texture(texMeta, vUv0)) * materialDiffuseFront;
-	vec3 vBackColor = diffuse + vec3(texture(texRock, vUv0)) * materialDiffuseBack;
+	vec3 vFrontColor = diffuse * texture(texMeta, vUv0).rgb * materialDiffuseFront;
+	vec3 vBackColor = diffuse * texture(texRock, vUv0).rgb * materialDiffuseBack;
 	
 	if (gl_FrontFacing) fFragColor = vec4(vFrontColor, 1.0);
 	else fFragColor = vec4(vBackColor, 1.0);

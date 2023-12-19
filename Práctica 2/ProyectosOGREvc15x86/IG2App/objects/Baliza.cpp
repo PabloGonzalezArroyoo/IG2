@@ -12,7 +12,6 @@ Baliza::Baliza(SceneNode* m, Vector3 pos, Vector3 size, std::string txt) : Entid
 	barrelNode = ficticioNode->createChildSceneNode();
 	barrelNode->attachObject(cuerpo);
 	barrelNode->setScale(size.x, size.y, size.z);
-
 	createUpDownAnim();
 }
 
