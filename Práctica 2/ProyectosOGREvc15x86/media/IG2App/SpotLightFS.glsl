@@ -11,22 +11,17 @@ uniform float tiempo;
 
 out vec4 fFragColor;
 
-float diff(vec3 cVertex, vec3 cNormal) {
+float fac(vec3 cVertex, vec3 cNormal){
 	vec3 lightDir = lightPosition.xyz; // directional light ?
 	if (lightPosition.w == 1.0) // positional light ?
 		lightDir = normalize(lightDir - cVertex);
 
-	return max(dot(cNormal, normalize(lightDir)), 0.0);
+	if (dot(cNormal, lightDir) > (tiempo > 0 ? tiempo : tiempo/2.0)) return 1;
+	else return 0.2;
 }
 
 void main() {
-	float fac;
-	if (diff(vWVertex, vWNormal) > abs(tiempo)/2.0) {
-		fac = 1;
-	}
-	else {
-		fac = 0.2;
-	}
-	vec3 color = fac * texture(texFront, vUv0).rgb * lightDiffuse;
+	float facto = fac(vWVertex, vWNormal);
+	vec3 color = facto * texture(texFront, vUv0).rgb * lightDiffuse;
 	fFragColor = vec4(color, 1.0);
 }

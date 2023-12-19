@@ -462,6 +462,8 @@ material practica2/balizaFoco {
 	{
 		pass 
 		{
+			cull_hardware none
+			cull_software none
 			vertex_program_ref practica2/balizaFocoVS
 			{
 			

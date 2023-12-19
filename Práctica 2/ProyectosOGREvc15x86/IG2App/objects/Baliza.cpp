@@ -69,7 +69,7 @@ void Baliza::createUpDownAnim() {
 }
 
 void Baliza::frameRendered(const FrameEvent& evt) {
-	if (playAnim) animationState->addTime(evt.timeSinceLastFrame);
+	// if (playAnim) animationState->addTime(evt.timeSinceLastFrame);
 }
 
 bool Baliza::keyPressed(const OgreBites::KeyboardEvent& evt) {
