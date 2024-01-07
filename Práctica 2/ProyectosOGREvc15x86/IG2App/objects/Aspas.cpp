@@ -1,6 +1,7 @@
 #include "Aspas.h"
 
 Aspas::Aspas(SceneNode* n, float size, int nAspas, bool txt, bool adorno) : EntidadIG(n), numAspas(nAspas) {
+	// Cilindro central
 	Entity* cil = mSM->createEntity("Barrel.mesh");
 	if (txt) cil->setMaterialName("practica1/cilMolino");
 	cilindroNode = mNode->createChildSceneNode();
@@ -11,8 +12,8 @@ Aspas::Aspas(SceneNode* n, float size, int nAspas, bool txt, bool adorno) : Enti
 
 	cilinderInitPos = cilindroNode->getPosition();
 
+	// Aspas
 	aspasNode = mNode->createChildSceneNode();
-
 	arrayAspas = new Aspa*[numAspas];
 	int rot = 360 / numAspas;
 	for (int i = 0; i < numAspas; i++) {

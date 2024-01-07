@@ -138,9 +138,9 @@ void IG2App::setupScene(void)
 	addInputListener(baliza);
 	
 	// Añadir listeners
-	baliza->addListener(rio);
-	avion->addListener(sb);
-	sb->addListener(baliza);
+	baliza->addListener(rio);	// Rio escucha la baliza
+	avion->addListener(sb);		// Sinbad escucha al avión
+	sb->addListener(baliza);	// La baliza escucha a Sinbad
 
 	// SkyPlane
 	//mSM->setSkyPlane(true, Plane(Vector3::UNIT_Z, -20), "practica2/space", 1, 1, true, 1.0, 100, 100);

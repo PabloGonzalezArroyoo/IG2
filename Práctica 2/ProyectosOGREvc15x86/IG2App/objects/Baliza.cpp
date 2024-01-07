@@ -20,7 +20,7 @@ void Baliza::createUpDownAnim() {
 	int duracion = 4, longDesplazamiento = 50;
 
 	Animation* animation = mSM->createAnimation("animVV", duracion);
-	animation->setInterpolationMode(Ogre::Animation::IM_SPLINE);
+	animation->setInterpolationMode(Ogre::Animation::IM_SPLINE); // SPLINE: sinusoidal
 	barrelNode->setInitialState();
 	NodeAnimationTrack* track = animation->createNodeTrack(0);
 	track->setAssociatedNode(barrelNode);

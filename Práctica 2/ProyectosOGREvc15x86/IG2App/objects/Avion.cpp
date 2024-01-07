@@ -101,7 +101,7 @@ void Avion::createExplosion() {
 	explosion = true;
 	
 	Vector3 pos = cuerpoNode->getPosition();
-	ficticioNode->removeAndDestroyAllChildren();
+	ficticioNode->removeAndDestroyAllChildren(); 
 	explosionNode = ficticioNode->createChildSceneNode();
 	explosionNode->setPosition(pos);
 

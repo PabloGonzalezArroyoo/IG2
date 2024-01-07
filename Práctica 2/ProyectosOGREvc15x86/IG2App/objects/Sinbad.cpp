@@ -15,6 +15,7 @@ Sinbad::Sinbad(SceneNode* m, Vector3 pos, float size, Vector3 offset, AnimState 
 	center = ficticioNode->getPosition();
 	center. y = sinbadNode->getPosition().y;
 
+	// Habilitar animaciones y loops
 	sinbad->getAnimationState("RunBase")->setEnabled(true);
 	sinbad->getAnimationState("RunTop")->setEnabled(true);
 	sinbad->getAnimationState("RunBase")->setLoop(true);
